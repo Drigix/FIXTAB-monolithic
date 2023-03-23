@@ -1,0 +1,14 @@
+body {
+  margin: 0;
+}
+
+.main {
+  background-color: var(--background-color);
+  color: white;
+  height: 100vh;
+}
+
+.login-page {
+  display: flex;
+  justify-content: center;
+}

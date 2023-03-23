@@ -1,0 +1,8 @@
+<div class="main p-5">
+  <div class="login-page" *ngIf="!isAuthorized; else main">
+    <fixtab-login-page></fixtab-login-page>
+  </div>
+  <ng-template #main>
+    <fixtab-main></fixtab-main>
+  </ng-template>
+</div>
