@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -8,19 +9,20 @@ import {InputTextModule} from 'primeng/inputtext';
 import { LoginPageComponent } from './auth/login-page/login-page.component';
 import { ComponentsModule } from './components/components.module';
 import { MainModule } from './pages/main/main.module';
+import { LoginPageModule } from './auth/login-page/login-page.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    LoginPageComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    RouterModule,
     ButtonModule,
     InputTextModule,
     ComponentsModule,
-    MainModule
+    MainModule,
+    LoginPageModule
   ],
   providers: [],
   bootstrap: [AppComponent]
