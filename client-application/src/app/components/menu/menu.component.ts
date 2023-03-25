@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IMenuItem } from 'src/app/entitites/menu-item.model';
 import { MenuService } from './menu.service';
+import { faHome } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'fixtab-menu',
