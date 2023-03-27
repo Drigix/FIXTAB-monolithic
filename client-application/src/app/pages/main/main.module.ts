@@ -7,7 +7,6 @@ import { MainComponent } from './main.component';
 
 @NgModule({
   imports: [
-    AppRoutingModule,
     ComponentsModule,
     FontAwesomeModule
   ],

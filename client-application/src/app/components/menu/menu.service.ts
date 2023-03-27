@@ -8,7 +8,7 @@ export class MenuService {
 
   getMenuItems(): IMenuItem[] {
     const items: IMenuItem[] = [
-      this.createMenuItem('', 'Główna', '', []),
+      this.createMenuItem('', 'Główna', 'home', []),
       this.createMenuItem('', 'Pracownicy', 'employees', [])
     ];
     return items;
