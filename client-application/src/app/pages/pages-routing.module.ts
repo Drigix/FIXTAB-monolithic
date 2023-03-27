@@ -7,8 +7,12 @@ import { RouterModule } from '@angular/router';
     RouterModule.forChild(
       [
         {
-          path: '',
+          path: 'home',
           loadChildren: () => import('./main/main.module').then(m => m.MainModule)
+        },
+        {
+          path: 'employees',
+          loadChildren: () => import('./employees/employees.module').then(m => m.EmployeesModule)
         }
       ]
     )

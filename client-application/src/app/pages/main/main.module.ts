@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -9,12 +10,12 @@ import { MainComponent } from './main.component';
 
 @NgModule({
   imports: [
-    AppRoutingModule,
     ComponentsModule,
     FontAwesomeModule,
     CommonModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    RouterModule
   ],
   exports: [
     MainComponent,
