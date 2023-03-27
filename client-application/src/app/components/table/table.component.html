@@ -15,8 +15,8 @@
         <div class="caption">
           <span class="p-input-icon-left search-input">
             <i class="pi pi-search" style="margin: 0.8rem"></i>
-            <input type="text" pInputText placeholder="{{ 'global.menu.search' | translate }}"
-              (input)="filterGlobal($any($event.target).value)" [disabled]="!storagedData || storagedData.length === 0">
+            <!-- <input type="text" pInputText placeholder="{{ 'global.menu.search' | translate }}"
+              (input)="filterGlobal($any($event.target).value)" [disabled]="!storagedData || storagedData.length === 0"> -->
           </span>
         </div>
         <ng-container *ngIf="showTableName">
@@ -243,9 +243,9 @@
   <ng-template pTemplate="footer" let-columns>
     <ng-container *ngIf="values.length === 0">
       <tr [ngSwitch]="footerTemplate">
-        <td *ngSwitchDefault [attr.colspan]="columns.length" style="text-align: center; justify-content: center;">
+        <!-- <td *ngSwitchDefault [attr.colspan]="columns.length" style="text-align: center; justify-content: center;">
           {{ 'table.noData' | translate }}
-        </td>
+        </td> -->
       </tr>
     </ng-container>
   </ng-template>
