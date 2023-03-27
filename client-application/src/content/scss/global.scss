@@ -1,0 +1,42 @@
+.table {
+  padding: 15px;
+}
+
+.table-with-buttons {
+  height: calc(100vh - 50px);
+  display: grid;
+  grid-template-rows: 92% auto;
+  border: 2px solid var(--primary-color);
+}
+
+.table-buttons-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 2px solid var(--primary-color);
+  width: 100%;
+}
+
+.button-width {
+  width: 150px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 100%;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--green-300);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--green-600);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--green-200);
+}

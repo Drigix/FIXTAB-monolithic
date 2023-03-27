@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IMenuItem } from 'src/app/entitites/menu-item.model';
+import { Authority } from '../../auth/authority.model';
 
 @Injectable({providedIn: 'root'})
 export class MenuService {
@@ -8,8 +9,8 @@ export class MenuService {
 
   getMenuItems(): IMenuItem[] {
     const items: IMenuItem[] = [
-      this.createMenuItem('', 'Główna', 'home', []),
-      this.createMenuItem('', 'Pracownicy', 'employees', [])
+      this.createMenuItem('fa fa-home', 'Główna', '', [Authority.ROLE_ADMIN]),
+      this.createMenuItem('fa fa-users', 'Pracownicy', 'employees', [])
     ];
     return items;
   }

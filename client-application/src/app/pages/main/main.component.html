@@ -1,3 +1,27 @@
-<div class="main">
-  <h2>HOME</h2>
+<div class="main grid">
+  <div class="menu col-fixed" [ngClass]="!isMenuHideAnimation ? 'show-menu' : 'hide-menu'">
+    <div [ngClass]="!isMenuHideAnimation ? 'fadeinleft animation-duration-500' : 'fadeoutleft animation-duration-100'">
+      <div *ngIf="!isMenuHide; else menuHide">
+        <fa-icon [icon]="arrowLeft" (click)="onMenuHide(true)"></fa-icon>
+        <label for="name">FIXTAB</label>
+        <div class="settings p-3">
+          <i class="fa fa-user m-2"></i>
+          <i class="fa fa-bell m-2"></i>
+        </div>
+        <fixtab-menu></fixtab-menu>
+      </div>
+    </div>
+    <ng-template #menuHide style="width: 5%">
+      <div class="fadeinleft animation-duration-500">
+        <fa-icon [icon]="arrowRight" (click)="onMenuHide(false)"></fa-icon>
+      </div>
+    </ng-template>
+  </div>
+  <div class="main-content col">
+    <div class="table-with-buttons">
+      <fixtab-table [columns]="columns" title="Pracownicy" [showCaption]="true" [showTableName]="true"></fixtab-table>
+      <fixtab-table-buttons></fixtab-table-buttons>
+    </div>
+    <router-outlet></router-outlet>
+  </div>
 </div>
