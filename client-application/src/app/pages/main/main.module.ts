@@ -7,6 +7,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainComponent } from './main.component';
+import { MainRoutingModule } from './main-routing.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { MainComponent } from './main.component';
     CommonModule,
     FormsModule,
     BrowserAnimationsModule,
-    RouterModule
+    RouterModule,
+    MainRoutingModule
   ],
   exports: [
     MainComponent,
