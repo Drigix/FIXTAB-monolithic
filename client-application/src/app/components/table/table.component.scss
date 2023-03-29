@@ -1,31 +1,50 @@
-// .caption {
-//   display: flex;
-//   justify-content: flex-end;
-//   column-gap: 8px;
-//   border: none;
-// }
+.caption {
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 8px;
+  border: none;
+}
 
-// .caption-search {
-//   display: flex;
-//   align-self: center;
-//   border: none;
-// }
+.caption-search {
+  display: flex;
+  align-self: center;
+  border: none;
+}
 
-// :host ::ng-deep .p-datatable-header {
-//   background-color: #ffffff;
-//   padding: 0;
-//   border: none;
-// }
+:host ::ng-deep .p-datatable-header {
+  background-color: var(--background-color-darker);
+  border: 1px solid #3a4451 !important;
+  border-bottom: none !important;
+  padding: 0;
+}
 
-// :host ::ng-deep .p-datatable-scrollable .p-datatable-tbody>tr>td {
-//   color: #575756;
-//   border-color: var(--primary-color-lighter) !important;
-//   font-weight: normal;
-//   white-space: nowrap;
-//   overflow: hidden;
-//   text-overflow: ellipsis;
-//   display: block;
-// }
+.table-name {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: var(--primary-color);
+  font-size: 25px;
+  padding: 8px;
+}
+
+:host ::ng-deep .p-scroller-content {
+  min-height: calc(100% - 51px) !important;
+}
+
+:host ::ng-deep .p-datatable-scrollable .p-datatable-tbody>tr>td {
+  color: #76ab81;
+  border-color: #3a4451 !important;
+  font-weight: normal;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+:host ::ng-deep .p-datatable-resizable .p-resizable-column:not(.p-frozen-column) {
+  background-color: var(--background-color-darker);
+  border: 1px solid #3a4451;
+}
 
 // :host ::ng-deep .p-datatable-wrapper {
 //   border-bottom: none;
@@ -64,19 +83,6 @@
 //   justify-content: space-between;
 //   background-color: #EFF0F6;
 //   flex-direction: row-reverse;
-// }
-
-// .table-name {
-//   display: flex;
-//   justify-content: flex-start;
-//   align-items: center;
-//   column-gap: 8px;
-//   color: var(--primary-color);
-//   margin-left: 5px;
-// }
-
-// :host ::ng-deep .p-scroller-content {
-//   min-height: calc(100% - 51px) !important;
 // }
 
 // :host ::ng-deep table tr {
