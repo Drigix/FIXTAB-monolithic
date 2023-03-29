@@ -9,6 +9,7 @@ import { ComponentsModule } from './components/components.module';
 import { MainModule } from './pages/main/main.module';
 import { LoginPageModule } from './auth/login-page/login-page.module';
 import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AppRoutingModule } from './app-routing.module';
     LoginPageModule,
     ComponentsModule,
     AppRoutingModule,
-    MainModule
+    MainModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

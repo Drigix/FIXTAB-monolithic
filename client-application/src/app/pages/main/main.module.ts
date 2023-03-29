@@ -15,7 +15,6 @@ import { MainRoutingModule } from './main-routing.module';
     FontAwesomeModule,
     CommonModule,
     FormsModule,
-    BrowserAnimationsModule,
     RouterModule,
     MainRoutingModule
   ],

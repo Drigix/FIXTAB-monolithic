@@ -7,6 +7,7 @@
         <div class="settings p-3">
           <i class="fa fa-user m-2"></i>
           <i class="fa fa-bell m-2"></i>
+          <i class="fa fa-power-off m-2"></i>
         </div>
         <fixtab-menu></fixtab-menu>
       </div>
@@ -18,10 +19,6 @@
     </ng-template>
   </div>
   <div class="main-content col">
-    <div class="table-with-buttons">
-      <fixtab-table [columns]="columns" title="Pracownicy" [showCaption]="true" [showTableName]="true"></fixtab-table>
-      <fixtab-table-buttons></fixtab-table-buttons>
-    </div>
     <router-outlet></router-outlet>
   </div>
 </div>
