@@ -15,23 +15,10 @@ export class MainComponent implements OnInit {
   isMenuHide = false;
   isMenuHideAnimation = false;
 
-  columns: UniversalTableColumn[] = [];
-
   constructor() { }
 
   ngOnInit() {
-    this.columns = [
-      {
-        header: "Imie",
-        name: "Name",
-        field: "name"
-      },
-      {
-        header: "Nazwisko",
-        name: "Surname",
-        field: "surname"
-      },
-    ]
+
   }
 
   onMenuHide(param: boolean): void {
