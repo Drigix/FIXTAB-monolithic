@@ -6,23 +6,28 @@ import { FixtabTableModule } from './table/table.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TableButtonsComponent } from './table-buttons/table-buttons.component';
 import { ButtonModule } from 'primeng/button';
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 
 @NgModule({
   declarations: [
     MenuComponent,
-    TableButtonsComponent
+    TableButtonsComponent,
+    DeleteDialogComponent
   ],
   imports: [
     CommonModule,
     PanelMenuModule,
     FontAwesomeModule,
-    ButtonModule
+    ButtonModule,
+    ConfirmDialogModule
   ],
   exports: [
     MenuComponent,
     FixtabTableModule,
-    TableButtonsComponent
+    TableButtonsComponent,
+    DeleteDialogComponent
   ]
 })
 export class ComponentsModule { }
