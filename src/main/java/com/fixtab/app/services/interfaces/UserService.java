@@ -1,4 +1,4 @@
-package com.fixtab.app.services;
+package com.fixtab.app.services.interfaces;
 
 import com.fixtab.app.models.requests.UserRequest;
 import com.fixtab.app.models.responses.UserResponse;

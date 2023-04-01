@@ -1,11 +1,11 @@
-package com.fixtab.app.services.Impl;
+package com.fixtab.app.services.implementations;
 
 import com.fixtab.app.mappers.UserMapper;
 import com.fixtab.app.models.User;
 import com.fixtab.app.models.requests.UserRequest;
 import com.fixtab.app.models.responses.UserResponse;
 import com.fixtab.app.respositories.UserRepository;
-import com.fixtab.app.services.UserService;
+import com.fixtab.app.services.interfaces.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
