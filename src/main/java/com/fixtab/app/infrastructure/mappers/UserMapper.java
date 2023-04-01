@@ -1,4 +1,4 @@
-package com.fixtab.app.mappers;
+package com.fixtab.app.infrastructure.mappers;
 
 import com.fixtab.app.models.User;
 import com.fixtab.app.models.requests.UserRequest;

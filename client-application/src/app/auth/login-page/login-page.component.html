@@ -5,14 +5,14 @@
   <div class="login-card p-4">
     <div class="card flex justify-content-center">
       <span class="p-float-label">
-          <input pInputText id="username" [(ngModel)]="value" />
+          <input pInputText id="username" [(ngModel)]="user.email" />
           <label htmlFor="username">Username</label>
       </span>
     </div>
     <span class="p-float-label">
-      <input id="float-input" type="password" pInputText>
+      <input id="float-input" type="password" pInputText [(ngModel)]="user.password">
       <label for="float-input">Password</label>
     </span>
-    <p-button class="p-5">Zaloguj</p-button>
+    <p-button class="p-5" (onClick)="onLogin()">Zaloguj</p-button>
   </div>
 </div>

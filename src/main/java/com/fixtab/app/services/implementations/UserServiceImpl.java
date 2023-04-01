@@ -1,6 +1,6 @@
 package com.fixtab.app.services.implementations;
 
-import com.fixtab.app.mappers.UserMapper;
+import com.fixtab.app.infrastructure.mappers.UserMapper;
 import com.fixtab.app.models.User;
 import com.fixtab.app.models.requests.UserRequest;
 import com.fixtab.app.models.responses.UserResponse;
