@@ -12,6 +12,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmationService } from 'primeng/api';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { LoginService } from './services/login.service';
 
 @NgModule({
   declarations: [
@@ -29,10 +31,11 @@ import { ConfirmationService } from 'primeng/api';
     AppRoutingModule,
     MainModule,
     BrowserAnimationsModule,
+    HttpClientModule
   ],
   providers: [
     DialogService,
-    ConfirmationService
+    ConfirmationService,
   ],
   bootstrap: [AppComponent]
 })
