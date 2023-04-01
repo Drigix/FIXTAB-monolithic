@@ -750,3 +750,50 @@ p-component-overlay-enter {
 .p-speeddial-button.p-button.p-button-icon-only .p-button-icon {
   font-size: 1.3rem;
 }
+
+.p-dialog {
+  border-radius: var(--border-radius);
+  border: 0 none;
+  max-height: 90%;
+  max-width: 70%;
+  text-align: center;
+}
+.p-dialog .p-dialog-header {
+  border-bottom: 0 none;
+  background: var(--primary-color);
+  color: var(--primary-color-text);
+  padding: 1rem;
+  border-top-right-radius: var(--border-radius);
+  border-top-left-radius: var(--border-radius);
+}
+.p-dialog .p-dialog-header .p-dialog-title {
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+.p-dialog .p-dialog-header .p-dialog-header-icon {
+  width: 2rem;
+  height: 2rem;
+  color: var(--primary-color);
+  border: 0 none;
+  background: #ffffff;
+  border-radius: 50%;
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+  margin-right: 0.5rem;
+}
+
+.p-dialog .p-dialog-header .p-dialog-header-icon:focus {
+  background-color: #ffffff;
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: 0 0 0 0.2rem var(--primary-focus-color);
+}
+
+.p-dialog .p-dialog-content {
+  padding: 1rem 1.5rem 1rem 1.5rem;
+  justify-content: center;
+}
+
+.p-dialog.p-confirm-dialog .p-confirm-dialog-icon {
+  font-size: 2rem;
+}
+

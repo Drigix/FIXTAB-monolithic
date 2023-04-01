@@ -21,6 +21,17 @@
   width: 150px;
 }
 
+.dialog-content {
+  display: grid;
+  grid-template-rows: 85% auto;
+  height: 100%;
+  padding: 1rem;
+}
+
+.dialog-button-margin {
+  margin: 10px;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
   height: 100%;
