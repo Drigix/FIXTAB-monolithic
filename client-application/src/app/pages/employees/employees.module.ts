@@ -1,5 +1,9 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { EmployeesDialogComponent } from './employees-dialog/employees-dialog.component';
 import { EmployeesRoutingModule } from './employees-routing.module';
 import { EmployeesComponent } from './employees.component';
 
@@ -7,13 +11,18 @@ import { EmployeesComponent } from './employees.component';
 @NgModule({
   imports: [
     EmployeesRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    ButtonModule,
+    CommonModule,
+    FormsModule
   ],
   exports: [
     EmployeesComponent,
+    EmployeesDialogComponent
   ],
   declarations: [
-    EmployeesComponent
+    EmployeesComponent,
+    EmployeesDialogComponent
   ],
   providers: [],
 })
