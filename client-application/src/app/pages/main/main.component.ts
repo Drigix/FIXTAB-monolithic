@@ -27,4 +27,10 @@ export class MainComponent implements OnInit {
       this.isMenuHide = param;
     }, param ? 200 : 100);
   }
+
+  onLogoff(): void {
+    window.sessionStorage.setItem('token', '');
+    window.sessionStorage.setItem('expirationDate', '');
+    window.location.reload();
+  }
 }
