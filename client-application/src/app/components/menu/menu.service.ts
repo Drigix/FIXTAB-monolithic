@@ -9,7 +9,7 @@ export class MenuService {
 
   getMenuItems(): IMenuItem[] {
     const items: IMenuItem[] = [
-      this.createMenuItem('fa fa-home', 'Główna', '', [Authority.ROLE_ADMIN]),
+      this.createMenuItem('fa fa-home', 'Główna', '/', [Authority.ROLE_ADMIN]),
       this.createMenuItem('fa fa-users', 'Pracownicy', 'employees', [])
     ];
     return items;

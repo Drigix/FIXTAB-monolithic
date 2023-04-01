@@ -25,6 +25,6 @@ export class MainComponent implements OnInit {
     this.isMenuHideAnimation = param;
     setTimeout(()=>{
       this.isMenuHide = param;
-    }, 100);
+    }, param ? 200 : 100);
   }
 }

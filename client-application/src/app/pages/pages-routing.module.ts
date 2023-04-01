@@ -8,10 +8,10 @@ import { RouterModule } from '@angular/router';
       [
         {
           path: '',
-          loadChildren: () => import('./main/main.module').then(m => m.MainModule)
+          loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
         },
         {
-          path: 'employees',
+          path: '',
           loadChildren: () => import('./employees/employees.module').then(m => m.EmployeesModule)
         }
       ]
