@@ -7,7 +7,6 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainComponent } from './main.component';
-import { MainRoutingModule } from './main-routing.module';
 
 @NgModule({
   imports: [
@@ -15,8 +14,7 @@ import { MainRoutingModule } from './main-routing.module';
     FontAwesomeModule,
     CommonModule,
     FormsModule,
-    RouterModule,
-    MainRoutingModule
+    RouterModule
   ],
   exports: [
     MainComponent,
