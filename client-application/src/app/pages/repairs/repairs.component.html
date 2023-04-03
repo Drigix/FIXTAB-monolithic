@@ -1,0 +1,7 @@
+<div class="table-with-buttons">
+  <fixtab-table [columns]="columns" [values]="repairs" tableName="Naprawy" [showCaption]="true"
+    [showTableName]="true" (selected)="onRepairSelected($event)"></fixtab-table>
+  <fixtab-table-buttons (addActionEmit)="openRepairsDialog($event)"
+    (editActionEmit)="openRepairsDialog($event)" (deleteActionEmit)="openRepairsDeleteDialog($event)" [isSelectedItem]="selectedRepair"></fixtab-table-buttons>
+</div>
+
