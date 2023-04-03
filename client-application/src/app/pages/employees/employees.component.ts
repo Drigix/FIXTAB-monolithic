@@ -104,7 +104,7 @@ export class EmployeesComponent implements OnInit {
       const ref = this.dialogService.open(EmployeesDialogComponent, {
         header: edit ? 'Edytuj pracownika' : 'Dodaj pracownika',
         width: '60%',
-        height: '40%'
+        height: '60%'
       });
       ref.onClose.subscribe((response) => this.handleEmployeesDialog(response));
    }
