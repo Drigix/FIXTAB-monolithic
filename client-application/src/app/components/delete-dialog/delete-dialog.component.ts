@@ -31,7 +31,6 @@ export class DeleteDialogComponent implements OnInit {
 
   handleDeleteDialogResponse(accept: boolean): void {
     if(accept) {
-      console.log('usunieto');
       this.deleteConfirmationEmit.emit(true);
     } else {
       this.deleteConfirmationEmit.emit(false);

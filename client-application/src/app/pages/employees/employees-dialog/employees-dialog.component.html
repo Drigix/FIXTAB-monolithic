@@ -1,4 +1,4 @@
-<div class="dialog-content">
+<div *ngIf="!showPassword; else passwordContent" class="dialog-content">
   <div class="dialog-body">
     <form #form="ngForm" [formGroup]="employeeForm" class="dialog-form">
       <span class="p-float-label">
@@ -11,12 +11,32 @@
         <input pInputText id="email" formControlName="email" placeholder="Email" [(ngModel)]="employee.email" />
       </span>
       <span class="p-float-label">
-        <input pInputText id="phoneNumber" formControlName="phoneNumber" placeholder="Numer telefonu" [(ngModel)]="employee.phoneNumber" />
+        <p-calendar formControlName="birthDay" dateFormat="dd-mm-yy" [(ngModel)]="employeeBirthDate" appendTo="body" placeholder="Data urodzenia"></p-calendar>
+      </span>
+      <span class="p-float-label">
+        <input pInputText id="phoneNumber" formControlName="phoneNumber" placeholder="Numer telefonu" [(ngModel)]="employee.phoneNumber" maxlength="11"/>
+      </span>
+      <span class="p-float-label">
+        <input pInputText id="gender" formControlName="gender" placeholder="Płeć" [(ngModel)]="employee.gender" />
+      </span>
+      <span class="p-float-label">
+        <input pInputText id="pesel" formControlName="pesel" placeholder="Pesel" [(ngModel)]="employee.pesel" maxlength="11" />
       </span>
     </form>
   </div>
   <div class="dialog-footer">
-    <p-button styleClass="button-width dialog-button-margin">Dodaj</p-button>
-    <p-button styleClass="button-width dialog-button-margin">Anuluj</p-button>
+    <p-button styleClass="button-width dialog-button-margin" [disabled]="employeeForm.invalid" (onClick)="onCreateEmployee()">Dodaj</p-button>
+    <p-button styleClass="button-width dialog-button-margin" (onClick)="onCloseDialog()">Anuluj</p-button>
   </div>
 </div>
+
+<ng-template #passwordContent>
+  <div *ngIf="showPassword" class="dialog-content">
+    <div class="dialog-body">
+      <label for="password">{{password}}</label>
+    </div>
+    <div class="dialog-footer">
+      <p-button styleClass="button-width dialog-button-margin" (onClick)="onCloseDialog()">OK</p-button>
+    </div>
+  </div>
+</ng-template>

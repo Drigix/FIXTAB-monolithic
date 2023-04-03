@@ -3,6 +3,7 @@ import * as _ from 'lodash';
 import { LazyLoadEvent, SortEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { UniversalTableColumn } from './column.model';
+import * as moment from 'moment';
 
 
 @Component({
@@ -125,11 +126,11 @@ export class TableComponent implements OnChanges {
   }
 
   getInstanceType(value: any): string {
-    // if (moment(value, moment.ISO_8601, true).isValid() && value.toString().includes(':')) {
-    //   return 'DATE';
-    // } else if (typeof (value) === 'boolean') {
-    //   return 'BOOLEAN';
-    // }
+    if (moment(value, moment.ISO_8601, true).isValid() && value.toString().includes(':')) {
+      return 'DATE';
+    } else if (typeof (value) === 'boolean') {
+      return 'BOOLEAN';
+    }
     return 'UNKNOWN';
   }
 
