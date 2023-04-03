@@ -13,6 +13,10 @@ import { RouterModule } from '@angular/router';
         {
           path: '',
           loadChildren: () => import('./employees/employees.module').then(m => m.EmployeesModule)
+        },
+        {
+          path: '',
+          loadChildren: () => import('./repairs/repairs.module').then(m => m.RepairsModule)
         }
       ]
     )

@@ -28,8 +28,23 @@
   padding: 1rem;
 }
 
+.dialog-body {
+  overflow: auto;
+}
+
 .dialog-button-margin {
   margin: 10px;
+}
+
+.dialog-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.dialog-form span {
+  padding: 10px;
 }
 
 ::-webkit-scrollbar {

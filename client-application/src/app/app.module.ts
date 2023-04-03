@@ -14,6 +14,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmationService } from 'primeng/api';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { LoginService } from './services/login.service';
+import { UntypedFormBuilder } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { LoginService } from './services/login.service';
   providers: [
     DialogService,
     ConfirmationService,
+    UntypedFormBuilder
   ],
   bootstrap: [AppComponent]
 })

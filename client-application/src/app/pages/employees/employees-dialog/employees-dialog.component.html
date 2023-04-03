@@ -1,6 +1,19 @@
 <div class="dialog-content">
   <div class="dialog-body">
-    <h2>body</h2>
+    <form #form="ngForm" [formGroup]="employeeForm" class="dialog-form">
+      <span class="p-float-label">
+        <input pInputText id="name" formControlName="name" placeholder="Imie" [(ngModel)]="employee.name" />
+      </span>
+      <span class="p-float-label">
+        <input pInputText id="surname" formControlName="surname" placeholder="Nazwisko" [(ngModel)]="employee.surname" />
+      </span>
+      <span class="p-float-label">
+        <input pInputText id="email" formControlName="email" placeholder="Email" [(ngModel)]="employee.email" />
+      </span>
+      <span class="p-float-label">
+        <input pInputText id="phoneNumber" formControlName="phoneNumber" placeholder="Numer telefonu" [(ngModel)]="employee.phoneNumber" />
+      </span>
+    </form>
   </div>
   <div class="dialog-footer">
     <p-button styleClass="button-width dialog-button-margin">Dodaj</p-button>
