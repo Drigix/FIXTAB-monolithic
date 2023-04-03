@@ -1,5 +1,6 @@
 package com.fixtab.app.models.db.employees;
 
+import com.fixtab.app.models.db.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,7 +16,7 @@ import java.util.Date;
 @Builder
 @Table(name = "employees")
 @Entity
-public class EmployeeModel {
+public class EmployeeModel extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "employeeid")

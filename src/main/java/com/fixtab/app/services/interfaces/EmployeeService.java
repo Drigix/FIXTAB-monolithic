@@ -10,9 +10,11 @@ public interface EmployeeService {
 
     List<EmployeeModel> getAllEmployees();
 
-    EmployeeModel createEmployee(CreateEmployeeRequest request);
+    String createEmployee(CreateEmployeeRequest request);
 
     EmployeeModel loadUserByEmail(String email);
+
+    void deleteEmployee(Integer employeeId);
 
     UserModel getUserModel(String email);
 }

@@ -1,8 +1,8 @@
 <div class="table-with-buttons">
-  <fixtab-table [columns]="columns" [values]="values" tableName="Pracownicy" [showCaption]="true"
+  <fixtab-table [columns]="columns" [values]="employees" tableName="Pracownicy"
     [showTableName]="true" (selected)="onEmployeeSelected($event)"></fixtab-table>
   <fixtab-table-buttons (addActionEmit)="openEmployeesDialog($event)"
-    (editActionEmit)="openEmployeesDialog($event)" (deleteActionEmit)="openEmployeesDeleteDialog($event)" [isSelectedItem]="selectedEmployee"></fixtab-table-buttons>
+    (editActionEmit)="openEmployeesDialog($event)" (deleteActionEmit)="openEmployeesDeleteDialog($event)" [isSelectedItem]="selectedEmployee !== null"></fixtab-table-buttons>
 </div>
 
 <fixtab-delete-dialog *ngIf="openDeleteDialog" (deleteConfirmationEmit)="handleEmployeesDeleteDialog($event)"></fixtab-delete-dialog>

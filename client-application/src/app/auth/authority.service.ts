@@ -8,12 +8,16 @@ export class AuthorityService {
   constructor() { }
 
   private checkAuthentication(): boolean {
-    return window.sessionStorage.getItem('token') !== ('' && undefined && null) ?? false;
+    return window.sessionStorage.getItem('accessToken') !== ('' && undefined && null) ?? false;
   }
 
   setToken(token: string, expirationDate: string): void {
-    window.sessionStorage.setItem('token', token);
+    window.sessionStorage.setItem('accessToken', token);
     window.sessionStorage.setItem('expirationDate', expirationDate);
+  }
+
+  getToken(): string {
+    return window.sessionStorage.getItem('accessToken')!;
   }
 
   setUserAuthenticate(auth: boolean): void {

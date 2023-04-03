@@ -12,9 +12,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmationService } from 'primeng/api';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { LoginService } from './services/login.service';
 import { UntypedFormBuilder } from '@angular/forms';
+import { TokenInterceptor } from './config/token-interceptor.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -32,12 +34,14 @@ import { UntypedFormBuilder } from '@angular/forms';
     AppRoutingModule,
     MainModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    TranslateModule.forRoot(),
   ],
   providers: [
     DialogService,
     ConfirmationService,
-    UntypedFormBuilder
+    UntypedFormBuilder,
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

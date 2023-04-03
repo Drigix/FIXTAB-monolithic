@@ -15,8 +15,8 @@
         <div class="caption">
           <span class="p-input-icon-left search-input">
             <i class="pi pi-search" style="margin: 0.8rem"></i>
-            <!-- <input type="text" pInputText placeholder="{{ 'global.menu.search' | translate }}"
-              (input)="filterGlobal($any($event.target).value)" [disabled]="!storagedData || storagedData.length === 0"> -->
+            <input type="text" pInputText placeholder="{{ 'global.menu.search' | translate }}"
+              (input)="filterGlobal($any($event.target).value)" [disabled]="!storagedData || storagedData.length === 0">
           </span>
         </div>
         <ng-container *ngIf="showTableName">
@@ -196,7 +196,7 @@
         <td *ngFor="let col of columns" class="ui-resizable-column" [ngStyle]="col.style"
           [ngSwitch]="getInstanceType(rowData[col.field] && col.subField ? rowData[col.field][col.subField] : rowData[col.field])"
           >
-          <ng-container *ngIf="col.subField != null; else standard">
+        <ng-container *ngIf="col.subField != null; else standard">
           <ng-container *ngSwitchCase="'DATE'">
             <div *ngIf="showFullDate; else dateOnly" class="ellipsis"
               pTooltip="{{rowData[col.field] ? rowData[col.field][col.subField] : rowData[col.field] | date: 'yyyy-MM-dd HH:mm:ss'}}"
@@ -215,7 +215,7 @@
               [tooltipDisabled]="disableTooltip" (mouseenter)="enableTooltipIfNecessary($event)">
               {{rowData[col.field] ? rowData[col.field][col.subField] : rowData[col.field]}}
             </div>
-          </ng-container>
+        </ng-container>
           <ng-template #standard>
             <ng-container *ngSwitchCase="'DATE'">
               <div *ngIf="showFullDate; else standardDateOnly" class="ellipsis" pTooltip="{{rowData[col.field] | date: 'yyyy-MM-dd HH:mm:ss'}}"
@@ -225,9 +225,9 @@
             </ng-container>
             <ng-template #standardDateOnly>
               <div class="ellipsis"
-                pTooltip="{{rowData[col.field] ? rowData[col.field][col.subField] : rowData[col.field]}}"
+                pTooltip="{{rowData[col.field][col.subField] ? rowData[col.field][col.subField] : rowData[col.field]}}"
                 [tooltipDisabled]="disableTooltip" (mouseenter)="enableTooltipIfNecessary($event)">
-                {{rowData[col.field] ? rowData[col.field][col.subField] : rowData[col.field] | date: 'yyyy-MM-dd'}}
+                {{rowData[col.field][col.subField] ? rowData[col.field][col.subField] : rowData[col.field] | date: 'yyyy-MM-dd'}}
               </div>
             </ng-template>
             <div *ngSwitchDefault class="ellipsis" pTooltip="{{rowData[col.field]}}" [tooltipDisabled]="disableTooltip"

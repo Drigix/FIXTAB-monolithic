@@ -29,7 +29,7 @@ export class MainComponent implements OnInit {
   }
 
   onLogoff(): void {
-    window.sessionStorage.setItem('token', '');
+    window.sessionStorage.setItem('accessToken', '');
     window.sessionStorage.setItem('expirationDate', '');
     window.location.reload();
   }
