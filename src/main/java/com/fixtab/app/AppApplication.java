@@ -51,7 +51,7 @@ public class AppApplication {
 //
 //		JSONObject sectrectsJson = new JSONObject(secret);
 //		String username = sectrectsJson.getString("username");
-//		String password = sectrectsJson.getString("password");
+//			String password = sectrectsJson.getString("password");
 //		System.setProperty("spring.datasource.username", username);
 //		System.setProperty("spring.datasource.password", password);
 	public static void main(String[] args) {
