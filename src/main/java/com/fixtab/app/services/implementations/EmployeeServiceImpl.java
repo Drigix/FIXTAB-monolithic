@@ -28,7 +28,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public EmployeeModel createEmployee(CreateEmployeeRequest request) {
+    public String createEmployee(CreateEmployeeRequest request) {
 
         /* VALIDATORS */
         /* CHECK IF USER EXISTS */
@@ -53,7 +53,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .passwordHash(PasswordHelperMethods.passwordToHash(password, employee.getEmail(), salt))
                 .build();
         passwordModel = passwordRepository.save(passwordModel);
-        return employee;
+        return password;
     }
 
     @Override
@@ -64,6 +64,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         return employee.get();
     }
+
+    @Override
+    public void deleteEmployee(Integer employeeId) {
+        employeeRepository.deleteById(employeeId);
+    }
+
 
     @Override
     public UserModel getUserModel(String email) {

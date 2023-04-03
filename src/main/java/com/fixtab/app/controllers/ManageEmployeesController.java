@@ -25,8 +25,12 @@ public class ManageEmployeesController {
     }
 
     @PostMapping("createEmployee")
-    public EmployeeModel createEmployee(@RequestBody CreateEmployeeRequest createEmployeeRequest) {
-        EmployeeModel employee = employeeService.createEmployee(createEmployeeRequest);
-        return employee;
+    public String createEmployee(@RequestBody CreateEmployeeRequest createEmployeeRequest) {
+        return employeeService.createEmployee(createEmployeeRequest);
+    }
+
+    @DeleteMapping("deleteEmployee/{employeeId}")
+    public void createEmployee(@PathVariable Integer employeeId) {
+        employeeService.deleteEmployee(employeeId);
     }
 }
