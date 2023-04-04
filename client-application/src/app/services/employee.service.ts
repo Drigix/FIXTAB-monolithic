@@ -5,7 +5,8 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Employee } from '../entitites/employee-model';
 
 export type CreateEmployeeResponseType = HttpResponse<string>;
-export type EntityResponseType = HttpResponse<Employee[]>;
+export type EntityArrayResponseType = HttpResponse<Employee[]>;
+export type EntityResponseType = HttpResponse<Employee>;
 
 @Injectable({providedIn: 'root'})
 export class EmployeeService {
@@ -16,13 +17,22 @@ export class EmployeeService {
     private http: HttpClient
   ) { }
 
+  getAll(): Observable<EntityArrayResponseType> {
+    return this.http.get<Employee[]>(this.url + '/getAllEmployees', {observe: 'response'});
+  }
+
+  getAllNotDeleted(): Observable<EntityArrayResponseType> {
+    return this.http.get<Employee[]>(this.url + '/getAllNotDeletedEmployees', {observe: 'response'});
+  }
+
   create(employee: Employee): Observable<CreateEmployeeResponseType> {
     return this.http.post<string>(this.url + '/createEmployee', employee, {observe: 'response'});
   }
 
-  getAll(): Observable<EntityResponseType> {
-    return this.http.get<Employee[]>(this.url + '/getAllEmployees', {observe: 'response'});
+  edit(employee: Employee): Observable<EntityResponseType> {
+    return this.http.put<Employee>(this.url + '/editEmployee', employee, {observe: 'response'});
   }
+
 
   delete(employeeId: number): Observable<HttpResponse<void>> {
     return this.http.delete<void>(`${this.url}/deleteEmployee/${employeeId}`, {observe: 'response'});

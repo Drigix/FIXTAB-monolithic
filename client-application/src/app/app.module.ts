@@ -11,7 +11,7 @@ import { LoginPageModule } from './auth/login-page/login-page.module';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogService } from 'primeng/dynamicdialog';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { LoginService } from './services/login.service';
 import { UntypedFormBuilder } from '@angular/forms';
@@ -41,6 +41,7 @@ import { TranslateModule } from '@ngx-translate/core';
     DialogService,
     ConfirmationService,
     UntypedFormBuilder,
+    MessageService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]

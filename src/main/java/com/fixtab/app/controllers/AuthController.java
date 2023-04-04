@@ -1,7 +1,6 @@
 package com.fixtab.app.controllers;
 
 import com.fixtab.app.infrastructure.PasswordHelperMethods;
-import com.fixtab.app.models.db.UserModel;
 import com.fixtab.app.models.db.customers.PasswordModel;
 import com.fixtab.app.models.db.employees.EmployeeModel;
 import com.fixtab.app.models.requests.LoginRequest;

@@ -25,7 +25,7 @@
     </form>
   </div>
   <div class="dialog-footer">
-    <p-button styleClass="button-width dialog-button-margin" [disabled]="employeeForm.invalid" (onClick)="onCreateEmployee()">Dodaj</p-button>
+    <p-button styleClass="button-width dialog-button-margin" [label]="edit ? 'Edytuj': 'Dodaj' " [disabled]="employeeForm.invalid" (onClick)="edit ? onEditEmployee() :onCreateEmployee()"></p-button>
     <p-button styleClass="button-width dialog-button-margin" (onClick)="onCloseDialog()">Anuluj</p-button>
   </div>
 </div>

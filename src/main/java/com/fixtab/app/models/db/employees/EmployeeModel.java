@@ -3,6 +3,7 @@ package com.fixtab.app.models.db.employees;
 import com.fixtab.app.models.db.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -13,7 +14,7 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Table(name = "employees")
 @Entity
 public class EmployeeModel extends BaseEntity {

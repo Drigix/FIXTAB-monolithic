@@ -8,7 +8,8 @@ export class AuthorityService {
   constructor() { }
 
   private checkAuthentication(): boolean {
-    return window.sessionStorage.getItem('accessToken') !== ('' && undefined && null) ?? false;
+    const accessToken = window.sessionStorage.getItem('accessToken');
+    return (accessToken !== null && accessToken !== undefined && accessToken !== '') ?? false;
   }
 
   setToken(token: string, expirationDate: string): void {

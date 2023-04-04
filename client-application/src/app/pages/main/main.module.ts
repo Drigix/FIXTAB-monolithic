@@ -7,6 +7,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainComponent } from './main.component';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { MainComponent } from './main.component';
     FontAwesomeModule,
     CommonModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    ToastModule
   ],
   exports: [
     MainComponent,

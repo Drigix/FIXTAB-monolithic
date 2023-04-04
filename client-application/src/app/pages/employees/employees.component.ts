@@ -5,6 +5,7 @@ import { EmployeesDialogComponent } from './employees-dialog/employees-dialog.co
 import { EmployeeService } from 'src/app/services/employee.service';
 import { HttpResponse } from '@angular/common/http';
 import { Employee } from 'src/app/entitites/employee-model';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'fixtab-employees',
@@ -20,7 +21,8 @@ export class EmployeesComponent implements OnInit {
 
   constructor(
     private dialogService: DialogService,
-    private employeeService: EmployeeService
+    private employeeService: EmployeeService,
+    private messageService: MessageService
   ) { }
 
   ngOnInit() {
@@ -55,7 +57,7 @@ export class EmployeesComponent implements OnInit {
    }
 
    loadEmployees(): void {
-      this.employeeService.getAll().subscribe(
+      this.employeeService.getAllNotDeleted().subscribe(
         (res: HttpResponse<Employee[]>) => {
           this.employees = res.body ?? [];
         }
@@ -93,7 +95,9 @@ export class EmployeesComponent implements OnInit {
       this.employeeService.delete(this.selectedEmployee?.employeeId!).subscribe(
         {
           next: () => {
-            console.log('usunieto');
+            this.messageService.add({key: 'mainToast', severity: 'success', summary: 'Success',
+              detail: 'usunięto!'});
+            this.loadEmployees();
           },
           error: () => {
             console.log('error');

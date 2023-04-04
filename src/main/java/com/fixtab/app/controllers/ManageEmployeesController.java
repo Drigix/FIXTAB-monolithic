@@ -2,6 +2,8 @@ package com.fixtab.app.controllers;
 
 import com.fixtab.app.models.db.employees.EmployeeModel;
 import com.fixtab.app.models.requests.CreateEmployeeRequest;
+import com.fixtab.app.models.requests.EditEmployeeRequest;
+import com.fixtab.app.models.responses.EmployeeResponse;
 import com.fixtab.app.services.interfaces.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,9 +26,20 @@ public class ManageEmployeesController {
         return employeeService.getAllEmployees();
     }
 
+    @GetMapping("getAllNotDeletedEmployees")
+    @ResponseStatus(HttpStatus.OK)
+    public List<EmployeeModel> getAllNotDeletedEmployees() {
+        return employeeService.getAllNotDeletedEmployees();
+    }
+
     @PostMapping("createEmployee")
     public String createEmployee(@RequestBody CreateEmployeeRequest createEmployeeRequest) {
         return employeeService.createEmployee(createEmployeeRequest);
+    }
+
+    @PutMapping("editEmployee")
+    public EmployeeResponse createEmployee(@RequestBody EditEmployeeRequest editEmployeeRequest) {
+        return employeeService.editEmployee(editEmployeeRequest);
     }
 
     @DeleteMapping("deleteEmployee/{employeeId}")
