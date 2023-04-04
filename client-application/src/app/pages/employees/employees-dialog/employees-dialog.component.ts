@@ -1,7 +1,9 @@
+import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Employee } from 'src/app/entitites/employee-model';
+import { ChangeDateService } from 'src/app/services/change-date.service';
 import { EmployeeService } from 'src/app/services/employee.service';
 
 @Component({
@@ -31,7 +33,8 @@ export class EmployeesDialogComponent implements OnInit {
     private fb: UntypedFormBuilder,
     private employeeService: EmployeeService,
     private ref: DynamicDialogRef,
-    public config: DynamicDialogConfig
+    public config: DynamicDialogConfig,
+    private changeDateService: ChangeDateService
   ) { }
 
   ngOnInit() {
@@ -43,18 +46,28 @@ export class EmployeesDialogComponent implements OnInit {
   }
 
   onCreateEmployee(): void {
-    this.employee.birthDate = this.employeeBirthDate?.toString();
+    this.employee.birthDate = this.changeDateService.changeDateToString(this.employeeBirthDate!);
     this.employeeService.create(this.employee).subscribe(
+      (res: HttpResponse<string>) => {
+        this.password = res.body;
+        this.showPassword = true;
+      }
+    );
+  }
+
+  onEditEmployee(): void {
+    this.employee.birthDate = this.changeDateService.changeDateToString(this.employeeBirthDate!);
+    this.employeeService.edit(this.employee).subscribe(
       {
-        next: (response) => {
-          this.showPassword = true;
-          this.password = response.body;
+        next: () => {
+          console.log('edytowano');
         },
         error: (error) => {
           console.log(error);
         }
       }
-    )
+    );
+      this.ref.close();
   }
 
   onCloseDialog(): void {
