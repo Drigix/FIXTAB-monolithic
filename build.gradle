@@ -32,6 +32,7 @@ dependencies {
 	implementation 'software.amazon.awssdk:regions:2.16.87'
 	implementation 'software.amazon.awssdk:secretsmanager:2.16.87'
 	implementation 'org.json:json:20210307'
+	implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.4'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'
