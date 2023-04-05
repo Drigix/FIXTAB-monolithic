@@ -1,0 +1,20 @@
+<div class="dialog-content">
+  <div class="dialog-body">
+    <form [formGroup]="passwordForm" class="dialog-form">
+      <span class="p-float-label">
+        <!-- <input pInputText id="name" formControlName="oldPassword" placeholder="Stare hasło" [(ngModel)]="password!.password" /> -->
+        <p-password id="name" formControlName="oldPassword" placeholder="Stare hasło" [(ngModel)]="password!.oldPassword" [toggleMask]="true"></p-password>
+      </span>
+      <span class="p-float-label">
+        <p-password id="name" formControlName="newPassword" placeholder="Nowe hasło" [(ngModel)]="password!.password" [toggleMask]="true"></p-password>
+      </span>
+      <span class="p-float-label">
+        <p-password id="name" formControlName="confirmPassword" placeholder="Potwierdź hasło" [(ngModel)]="confirmPassword" [toggleMask]="true"></p-password>
+      </span>
+    </form>
+  </div>
+  <div class="dialog-footer">
+    <p-button styleClass="button-width dialog-button-margin" [disabled]="passwordForm.invalid" (onClick)="onPasswordChange()">Zmień hasło</p-button>
+    <p-button styleClass="button-width dialog-button-margin"(onClick)="onClose()">Anuluj</p-button>
+  </div>
+</div>
