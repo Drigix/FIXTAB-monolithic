@@ -12,6 +12,11 @@ interface IEmployee {
   roleId?: number;
 }
 
+interface IEmployeePassword {
+  oldPassword?: string;
+  password?: string;
+}
+
 export class Employee implements IEmployee {
   constructor(
    public employeeId?: number,
@@ -25,5 +30,12 @@ export class Employee implements IEmployee {
    public addressId?: number,
    public targetObjectId?: number,
    public roleId?: number
+  ) {}
+}
+
+export class EmployeePassword implements IEmployeePassword {
+  constructor(
+    public oldPassword?: string,
+    public password?: string
   ) {}
 }
