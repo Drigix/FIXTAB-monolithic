@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { API_URL } from '../config/api-url.model';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Employee } from '../entitites/employee-model';
+import { Employee, EmployeePassword } from '../entitites/employee-model';
 
 export type CreateEmployeeResponseType = HttpResponse<string>;
 export type EntityArrayResponseType = HttpResponse<Employee[]>;
 export type EntityResponseType = HttpResponse<Employee>;
+export type EmployeePasswordResponseType = HttpResponse<EmployeePassword>;
 
 @Injectable({providedIn: 'root'})
 export class EmployeeService {
@@ -25,8 +26,12 @@ export class EmployeeService {
     return this.http.get<Employee[]>(this.url + '/getAllNotDeletedEmployees', {observe: 'response'});
   }
 
-  create(employee: Employee): Observable<CreateEmployeeResponseType> {
-    return this.http.post<string>(this.url + '/createEmployee', employee, {observe: 'response'});
+  create(employee: Employee): Observable<EmployeePasswordResponseType> {
+    return this.http.post<EmployeePassword>(this.url + '/createEmployee', employee, {observe: 'response'});
+  }
+
+  changePassword(password: EmployeePassword): Observable<HttpResponse<void>> {
+    return this.http.put<void>(this.url + '/changePassword', password, {observe: 'response'});
   }
 
   edit(employee: Employee): Observable<EntityResponseType> {

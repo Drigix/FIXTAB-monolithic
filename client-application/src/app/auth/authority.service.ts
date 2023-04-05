@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 export class AuthorityService {
 
   private isUserAuthenticate = false;
+  private userRole = '';
 
   constructor() { }
 
@@ -28,6 +29,15 @@ export class AuthorityService {
   getUserAuthenticate(): boolean {
     this.setUserAuthenticate(this.checkAuthentication());
     return this.isUserAuthenticate;
+  }
+
+  setUserRole(role: string): void {
+    this.userRole = role;
+  }
+
+  getUserRole(): string {
+    this.setUserRole(window.sessionStorage.getItem('role')!);
+    return this.userRole;
   }
 
 }
