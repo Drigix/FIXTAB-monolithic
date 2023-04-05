@@ -9,7 +9,7 @@ import java.util.Date;
 @Getter
 @Setter
 public class EmployeeResponse {
-    private int employeeId;
+    private Integer employeeId;
     private String name;
     private String surname;
     private String phoneNumber;
@@ -17,4 +17,5 @@ public class EmployeeResponse {
     private Date birthDate;
     private String gender;
     private String pesel;
+    private Integer roleId;
 }

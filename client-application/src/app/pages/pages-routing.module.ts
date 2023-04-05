@@ -1,5 +1,7 @@
+import { authGuard } from './../config/user-route-access.service';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { Authority } from '../auth/authority.model';
 
 
 @NgModule({
@@ -8,7 +10,11 @@ import { RouterModule } from '@angular/router';
       [
         {
           path: '',
-          loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
+          data: {
+            authorities: ['']
+          },
+          loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
+          canActivate: [authGuard]
         },
         {
           path: '',

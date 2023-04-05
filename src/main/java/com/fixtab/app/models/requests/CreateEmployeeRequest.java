@@ -18,4 +18,5 @@ public class CreateEmployeeRequest {
     private Date birthDate;
     private String gender;
     private String pesel;
+    private Integer roleId;
 }

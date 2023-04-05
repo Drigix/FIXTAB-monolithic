@@ -8,6 +8,7 @@ import { EmployeesDialogComponent } from './employees-dialog/employees-dialog.co
 import { EmployeesRoutingModule } from './employees-routing.module';
 import { EmployeesComponent } from './employees.component';
 import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { CalendarModule } from 'primeng/calendar';
     FormsModule,
     ReactiveFormsModule,
     InputTextModule,
-    CalendarModule
+    CalendarModule,
+    DropdownModule
   ],
   exports: [
     EmployeesComponent,

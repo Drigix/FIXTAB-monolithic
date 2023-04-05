@@ -22,6 +22,11 @@
       <span class="p-float-label">
         <input pInputText id="pesel" formControlName="pesel" placeholder="Pesel" [(ngModel)]="employee.pesel" maxlength="11" />
       </span>
+      <span class="p-float-label">
+        <p-dropdown [options]="roles" id="role" optionLabel="roleName" formControlName="role" [(ngModel)]="selectedRole"
+            placeholder="Rola" [autoDisplayFirst]="false" appendTo="body">
+        </p-dropdown>
+      </span>
     </form>
   </div>
   <div class="dialog-footer">
@@ -33,7 +38,8 @@
 <ng-template #passwordContent>
   <div *ngIf="showPassword" class="dialog-content">
     <div class="dialog-body">
-      <label for="password">{{password}}</label>
+      <label for="header">Hasło do utworzonego konta:</label>
+      <label for="password">{{password!.password}}</label>
     </div>
     <div class="dialog-footer">
       <p-button styleClass="button-width dialog-button-margin" (onClick)="onCloseDialog()">OK</p-button>

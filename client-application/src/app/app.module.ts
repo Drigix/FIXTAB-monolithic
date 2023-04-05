@@ -17,6 +17,7 @@ import { LoginService } from './services/login.service';
 import { UntypedFormBuilder } from '@angular/forms';
 import { TokenInterceptor } from './config/token-interceptor.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { ProfileModule } from './pages/profile/profile.module';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { TranslateModule } from '@ngx-translate/core';
     ComponentsModule,
     MainModule,
     LoginPageModule,
+    ProfileModule,
     ComponentsModule,
     AppRoutingModule,
     MainModule,

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UniversalTableColumn } from 'src/app/components/table/column.model';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ProfileComponent } from '../profile/profile.component';
 
 @Component({
   selector: 'fixtab-main',
@@ -15,7 +17,9 @@ export class MainComponent implements OnInit {
   isMenuHide = false;
   isMenuHideAnimation = false;
 
-  constructor() { }
+  constructor(
+    private dialogService: DialogService
+  ) { }
 
   ngOnInit() {
 
@@ -26,6 +30,13 @@ export class MainComponent implements OnInit {
     setTimeout(()=>{
       this.isMenuHide = param;
     }, param ? 200 : 100);
+  }
+
+  onProfileClick(): void {
+    const ref = this.dialogService.open(ProfileComponent, {
+      header: 'Profil',
+      width: '60%'
+    });
   }
 
   onLogoff(): void {

@@ -5,6 +5,7 @@ import com.fixtab.app.models.requests.CreateEmployeeRequest;
 import com.fixtab.app.models.requests.EditEmployeeRequest;
 import com.fixtab.app.models.responses.EmployeeResponse;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring", uses = {})
 public interface EmployeeMapper {

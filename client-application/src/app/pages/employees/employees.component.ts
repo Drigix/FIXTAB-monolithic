@@ -100,7 +100,8 @@ export class EmployeesComponent implements OnInit {
             this.loadEmployees();
           },
           error: () => {
-            console.log('error');
+            this.messageService.add({key: 'mainToast', severity: 'error', summary: 'Error',
+              detail: 'nie usunięto!'});
           }
         }
       )
