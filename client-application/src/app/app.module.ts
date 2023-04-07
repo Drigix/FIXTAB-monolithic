@@ -16,8 +16,13 @@ import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common
 import { LoginService } from './services/login.service';
 import { UntypedFormBuilder } from '@angular/forms';
 import { TokenInterceptor } from './config/token-interceptor.service';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ProfileModule } from './pages/profile/profile.module';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -37,7 +42,13 @@ import { ProfileModule } from './pages/profile/profile.module';
     MainModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    TranslateModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+      provide: TranslateLoader,
+      useFactory: HttpLoaderFactory,
+      deps: [HttpClient]
+      }
+      }),
   ],
   providers: [
     DialogService,
