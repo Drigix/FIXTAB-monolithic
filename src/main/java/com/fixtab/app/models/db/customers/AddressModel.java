@@ -14,8 +14,7 @@ public class AddressModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "addressid")
-    private String addressId;
-
+    private int addressId;
     @Column(name = "street")
     private String street;
     @Column(name = "city")
