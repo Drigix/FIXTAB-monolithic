@@ -39,10 +39,13 @@ export class ProfileComponent implements OnInit {
       this.employeeService.changePassword(this.password).subscribe(
         {
           next: (response) => {
-            console.log(response);
+            this.messageService.add({key: 'mainToast', severity: 'success', summary: 'Sukces',
+              detail: 'Hasło zostało zmienione pomyślnie!'});
+            this.ref.close();
           },
           error: (error) => {
-            console.log(error);
+            this.messageService.add({key: 'mainToast', severity: 'error', summary: 'Błąd',
+              detail: 'Wystąpił błąd podczas zmiany hasła!'});
           }
         }
       )

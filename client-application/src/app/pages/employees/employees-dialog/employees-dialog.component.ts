@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { Authority } from 'src/app/auth/authority.model';
 import { Employee, EmployeePassword } from 'src/app/entitites/employee-model';
 import { EmployeeRole } from 'src/app/entitites/employee-role.model';
 import { ChangeDateService } from 'src/app/services/change-date.service';
