@@ -87,7 +87,7 @@ export class TableComponent implements OnChanges {
     this.cd.detectChanges();
   }, 500, { trailing: true });
 
-  constructor(private cd: ChangeDetectorRef, private renderer: Renderer2) { }
+  constructor(public cd: ChangeDetectorRef, public renderer: Renderer2) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, @typescript-eslint/prefer-optional-chain

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-04-05T18:35:57+0200",
+    date = "2023-04-07T22:23:36+0200",
     comments = "version: 1.5.3.Final, compiler: javac, environment: Java 18.0.1.1 (Oracle Corporation)"
 )
 @Component
@@ -52,7 +52,7 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         employeeModel.gender( employeeRequest.getGender() );
         employeeModel.pesel( employeeRequest.getPesel() );
         employeeModel.roleId( employeeRequest.getRoleId() );
-        employeeModel.deleted(false);
+
         return employeeModel.build();
     }
 
@@ -75,7 +75,6 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         employeeModel.gender( employeeRequest.getGender() );
         employeeModel.pesel( employeeRequest.getPesel() );
         employeeModel.roleId( employeeRequest.getRoleId() );
-        employeeModel.deleted(false);
 
         return employeeModel.build();
     }

@@ -1,7 +1,9 @@
 package com.fixtab.app.models.db.customers;
 
+import com.fixtab.app.models.db.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.Date;
 
@@ -9,10 +11,10 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Table(name = "client")
 @Entity
-public class ClientModel {
+public class ClientModel extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "clientid")
@@ -26,7 +28,6 @@ public class ClientModel {
     private String phoneNumber;
     @Column(name = "email")
     private String email;
-
     @Column(name = "birthdate")
     private Date birthDate;
     @Column(name = "gender")
@@ -37,6 +38,7 @@ public class ClientModel {
     /*
     * OUR FOREIGN KEYS TO JOIN !!!
     * */
-    @Column(name = "addressid")
-    private Integer addressId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "addressid")
+    private AddressModel address;
 }

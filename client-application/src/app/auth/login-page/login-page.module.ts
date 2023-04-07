@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { LoginPageComponent } from './login-page.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { LoginPageComponent } from './login-page.component';
     FormsModule,
     CommonModule,
     ButtonModule,
-    InputTextModule
+    InputTextModule,
+    TranslateModule
   ],
   exports: [
     LoginPageComponent

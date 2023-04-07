@@ -100,12 +100,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         Optional<EmployeeModel> employee = employeeRepository.findByEmail(email);
         Optional<PasswordModel> password = passwordRepository.findByEmployeeId(employee.get().getEmployeeId());
 
-        String salt = PasswordHelperMethods.generateBase64Salt();
-        String oldHashPassword = PasswordHelperMethods.passwordToHash(changePasswordRequest.getOldPassword(), employee.get().getEmail(), salt);
-        if(password.get().getPasswordHash() != oldHashPassword) {
+        String requestHashPassword = PasswordHelperMethods.passwordToHash(changePasswordRequest.getOldPassword(), employee.get().getEmail(), password.get().getSalt());
+        if(!requestHashPassword.equals(password.get().getPasswordHash())) {
             throw new RuntimeException();
         }
-        String newHashPassword = PasswordHelperMethods.passwordToHash(changePasswordRequest.getPassword(), employee.get().getEmail(), salt);
+        String newHashPassword = PasswordHelperMethods.passwordToHash(changePasswordRequest.getPassword(), employee.get().getEmail(),  password.get().getSalt());
         password.get().setPasswordHash(newHashPassword);
         passwordRepository.save(password.get());
     }

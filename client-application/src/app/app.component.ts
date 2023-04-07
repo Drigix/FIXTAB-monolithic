@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthorityService } from './auth/authority.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -12,10 +13,13 @@ export class AppComponent implements OnInit {
   isAuthorized = false;
 
   constructor(
-    private authorityService: AuthorityService
+    private authorityService: AuthorityService,
+    private translateService: TranslateService
   ) {}
 
   ngOnInit(): void {
       this.isAuthorized = this.authorityService.getUserAuthenticate();
+      this.translateService.setDefaultLang('pl');
+      this.translateService.use('pl');
   }
 }

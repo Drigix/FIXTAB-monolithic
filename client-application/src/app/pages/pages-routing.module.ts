@@ -23,7 +23,15 @@ import { Authority } from '../auth/authority.model';
         {
           path: '',
           loadChildren: () => import('./repairs/repairs.module').then(m => m.RepairsModule)
-        }
+        },
+        {
+          path: '',
+          loadChildren: () => import('./clients/clients.module').then(m => m.ClientsModule)
+        },
+        {
+          path: '',
+          loadChildren: () => import('./objects/objects.module').then(m => m.ObjectsModule)
+        },
       ]
     )
   ]

@@ -66,7 +66,6 @@ export class EmployeesComponent implements OnInit {
 
    onEmployeeSelected(event: Employee): void {
       this.selectedEmployee = event;
-      console.log(this.selectedEmployee);
    }
 
    openEmployeesDialog(edit: boolean): void {
