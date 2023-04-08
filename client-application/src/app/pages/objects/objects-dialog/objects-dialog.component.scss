@@ -1,0 +1,9 @@
+:host ::ng-deep .p-dropdown  {
+  width: 230px;
+  height: 40px;
+  text-align: left;
+}
+
+:host ::ng-deep .p-dropdown input {
+  display: none;
+}

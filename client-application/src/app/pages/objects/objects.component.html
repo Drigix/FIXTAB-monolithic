@@ -1,1 +1,8 @@
-<h2>obiekty</h2>
+<div class="table-with-buttons">
+  <fixtab-table [columns]="columns" [values]="objects" tableName="Obiekty"
+    [showTableName]="true" (selected)="onObjectSelected($event)"></fixtab-table>
+  <fixtab-table-buttons (addActionEmit)="openObjectDialog($event)"
+    (editActionEmit)="openObjectDialog($event)" (deleteActionEmit)="openObjectDeleteDialog($event)" [isSelectedItem]="selectedObject !== null"></fixtab-table-buttons>
+</div>
+
+<fixtab-delete-dialog *ngIf="openDeleteDialog" (deleteConfirmationEmit)="handleObjectDeleteDialog($event)"></fixtab-delete-dialog>

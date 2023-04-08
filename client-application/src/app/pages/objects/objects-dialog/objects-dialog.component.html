@@ -1,0 +1,19 @@
+<div class="dialog-body">
+  <form #form="ngForm" [formGroup]="objectForm" class="dialog-form">
+    <span class="p-float-label">
+      <input pInputText id="name" formControlName="name" placeholder="Nazwa" [(ngModel)]="object.name" />
+    </span>
+    <span class="p-float-label">
+      <p-dropdown [options]="clients" id="client" optionLabel="name" formControlName="client" [(ngModel)]="selectedClient"
+            placeholder="Klient"  appendTo="body">
+      </p-dropdown>
+    </span>
+    <span class="p-float-label">
+      <input pInputText id="objectType" formControlName="objectType" placeholder="Typ obiektu" [(ngModel)]="objectType.nameType" />
+    </span>
+  </form>
+  <div class="dialog-footer">
+    <p-button styleClass="button-width dialog-button-margin" [label]="edit ? 'Edytuj': 'Dodaj' " [disabled]="objectForm.invalid" (onClick)="edit ? onEditObject() : onCreateObject()"></p-button>
+    <p-button styleClass="button-width dialog-button-margin" (onClick)="onCloseDialog()">Anuluj</p-button>
+  </div>
+</div>
