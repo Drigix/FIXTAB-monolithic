@@ -3,6 +3,7 @@ package com.fixtab.app.services.implementations;
 import com.fixtab.app.mappers.ClientMapper;
 import com.fixtab.app.models.db.customers.ClientModel;
 import com.fixtab.app.models.requests.ClientRequest;
+import com.fixtab.app.models.requests.EditClientRequest;
 import com.fixtab.app.models.responses.ClientResponse;
 import com.fixtab.app.respositories.ClientRepository;
 import com.fixtab.app.services.interfaces.ClientService;
@@ -22,9 +23,9 @@ public class ClientServiceImpl implements ClientService {
     private final ClientMapper clientMapper;
 
     @Override
-    public List<ClientResponse> getAllClients() {
+    public List<ClientModel> getAllClients() {
         List<ClientModel> clients = clientRepository.findAll();
-        return clients.stream().map(clientMapper::toResponse).collect(Collectors.toList());
+        return clients;
     }
 
     @Override
@@ -39,6 +40,16 @@ public class ClientServiceImpl implements ClientService {
         client.setDeleted(false);
         clientRepository.save(client);
         return clientMapper.toResponse(client);
+    }
+
+    @Override
+    public void editClient(EditClientRequest editClientRequest) {
+        ClientModel updateClient = clientMapper.toEntity(editClientRequest);
+        Optional<ClientModel> client = clientRepository.findById(editClientRequest.getClientId());
+        updateClient.setDeleted(client.get().getDeleted());
+        updateClient.setCreatedBy(client.get().getCreatedBy());
+        updateClient.setCreatedDate(client.get().getCreatedDate());
+        clientRepository.save(updateClient);
     }
 
     @Override
