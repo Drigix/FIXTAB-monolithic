@@ -1,7 +1,9 @@
 package com.fixtab.app.models.db.customers;
 
+import com.fixtab.app.models.db.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.Date;
 
@@ -9,10 +11,10 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Table(name = "targetobject")
 @Entity
-public class TargetObjectModel {
+public class TargetObjectModel extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "targetid")
@@ -21,9 +23,11 @@ public class TargetObjectModel {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "createdate")
-    private Date createDate;
+    @ManyToOne
+    @JoinColumn(name = "clientid")
+    private ClientModel client;
 
-    @Column(name = "objecttypeid")
-    private Integer objectTypeId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "objecttypeid", nullable = true)
+    private ObjectTypeModel objectType;
 }
