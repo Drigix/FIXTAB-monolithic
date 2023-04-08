@@ -29,7 +29,14 @@
 }
 
 .dialog-body {
+  display: flex;
+  flex-direction: column;
+  font-size: 30px;
+  font-weight: bold;
   overflow: auto;
+  label {
+    padding: 10px;
+  }
 }
 
 .dialog-button-margin {

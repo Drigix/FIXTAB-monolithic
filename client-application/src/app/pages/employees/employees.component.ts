@@ -86,7 +86,9 @@ export class EmployeesComponent implements OnInit {
    }
 
    handleEmployeesDialog(response: any): void {
-      console.log(response);
+      if(response) {
+        this.loadEmployees();
+      }
    }
 
    handleEmployeesDeleteDialog(response: boolean): void {

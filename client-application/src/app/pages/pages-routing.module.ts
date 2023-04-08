@@ -32,6 +32,10 @@ import { Authority } from '../auth/authority.model';
           path: '',
           loadChildren: () => import('./objects/objects.module').then(m => m.ObjectsModule)
         },
+        {
+          path: '',
+          loadChildren: () => import('./archive/archive.module').then(m => m.ArchiveModule)
+        },
       ]
     )
   ]

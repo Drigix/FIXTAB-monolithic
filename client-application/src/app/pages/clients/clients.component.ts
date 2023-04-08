@@ -80,7 +80,9 @@ export class ClientsComponent implements OnInit {
    }
 
    handleClientDialog(response: any) {
-
+      if(response) {
+        this.loadClients();
+      }
    }
 
    handleClientDeleteDialog(response: boolean): void {
