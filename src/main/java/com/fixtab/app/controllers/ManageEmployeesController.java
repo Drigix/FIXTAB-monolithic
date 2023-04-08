@@ -49,11 +49,11 @@ public class ManageEmployeesController {
     @PutMapping("changePassword")
     public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest) {
         employeeService.changePassword(changePasswordRequest);
-        return new ResponseEntity<Authenticator.Success>(HttpStatus.OK);
+        return new ResponseEntity<>("{\"Success\":\"Password has been change!\"}",HttpStatus.OK);
     }
 
     @PutMapping("editEmployee")
-    public EmployeeResponse createEmployee(@RequestBody EditEmployeeRequest editEmployeeRequest) {
+    public EmployeeResponse editEmployee(@RequestBody EditEmployeeRequest editEmployeeRequest) {
         return employeeService.editEmployee(editEmployeeRequest);
     }
 

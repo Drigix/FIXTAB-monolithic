@@ -84,18 +84,20 @@ export class EmployeesDialogComponent implements OnInit {
     this.employee.roleId = this.selectedRole?.roleId;
     this.employeeService.edit(this.employee).subscribe(
       {
-        next: () => {
-          console.log('edytowano');
+        next: (response) => {
+          this.messageService.add({key: 'mainToast', severity: 'success', summary: 'Success',
+              detail: 'edytowano!'});
+          this.ref.close(response);
         },
         error: (error) => {
-          console.log(error);
+          this.messageService.add({key: 'mainToast', severity: 'success', summary: 'Success',
+              detail: 'nie edytowano!'});
         }
       }
     );
-      this.ref.close();
   }
 
-  onCloseDialog(): void {
-    this.ref.close();
+  onCloseDialog(response = false): void {
+    this.ref.close(response);
   }
 }

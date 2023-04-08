@@ -1,19 +1,18 @@
 import { NgModule } from '@angular/core';
-import { ObjectsComponent } from './objects.component';
-import { ObjectsRoutingModule } from './objects-routing.module';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { CalendarModule } from 'primeng/calendar';
+import { ArchiveRoutingModule } from './archive-routing.module';
+import { ArchiveComponent } from './archive.component';
 import { DropdownModule } from 'primeng/dropdown';
-import { ObjectsDialogComponent } from './objects-dialog/objects-dialog.component';
 
 
 @NgModule({
   imports: [
-    ObjectsRoutingModule,
+    ArchiveRoutingModule,
     ComponentsModule,
     ButtonModule,
     CommonModule,
@@ -24,9 +23,11 @@ import { ObjectsDialogComponent } from './objects-dialog/objects-dialog.componen
     DropdownModule
   ],
   exports: [
-    ObjectsComponent
+    ArchiveComponent
   ],
-  declarations: [ObjectsComponent, ObjectsDialogComponent],
+  declarations: [
+    ArchiveComponent
+  ],
   providers: [],
 })
-export class ObjectsModule { }
+export class ArchiveModule { }
