@@ -9,11 +9,12 @@ export class MenuService {
 
   getMenuItems(): IMenuItem[] {
     const items: IMenuItem[] = [
-      this.createMenuItem('fa fa-home', 'Główna', '/', []),
+      this.createMenuItem('fa fa-home', 'Główna', '/', [Authority.ROLE_ADMIN, Authority.ROLE_MANAGER, Authority.ROLE_EMPLOYEE]),
       this.createMenuItem('fa fa-users', 'Pracownicy', 'employees', [Authority.ROLE_ADMIN, Authority.ROLE_MANAGER]),
       this.createMenuItem('fa fa-gear', 'Naprawy', 'repairs', [Authority.ROLE_ADMIN, Authority.ROLE_MANAGER]),
       this.createMenuItem('fa fa-address-book', 'Klienci', 'clients', [Authority.ROLE_ADMIN, Authority.ROLE_MANAGER]),
-      this.createMenuItem('fas fa-dice-d6', 'Obiekty', 'objects', [Authority.ROLE_ADMIN, Authority.ROLE_MANAGER])
+      this.createMenuItem('fa fa-cube', 'Obiekty', 'objects', [Authority.ROLE_ADMIN, Authority.ROLE_MANAGER]),
+      this.createMenuItem('fa fa-archive', 'Archiwum', 'archive', [Authority.ROLE_ADMIN, Authority.ROLE_MANAGER])
     ];
     return items;
   }

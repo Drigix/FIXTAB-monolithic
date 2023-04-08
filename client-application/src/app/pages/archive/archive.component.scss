@@ -1,0 +1,22 @@
+.archive-table {
+  display: grid;
+  grid-template-rows: 14% auto;
+  border: 2px solid var(--primary-color);
+  height: calc(100vh - 50px);
+}
+
+.archive-dropdown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+:host ::ng-deep .p-dropdown  {
+  width: 230px;
+  height: 40px;
+  text-align: left;
+}
+
+:host ::ng-deep .p-dropdown input {
+  display: none;
+}

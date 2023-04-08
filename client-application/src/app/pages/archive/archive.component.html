@@ -1,0 +1,9 @@
+<div class="archive-table">
+  <div class="archive-dropdown">
+    <p-dropdown [options]="archiveTables" id="archive-tables" optionLabel="tableName" [(ngModel)]="selectedTable"
+            (onChange)="onArchiveTableChange()" placeholder="Wybierz tabelę"  appendTo="body">
+    </p-dropdown>
+  </div>
+  <fixtab-table *ngIf="selectedTable !== null" [columns]="columns" [values]="values" [tableName]="selectedTable.tableName!"
+    [showTableName]="true"></fixtab-table>
+</div>
