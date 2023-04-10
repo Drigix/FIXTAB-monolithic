@@ -21,7 +21,7 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
     const role = this.authorityService.getUserRole();
     this.items = this.menuService.getMenuItems();
-    this.items = this.items.filter(item => item.auth.includes(role));
+    //this.items = this.items.filter(item => item.auth.includes(role));
   }
 
 }
