@@ -9,13 +9,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -53,12 +51,10 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         UserModel user = Optional.ofNullable(employeeService.getUserModel(jwtTokenUtil.getUsernameFromToken(token)))
                 .orElse(null);
-
         UsernamePasswordAuthenticationToken
                 authentication = new UsernamePasswordAuthenticationToken(
                 user, null,
-                user == null ?
-                        List.of() : user.getAuthorities()
+                        user.getAuthorities()
         );
 
         authentication.setDetails(

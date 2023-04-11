@@ -5,12 +5,14 @@ import com.fixtab.app.infrastructure.PasswordHelperMethods;
 import com.fixtab.app.models.db.UserModel;
 import com.fixtab.app.models.db.customers.PasswordModel;
 import com.fixtab.app.models.db.employees.EmployeeModel;
+import com.fixtab.app.models.db.employees.EmployeeRoleModel;
 import com.fixtab.app.models.requests.ChangePasswordRequest;
 import com.fixtab.app.models.requests.CreateEmployeeRequest;
 import com.fixtab.app.models.requests.EditEmployeeRequest;
 import com.fixtab.app.models.responses.EmployeeResponse;
 import com.fixtab.app.respositories.EmployeeRepository;
 import com.fixtab.app.respositories.PasswordRepository;
+import com.fixtab.app.services.interfaces.EmployeeRoleService;
 import com.fixtab.app.services.interfaces.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -27,6 +29,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
     private final PasswordRepository passwordRepository;
+
+    private final EmployeeRoleService employeeRoleService;
 
     private final EmployeeMapper employeeMapper;
 
@@ -52,7 +56,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         UserModel user = UserModel.builder()
                 .hashedPassword(password.get().getPasswordHash())
-                .role(null)
+                .role(employeeRoleService.getEmployeeRole(employee.get().getRoleId()).get())
                 .name(employee.get().getName())
                 .surname(employee.get().getSurname())
                 .email(employee.get().getEmail())
