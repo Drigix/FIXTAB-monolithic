@@ -8,7 +8,6 @@ import com.fixtab.app.models.requests.LoginRequest;
 import com.fixtab.app.models.responses.LoginResponse;
 import com.fixtab.app.respositories.PasswordRepository;
 import com.fixtab.app.security.JwtTokenUtil;
-import com.fixtab.app.services.implementations.EmployeeRoleServiceImpl;
 import com.fixtab.app.services.interfaces.EmployeeRoleService;
 import com.fixtab.app.services.interfaces.EmployeeService;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +20,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
 
@@ -55,7 +57,7 @@ public class AuthController {
 
             PasswordModel password = passwordOptional.get();
             String hashedPassword = PasswordHelperMethods.passwordToHash(request.getPassword(), employee.getEmail(), password.getSalt());
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(request.getEmail(), hashedPassword);
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(request.getEmail(), hashedPassword, List.of(employeeRoleModelOptional.get()));
 
             Authentication authenticate = authenticationManager.authenticate(authenticationToken);
             UserDetails user = (UserDetails) authenticate.getPrincipal();
