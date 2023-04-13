@@ -9,6 +9,7 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring", uses = {})
 public interface EmployeeMapper {
+    @Mapping(target = "fullName", expression = "java(employeeModel.getName() + \" \" + employeeModel.getSurname())")
     EmployeeResponse toResponse(EmployeeModel employeeModel);
 
     EmployeeModel toEntity(CreateEmployeeRequest employeeRequest);
