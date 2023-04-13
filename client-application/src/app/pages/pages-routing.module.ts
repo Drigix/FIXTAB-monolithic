@@ -10,11 +10,7 @@ import { Authority } from '../auth/authority.model';
       [
         {
           path: '',
-          data: {
-            authorities: ['']
-          },
           loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
-          canActivate: [authGuard]
         },
         {
           path: '',

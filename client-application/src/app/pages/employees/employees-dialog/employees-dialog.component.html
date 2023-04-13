@@ -5,32 +5,38 @@
         <input pInputText id="name" formControlName="name" placeholder="Imie" [(ngModel)]="employee.name" />
       </span>
       <span class="p-float-label">
-        <input pInputText id="surname" formControlName="surname" placeholder="Nazwisko" [(ngModel)]="employee.surname" />
+        <input pInputText id="surname" formControlName="surname" placeholder="Nazwisko"
+          [(ngModel)]="employee.surname" />
       </span>
       <span class="p-float-label">
         <input pInputText id="email" formControlName="email" placeholder="Email" [(ngModel)]="employee.email" />
       </span>
       <span class="p-float-label">
-        <p-calendar formControlName="birthDay" dateFormat="dd-mm-yy" [(ngModel)]="employeeBirthDate" appendTo="body" placeholder="Data urodzenia"></p-calendar>
+        <p-calendar formControlName="birthDay" dateFormat="dd-mm-yy" [(ngModel)]="employeeBirthDate"
+          [maxDate]="maxEmployeeBirthDate" [defaultDate]="maxEmployeeBirthDate" appendTo="body"
+          placeholder="Data urodzenia"></p-calendar>
       </span>
       <span class="p-float-label">
-        <input pInputText id="phoneNumber" formControlName="phoneNumber" placeholder="Numer telefonu" [(ngModel)]="employee.phoneNumber" maxlength="11"/>
+        <input pInputText id="phoneNumber" formControlName="phoneNumber" placeholder="Numer telefonu"
+          [(ngModel)]="employee.phoneNumber" maxlength="11" />
       </span>
       <span class="p-float-label">
         <input pInputText id="gender" formControlName="gender" placeholder="Płeć" [(ngModel)]="employee.gender" />
       </span>
       <span class="p-float-label">
-        <input pInputText id="pesel" formControlName="pesel" placeholder="Pesel" [(ngModel)]="employee.pesel" maxlength="11" />
+        <input pInputText id="pesel" formControlName="pesel" placeholder="Pesel" [(ngModel)]="employee.pesel"
+          maxlength="11" />
       </span>
       <span class="p-float-label">
         <p-dropdown [options]="roles" id="role" optionLabel="roleName" formControlName="role" [(ngModel)]="selectedRole"
-            placeholder="Rola" [autoDisplayFirst]="false" appendTo="body">
+          placeholder="Rola" [autoDisplayFirst]="false" appendTo="body">
         </p-dropdown>
       </span>
     </form>
   </div>
   <div class="dialog-footer">
-    <p-button styleClass="button-width dialog-button-margin" [label]="edit ? 'Edytuj': 'Dodaj' " [disabled]="employeeForm.invalid" (onClick)="edit ? onEditEmployee() :onCreateEmployee()"></p-button>
+    <p-button styleClass="button-width dialog-button-margin" [label]="edit ? 'Edytuj': 'Dodaj' "
+      [disabled]="employeeForm.invalid" (onClick)="edit ? onEditEmployee() :onCreateEmployee()"></p-button>
     <p-button styleClass="button-width dialog-button-margin" (onClick)="onCloseDialog()">Anuluj</p-button>
   </div>
 </div>
