@@ -8,6 +8,7 @@ import { TableButtonsComponent } from './table-buttons/table-buttons.component';
 import { ButtonModule } from 'primeng/button';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ExpandedTableModule } from './expanded-table/expanded-table.module';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     MenuComponent,
     FixtabTableModule,
     TableButtonsComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    ExpandedTableModule
   ]
 })
 export class ComponentsModule { }
