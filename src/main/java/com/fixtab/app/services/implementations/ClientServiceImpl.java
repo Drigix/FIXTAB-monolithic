@@ -8,6 +8,7 @@ import com.fixtab.app.models.responses.ClientResponse;
 import com.fixtab.app.respositories.ClientRepository;
 import com.fixtab.app.services.interfaces.ClientService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,9 +47,11 @@ public class ClientServiceImpl implements ClientService {
     public void editClient(EditClientRequest editClientRequest) {
         ClientModel updateClient = clientMapper.toEntity(editClientRequest);
         Optional<ClientModel> client = clientRepository.findById(editClientRequest.getClientId());
+        String editBy = SecurityContextHolder.getContext().getAuthentication().getName();
         updateClient.setDeleted(client.get().getDeleted());
         updateClient.setCreatedBy(client.get().getCreatedBy());
         updateClient.setCreatedDate(client.get().getCreatedDate());
+        updateClient.setModifiedBy(editBy);
         clientRepository.save(updateClient);
     }
 

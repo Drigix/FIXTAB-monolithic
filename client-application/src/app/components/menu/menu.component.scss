@@ -2,10 +2,16 @@
   border: 2px solid var(--primary-color);
 }
 
+:host ::ng-deep .p-panelmenu {
+  height: calc(70vh - 200px);
+  overflow: auto;
+}
+
 :host ::ng-deep .p-panelmenu .p-panelmenu-panel {
   margin: 20px;
 }
 
 :host ::ng-deep .p-panelmenu .p-panelmenu-panel .p-panelmenu-header > a {
   font-size: 18px;
+  overflow: auto;
 }

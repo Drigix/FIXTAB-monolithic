@@ -33,20 +33,16 @@ export class EmployeesComponent implements OnInit {
    loadColums(): void {
     this.columns = [
       {
-        header: "Imie",
-        field: "name"
-      },
-      {
-        header: "Nazwisko",
-        field: "surname"
+        header: "Pracownik",
+        field: "fullName"
       },
       {
         header: "Telefon",
         field: "phoneNumber"
       },
       {
-        header: "Data urodzenia",
-        field: "birthDate"
+        header: "Email",
+        field: "email"
       },
       // {
       //   header: "Rola",

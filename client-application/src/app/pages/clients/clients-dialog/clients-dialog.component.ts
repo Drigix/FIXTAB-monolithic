@@ -4,7 +4,6 @@ import { MessageService } from 'primeng/api';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Address } from 'src/app/entitites/address.model';
 import { Client } from 'src/app/entitites/client.model';
-import { Employee } from 'src/app/entitites/employee-model';
 import { ChangeDateService } from 'src/app/services/change-date.service';
 import { ClientsService } from 'src/app/services/clients.service';
 
@@ -29,7 +28,8 @@ export class ClientsDialogComponent implements OnInit {
 
   client: Client = new Client();
   address: Address = new Address();
-  clientBirthDate: Date = new Date();
+  clientBirthDate: Date | null = null;
+  maxClientBirthDate = new Date();
   edit = false;
 
   constructor(
@@ -48,6 +48,7 @@ export class ClientsDialogComponent implements OnInit {
       this.address = this.client.address!;
       this.clientBirthDate = new Date(this.client.birthDate!);
     }
+    this.maxClientBirthDate.setFullYear(this.maxClientBirthDate.getFullYear() - 18);
   }
 
   onEditClient(): void {

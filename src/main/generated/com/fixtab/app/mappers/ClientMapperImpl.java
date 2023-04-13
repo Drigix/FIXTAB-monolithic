@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-04-08T14:36:45+0200",
+    date = "2023-04-13T21:36:24+0200",
     comments = "version: 1.5.3.Final, compiler: javac, environment: Java 18.0.1.1 (Oracle Corporation)"
 )
 @Component
@@ -32,6 +32,8 @@ public class ClientMapperImpl implements ClientMapper {
         clientResponse.setGender( clientModel.getGender() );
         clientResponse.setPesel( clientModel.getPesel() );
         clientResponse.setAddress( clientModel.getAddress() );
+
+        clientResponse.setFullName( clientModel.getName() + " " + clientModel.getSurname() );
 
         return clientResponse;
     }

@@ -14,6 +14,7 @@ public class ClientResponse {
     private int clientId;
     private String name;
     private String surname;
+    private String fullName;
     private String phoneNumber;
     private String email;
     private Date birthDate;

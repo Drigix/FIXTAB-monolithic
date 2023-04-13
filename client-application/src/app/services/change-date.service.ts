@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 export class ChangeDateService {
   constructor() { }
 
-  public changeDateToString(date: Date): string {
+  changeDateToString(date: Date): string {
     let stringDate = date.getFullYear().toString() + '-';
     const day = date.getDate();
     const month = date.getMonth() + 1;
@@ -19,5 +19,22 @@ export class ChangeDateService {
       stringDate += day;
     }
     return stringDate;
+  }
+
+  changeTimeToString(time: Date): string {
+    let stringTime = '';
+    const hour = time.getHours();
+    const minute = time.getMinutes();
+    if(hour < 10) {
+      stringTime += '0' + hour + ':';
+    } else {
+      stringTime += hour + ':';
+    }
+    if(minute < 10) {
+      stringTime += '0' + minute;
+    } else {
+      stringTime += minute;
+    }
+    return stringTime;
   }
 }

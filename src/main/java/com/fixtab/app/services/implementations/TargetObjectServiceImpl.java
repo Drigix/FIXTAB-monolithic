@@ -1,7 +1,7 @@
 package com.fixtab.app.services.implementations;
 
+import com.fixtab.app.models.requests.EditTargetObjectRequest;
 import com.fixtab.app.respositories.ClientRepository;
-import com.fixtab.app.mappers.ObjectTypeMapper;
 import com.fixtab.app.mappers.TargetObjectMapper;
 import com.fixtab.app.models.db.customers.ClientModel;
 import com.fixtab.app.models.db.customers.TargetObjectModel;
@@ -10,6 +10,7 @@ import com.fixtab.app.models.responses.TargetObjectResponse;
 import com.fixtab.app.respositories.TargetObjectRepository;
 import com.fixtab.app.services.interfaces.TargetObjectService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,7 +27,6 @@ public class TargetObjectServiceImpl implements TargetObjectService {
 
     private final TargetObjectMapper targetObjectMapper;
 
-    private final ObjectTypeMapper objectTypeMapper;
 
     @Override
     public List<TargetObjectModel> getAllTargetObjects(){
@@ -51,8 +51,16 @@ public class TargetObjectServiceImpl implements TargetObjectService {
     }
 
     @Override
-    public void editTargetObject(TargetObjectRequest targetObjectRequest){
+    public void editTargetObject(EditTargetObjectRequest editTargetObjectRequest){
+        TargetObjectModel updateTargetObjectModel = targetObjectMapper.toEntity(editTargetObjectRequest);
+        Optional<TargetObjectModel> targetObjectModel = targetObjectRepository.findById(updateTargetObjectModel.getTargetId());
+        String editBy = SecurityContextHolder.getContext().getAuthentication().getName();
+        updateTargetObjectModel.setDeleted(targetObjectModel.get().getDeleted());
+        updateTargetObjectModel.setCreatedBy(targetObjectModel.get().getCreatedBy());
+        updateTargetObjectModel.setCreatedDate(targetObjectModel.get().getCreatedDate());
+        updateTargetObjectModel.setModifiedBy(editBy);
 
+        targetObjectRepository.save(updateTargetObjectModel);
     }
 
     @Override

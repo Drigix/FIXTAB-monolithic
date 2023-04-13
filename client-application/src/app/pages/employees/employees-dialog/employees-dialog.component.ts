@@ -30,6 +30,7 @@ export class EmployeesDialogComponent implements OnInit {
 
   employee: Employee = new Employee();
   employeeBirthDate: Date | null = null;
+  maxEmployeeBirthDate = new Date();
   roles: EmployeeRole[] = [];
   selectedRole: EmployeeRole | null = null;
   showPassword = false;
@@ -53,6 +54,7 @@ export class EmployeesDialogComponent implements OnInit {
       this.employee = this.config.data.employee;
       this.employeeBirthDate = new Date(this.employee.birthDate!);
     }
+    this.maxEmployeeBirthDate.setFullYear(this.maxEmployeeBirthDate.getFullYear() - 16);
   }
 
   loadRoles(): void {

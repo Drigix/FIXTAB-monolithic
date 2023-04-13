@@ -8,6 +8,8 @@ import { TooltipModule } from 'primeng/tooltip';
 import { DialogModule } from 'primeng/dialog';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ButtonModule } from 'primeng/button';
+import { AccordionModule } from 'primeng/accordion';
+
 
 @NgModule({
   imports: [
@@ -18,7 +20,8 @@ import { ButtonModule } from 'primeng/button';
     TooltipModule,
     DialogModule,
     FontAwesomeModule,
-    ButtonModule
+    ButtonModule,
+    AccordionModule
   ],
   exports: [
     ExpandedTableComponent

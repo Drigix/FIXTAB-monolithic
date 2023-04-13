@@ -33,12 +33,8 @@ export class ClientsComponent implements OnInit {
   loadColumn(): void {
     this.columns = [
       {
-        header: 'Imie',
-        field: 'name'
-      },
-      {
-        header: 'Nazwisko',
-        field: 'surname'
+        header: 'Klient',
+        field: 'fullName'
       },
       {
         header: 'Email',

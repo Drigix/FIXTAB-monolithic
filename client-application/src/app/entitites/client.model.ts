@@ -5,6 +5,7 @@ interface IClient {
   email?: string;
   name?: string;
   surname?: string;
+  fullName?: string;
   address?: Address;
   birthDate?: string;
   pesel?: string;

@@ -11,6 +11,21 @@
   border: none;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+  padding: 20px;
+}
+
+:host ::ng-deep .pi-search {
+  position: relative;
+  left: 25px !important;
+  top: 2px;
+  font-size: 17px;
+  font-weight: 600;
+}
+
 :host ::ng-deep .p-datatable-header {
   background-color: var(--background-color-darker);
   border: 1px solid #3a4451 !important;
@@ -46,6 +61,37 @@
   border: 1px solid #3a4451;
 }
 
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  background-color: var(--background-color-darker);
+  border: 1px solid #3a4451;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-thead th:first-child {
+  border-right: none !important;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-thead th:nth-child(2) {
+  border-left: none !important;
+}
+
+:host ::ng-deep .pi-check {
+  color: green;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+:host ::ng-deep .pi-times {
+  color: red;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+:host ::ng-deep .pi-clock {
+  color: orange;
+  font-size: 20px;
+  font-weight: bold;
+}
+
 // :host ::ng-deep .p-datatable-wrapper {
 //   border-bottom: none;
 // }
@@ -76,13 +122,6 @@
 
 // :host ::ng-deep .p-datatable ::-webkit-scrollbar-thumb {
 //   border-radius: 0;
-// }
-
-// .header {
-//   display: flex;
-//   justify-content: space-between;
-//   background-color: #EFF0F6;
-//   flex-direction: row-reverse;
 // }
 
 // :host ::ng-deep table tr {

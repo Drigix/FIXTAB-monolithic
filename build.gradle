@@ -32,14 +32,18 @@ dependencies {
 	implementation 'org.mapstruct:mapstruct:1.5.3.Final'
 	implementation 'software.amazon.awssdk:regions:2.16.87'
 	implementation 'software.amazon.awssdk:secretsmanager:2.16.87'
-	implementation 'org.json:json:20210307'
-	implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.4'
 	compileOnly 'org.projectlombok:lombok'
+	implementation 'org.json:json:20210307'
+	implementation 'org.hibernate.validator:hibernate-validator:8.0.0.Final'
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'
+	implementation 'javax.servlet:javax.servlet-api:4.0.1'
+	implementation 'org.zalando:problem-spring-web:0.28.0'
 	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
+
 
 tasks.named('test') {
 	useJUnitPlatform()
