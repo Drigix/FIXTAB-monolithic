@@ -2,6 +2,7 @@ interface IEmployee {
   employeeId?: number;
   name?: string;
   surname?: string;
+  fullName?: string;
   email?: string;
   phoneNumber?: string;
   birthDate?: string;
@@ -22,6 +23,7 @@ export class Employee implements IEmployee {
    public employeeId?: number,
    public name?: string,
    public surname?: string,
+   public fullName?: string,
    public email?: string,
    public birthDate?: string,
    public phoneNumber?: string,
