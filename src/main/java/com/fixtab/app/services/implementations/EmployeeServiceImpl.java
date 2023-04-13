@@ -72,17 +72,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         EmployeeModel employee = employeeMapper.toEntity(request);
         employee.setDeleted(false);
 
-//        EmployeeModel employee = EmployeeModel.builder()
-//                .name(request.getName())
-//                .surname(request.getSurname())
-//                .phoneNumber(request.getPhoneNumber())
-//                .email(request.getEmail())
-//                .birthDate(request.getBirthDate())
-//                .gender(request.getGender())
-//                .pesel(request.getPesel())
-//                .roleId(request.getRoleId())
-//                .deleted(false)
-//                .build();
         employee = employeeRepository.save(employee);
 
         // send newly generated password to email
@@ -93,14 +82,13 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .employeeId(employee.getEmployeeId())
                 .passwordHash(PasswordHelperMethods.passwordToHash(password, employee.getEmail(), salt))
                 .build();
-        passwordModel = passwordRepository.save(passwordModel);
+        passwordRepository.save(passwordModel);
         return password;
     }
 
     @Override
     public void changePassword(ChangePasswordRequest changePasswordRequest) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String email = auth.getName();
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<EmployeeModel> employee = employeeRepository.findByEmail(email);
         Optional<PasswordModel> password = passwordRepository.findByEmployeeId(employee.get().getEmployeeId());
 
@@ -118,14 +106,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeResponse editEmployee(EditEmployeeRequest employeeRequest) {
         EmployeeModel employee = employeeMapper.toEntity(employeeRequest);
         Optional<EmployeeModel> existEmployee = employeeRepository.findById(employee.getEmployeeId());
+        String editBy = SecurityContextHolder.getContext().getAuthentication().getName();
         employee.setDeleted(existEmployee.get().getDeleted());
         employee.setCreatedDate(existEmployee.get().getCreatedDate());
         employee.setCreatedBy(existEmployee.get().getCreatedBy());
-
+        employee.setModifiedBy(editBy);
         employeeRepository.save(employee);
 
-        EmployeeResponse response = employeeMapper.toResponse(employee);
-        return response;
+        return employeeMapper.toResponse(employee);
     }
 
 

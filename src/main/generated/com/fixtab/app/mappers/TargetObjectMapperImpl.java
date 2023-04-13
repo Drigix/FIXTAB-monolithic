@@ -2,6 +2,7 @@ package com.fixtab.app.mappers;
 
 import com.fixtab.app.models.db.customers.ClientModel;
 import com.fixtab.app.models.db.customers.TargetObjectModel;
+import com.fixtab.app.models.requests.EditTargetObjectRequest;
 import com.fixtab.app.models.requests.TargetObjectRequest;
 import com.fixtab.app.models.responses.TargetObjectResponse;
 import javax.annotation.processing.Generated;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-04-08T14:36:46+0200",
+    date = "2023-04-13T21:36:24+0200",
     comments = "version: 1.5.3.Final, compiler: javac, environment: Java 18.0.1.1 (Oracle Corporation)"
 )
 @Component
@@ -46,6 +47,24 @@ public class TargetObjectMapperImpl implements TargetObjectMapper {
         return targetObjectModel.build();
     }
 
+    @Override
+    public TargetObjectModel toEntity(EditTargetObjectRequest editTargetObjectRequest) {
+        if ( editTargetObjectRequest == null ) {
+            return null;
+        }
+
+        TargetObjectModel.TargetObjectModelBuilder<?, ?> targetObjectModel = TargetObjectModel.builder();
+
+        targetObjectModel.client( editTargetObjectRequestToClientModel( editTargetObjectRequest ) );
+        if ( editTargetObjectRequest.getTargetId() != null ) {
+            targetObjectModel.targetId( editTargetObjectRequest.getTargetId() );
+        }
+        targetObjectModel.name( editTargetObjectRequest.getName() );
+        targetObjectModel.objectType( editTargetObjectRequest.getObjectType() );
+
+        return targetObjectModel.build();
+    }
+
     protected ClientModel targetObjectRequestToClientModel(TargetObjectRequest targetObjectRequest) {
         if ( targetObjectRequest == null ) {
             return null;
@@ -55,6 +74,20 @@ public class TargetObjectMapperImpl implements TargetObjectMapper {
 
         if ( targetObjectRequest.getClientId() != null ) {
             clientModel.clientId( targetObjectRequest.getClientId() );
+        }
+
+        return clientModel.build();
+    }
+
+    protected ClientModel editTargetObjectRequestToClientModel(EditTargetObjectRequest editTargetObjectRequest) {
+        if ( editTargetObjectRequest == null ) {
+            return null;
+        }
+
+        ClientModel.ClientModelBuilder<?, ?> clientModel = ClientModel.builder();
+
+        if ( editTargetObjectRequest.getClientId() != null ) {
+            clientModel.clientId( editTargetObjectRequest.getClientId() );
         }
 
         return clientModel.build();
