@@ -24,9 +24,6 @@ public class ActivityModel {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "ready")
-    private boolean ready;
-
     @Column(name = "cancelled")
     private boolean cancelled;
 

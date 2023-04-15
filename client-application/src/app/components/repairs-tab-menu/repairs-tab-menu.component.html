@@ -1,0 +1,11 @@
+<p-tabMenu [scrollable]="true" [model]="repairsHeaderItems" [activeItem]="activeItem!">
+  <ng-template pTemplate="item" let-item let-i="index">
+    {{item.label}}
+    <div *ngIf="i !== repairsHeaderItems.length - 1; else plusIcon">
+      <i *ngIf="i > 0" class="pi pi-times pl-2" style="font-size: 14px;" (click)="onDeleteActivity(i)"></i>
+    </div>
+    <ng-template #plusIcon>
+      <i *ngIf="i > 0" class="pi pi-plus pt-1"></i>
+    </ng-template>
+  </ng-template>
+</p-tabMenu>

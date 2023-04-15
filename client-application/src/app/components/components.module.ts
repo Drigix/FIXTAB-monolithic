@@ -9,27 +9,37 @@ import { ButtonModule } from 'primeng/button';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ExpandedTableModule } from './expanded-table/expanded-table.module';
+import { RepairsTabMenuComponent } from './repairs-tab-menu/repairs-tab-menu.component';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
   declarations: [
     MenuComponent,
     TableButtonsComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    RepairsTabMenuComponent
   ],
   imports: [
     CommonModule,
     PanelMenuModule,
     FontAwesomeModule,
     ButtonModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    TabMenuModule,
+    FormsModule,
+    CommonModule,
+    TranslateModule
   ],
   exports: [
     MenuComponent,
     FixtabTableModule,
     TableButtonsComponent,
     DeleteDialogComponent,
-    ExpandedTableModule
+    ExpandedTableModule,
+    RepairsTabMenuComponent
   ]
 })
 export class ComponentsModule { }

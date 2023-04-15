@@ -24,14 +24,17 @@ public class RequestModel {
     @Column(name = "status")
     private int status;
 
-    @Column(name = "ready")
-    private boolean ready;
-
     @Column(name = "requestcancelled")
     private boolean requestCancelled;
 
-    @Column(name = "statusupdatedate")
-    private Date statusUpdateDate;
+    @Column(name = "opendate")
+    private Date openDate;
+
+    @Column(name = "progressdate")
+    private Date progressDate;
+
+    @Column(name = "enddate")
+    private Date endDate;
 
     /*
     * FOREIGN KEYS !!!

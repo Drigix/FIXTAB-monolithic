@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { RepairsRoutingModule } from './repairs-routing.module';
 import { RepairsComponent } from './repairs.component';
+import { RepairsDialogComponent } from './repairs-dialog/repairs-dialog.component';
+import { TabMenuModule } from 'primeng/tabmenu';
 
 
 @NgModule({
@@ -13,13 +15,17 @@ import { RepairsComponent } from './repairs.component';
     ComponentsModule,
     ButtonModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    TabMenuModule,
+    ReactiveFormsModule
   ],
   exports: [
-    RepairsComponent
+    RepairsComponent,
+    RepairsDialogComponent
   ],
   declarations: [
-    RepairsComponent
+    RepairsComponent,
+    RepairsDialogComponent
   ],
   providers: [],
 })

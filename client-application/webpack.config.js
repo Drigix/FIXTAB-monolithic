@@ -9,10 +9,10 @@ module.exports = {
         new MergeJsonWebpackPlugin({
             output: {
                 groupBy: [
-                    { pattern: "./src/i18n/pl/*.json", fileName: "./assets/i18n/pl.json" },
-                    { pattern: "./src/i18n/en/*.json", fileName: "./assets/i18n/en.json" },
-                    { pattern: "./src/i18n/pl/*.json", fileName: "../src/assets/i18n/pl.json" },
-                    { pattern: "./src/i18n/en/*.json", fileName: "../src/assets/i18n/en.json" },
+                    { pattern: "./src/assets/i18n/pl/*.json", fileName: "./assets/i18n/pl.json" },
+                    { pattern: "./src/assets/i18n/en/*.json", fileName: "./assets/i18n/en.json" },
+                    { pattern: "./src/assets/i18n/pl/*.json", fileName: "../src/assets/i18n/pl.json" },
+                    { pattern: "./src/assets/i18n/en/*.json", fileName: "../src/assets/i18n/en.json" },
                 ]
             }
         }),

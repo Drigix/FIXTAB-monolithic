@@ -52,12 +52,8 @@ export class ObjectsDialogComponent implements OnInit {
     this.clientsService.getAllNotDeleted().subscribe(
       (res: HttpResponse<Client[]>) => {
         this.clients = res.body ?? [];
-        this.clients.forEach(client => {
-          client.name += " " + client.surname;
-        });
         if(this.edit) {
           this.selectedClient = this.clients.find(client => client.clientId === this.object.client?.clientId)!;
-          console.log(this.selectedClient);
         }
       }
     );

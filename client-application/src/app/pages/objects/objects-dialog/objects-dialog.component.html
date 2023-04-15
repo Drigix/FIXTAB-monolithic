@@ -4,7 +4,7 @@
       <input pInputText id="name" formControlName="name" placeholder="Nazwa" [(ngModel)]="object.name" />
     </span>
     <span class="p-float-label">
-      <p-dropdown [options]="clients" id="client" optionLabel="name" formControlName="client" [(ngModel)]="selectedClient"
+      <p-dropdown [options]="clients" id="client" optionLabel="fullName" formControlName="client" [(ngModel)]="selectedClient"
             placeholder="Klient"  appendTo="body">
       </p-dropdown>
     </span>

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IMenuItem } from 'src/app/entitites/menu-item.model';
 import { Authority } from '../../auth/authority.model';
+import { AuthorityGroupService } from 'src/app/auth/authority-group.service';
 
 @Injectable({providedIn: 'root'})
 export class MenuService {
@@ -9,12 +10,12 @@ export class MenuService {
 
   getMenuItems(): IMenuItem[] {
     const items: IMenuItem[] = [
-      this.createMenuItem('fa fa-home', 'Główna', '/', [Authority.ROLE_ADMIN, Authority.ROLE_MANAGER, Authority.ROLE_EMPLOYEE]),
-      this.createMenuItem('fa fa-users', 'Pracownicy', 'employees', [Authority.ROLE_ADMIN, Authority.ROLE_MANAGER]),
-      this.createMenuItem('fa fa-gear', 'Naprawy', 'repairs', [Authority.ROLE_ADMIN, Authority.ROLE_MANAGER]),
-      this.createMenuItem('fa fa-address-book', 'Klienci', 'clients', [Authority.ROLE_ADMIN, Authority.ROLE_MANAGER]),
-      this.createMenuItem('fa fa-cube', 'Obiekty', 'objects', [Authority.ROLE_ADMIN, Authority.ROLE_MANAGER]),
-      this.createMenuItem('fa fa-archive', 'Archiwum', 'archive', [Authority.ROLE_ADMIN, Authority.ROLE_MANAGER])
+      this.createMenuItem('fa fa-home', 'Główna', '/', AuthorityGroupService.getCompanyAuthorityGroup()),
+      this.createMenuItem('fa fa-users', 'Pracownicy', 'employees', AuthorityGroupService.getAdminAuthorityGroup()),
+      this.createMenuItem('fa fa-gear', 'Naprawy', 'repairs', AuthorityGroupService.getManagementAuthorityGroup()),
+      this.createMenuItem('fa fa-address-book', 'Klienci', 'clients', AuthorityGroupService.getCompanyAuthorityGroup()),
+      this.createMenuItem('fa fa-cube', 'Obiekty', 'objects', AuthorityGroupService.getCompanyAuthorityGroup()),
+      this.createMenuItem('fa fa-archive', 'Archiwum', 'archive', AuthorityGroupService.getManagementAuthorityGroup())
     ];
     return items;
   }
@@ -29,6 +30,6 @@ export class MenuService {
     };
     Object.assign(menuItem, additionalOptions);
     return menuItem;
-}
+  }
 
 }
