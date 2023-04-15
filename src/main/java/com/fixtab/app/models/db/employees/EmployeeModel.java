@@ -25,26 +25,28 @@ public class EmployeeModel extends BaseEntity {
 
     @Column(name = "name")
     private String name;
+
     @Column(name = "surname")
     private String surname;
+
     @Column(name = "phonenumber")
     private String phoneNumber;
+
     @Column(name = "email")
     private String email;
+
     @Column(name = "birthdate")
     private Date birthDate;
+
     @Column(name = "gender")
     private String gender;
+
     @Column(name = "pesel")
     private String pesel;
 
-    /*
-    * Foreign keys
-    */
-    @Column(name = "addressid")
-    private Integer addressId;
     @Column(name = "targetobjectid")
     private Integer targetObjectId;
+
     @Column(name = "roleid")
     private Integer roleId;
 }
