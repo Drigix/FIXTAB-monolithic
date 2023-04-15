@@ -1,7 +1,7 @@
 package com.fixtab.app.controllers;
 
 import com.fixtab.app.models.db.employees.EmployeeRoleModel;
-import com.fixtab.app.security.AuthoritiesConstants;
+import static com.fixtab.app.security.AuthoritiesConstants.*;
 import com.fixtab.app.services.interfaces.EmployeeRoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,7 +19,7 @@ public class EmployeeRoleController {
     private final EmployeeRoleService employeeRoleService;
 
     @GetMapping("getAllRoles")
-    @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.ADMIN + "\", \"" + AuthoritiesConstants.MANAGER + "\")")
+    @PreAuthorize(ADMIN_PREAUTHORIZE)
     public List<EmployeeRoleModel> getAllEmployeeRoles() {
         return employeeRoleService.getAllEmployeeRoles();
     }

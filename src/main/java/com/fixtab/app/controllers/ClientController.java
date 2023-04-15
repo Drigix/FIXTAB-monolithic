@@ -5,22 +5,16 @@ import com.fixtab.app.models.db.customers.ClientModel;
 import com.fixtab.app.models.requests.ClientRequest;
 import com.fixtab.app.models.requests.EditClientRequest;
 import com.fixtab.app.models.responses.ClientResponse;
-import com.fixtab.app.security.AuthoritiesConstants;
+import static com.fixtab.app.security.AuthoritiesConstants.*;
 import com.fixtab.app.services.interfaces.ClientService;
-import com.sun.net.httpserver.Authenticator;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.http.HeaderUtil;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.codec.Utf8;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URLEncoder;
 import java.util.List;
 
 @RestController
@@ -33,19 +27,24 @@ public class ClientController {
     private final String applicationName = "FIXTAB clientManager: ";
 
     @GetMapping("getAllClients")
-    @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.ADMIN + "\", \"" + AuthoritiesConstants.MANAGER + "\")")
+    @PreAuthorize(MANAGEMENT_PREAUTHORIZE)
     public List<ClientModel> getAllClients() {
         return clientService.getAllClients();
     }
 
     @GetMapping("getAllNotDeletedClients")
-    @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.ADMIN + "\", \"" + AuthoritiesConstants.MANAGER + "\")")
-    public List<ClientResponse> getAllNotDeletedClients() {
-        return clientService.getAllNotDeletedClients();
+    @PreAuthorize(MANAGEMENT_PREAUTHORIZE)
+    public ResponseEntity<List<ClientResponse>> getAllNotDeletedClients() throws URISyntaxException {
+        List<ClientResponse> clientResponse = clientService.getAllNotDeletedClients();
+        HeadersConfig headers = new HeadersConfig(applicationName, "Get all not deleted Clients");
+        return ResponseEntity
+                .created(new URI("/api/client" + "getAllNotDeletedClients"))
+                .headers(headers.getHeaders())
+                .body(clientResponse);
     }
 
     @PostMapping("createClient")
-    @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.ADMIN + "\", \"" + AuthoritiesConstants.MANAGER + "\")")
+    @PreAuthorize(MANAGEMENT_PREAUTHORIZE)
     public ResponseEntity<?> createClient(@RequestBody ClientRequest clientRequest) throws URISyntaxException, UnsupportedEncodingException {
         ClientResponse clientResponse = clientService.createClient(clientRequest);
         HeadersConfig headers = new HeadersConfig(applicationName, String.valueOf(clientResponse.getClientId()));
@@ -56,16 +55,24 @@ public class ClientController {
     }
 
     @PutMapping("editClient")
-    @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.ADMIN + "\", \"" + AuthoritiesConstants.MANAGER + "\")")
-    public ResponseEntity<?> editClient(@RequestBody EditClientRequest editClientRequest) {
+    @PreAuthorize(MANAGEMENT_PREAUTHORIZE)
+    public ResponseEntity<?> editClient(@RequestBody EditClientRequest editClientRequest) throws URISyntaxException {
         clientService.editClient(editClientRequest);
-        return new ResponseEntity<>("{\"Success\":\"Customer has been updated!\"}",HttpStatus.OK);
+        HeadersConfig headers = new HeadersConfig(applicationName, "clientDeleted");
+        return ResponseEntity
+                .created(new URI("/api/client" + "editClient/" + editClientRequest.getClientId()))
+                .headers(headers.getHeaders())
+                .body("\"Client with id " + editClientRequest.getClientId() + " has been updated.\"");
     }
 
     @DeleteMapping("deleteClient/{clientId}")
-    @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.ADMIN + "\", \"" + AuthoritiesConstants.MANAGER + "\")")
-    public ResponseEntity<HttpStatus> deleteClient(@PathVariable Integer clientId) {
+    @PreAuthorize(MANAGEMENT_PREAUTHORIZE)
+    public ResponseEntity<?> deleteClient(@PathVariable Integer clientId) throws URISyntaxException {
         clientService.deleteClient(clientId);
-        return new ResponseEntity<>(HttpStatus.OK);
+        HeadersConfig headers = new HeadersConfig(applicationName, "clientDeleted");
+        return ResponseEntity
+                .created(new URI("/api/client" + "deleteClient/" + clientId))
+                .headers(headers.getHeaders())
+                .body("\"Client with id " + clientId + " has been deleted.\"");
     }
 }
