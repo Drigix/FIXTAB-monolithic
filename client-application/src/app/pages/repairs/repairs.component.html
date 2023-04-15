@@ -5,3 +5,5 @@
     (editActionEmit)="openRepairsDialog($event)" (deleteActionEmit)="openRepairsDeleteDialog($event)" [isSelectedItem]="selectedRepair"></fixtab-table-buttons>
 </div>
 
+<fixtab-delete-dialog *ngIf="openDeleteDialog" (deleteConfirmationEmit)="handleRepairsDeleteDialog($event)"></fixtab-delete-dialog>
+

@@ -1,0 +1,21 @@
+<div class="repairs-dialog-content">
+  <div class="dialog-header">
+    <fixtab-repairs-tab-menu (emitActivities)="onActivitiesChange($event)" (emitActiveIndex)="onActiveIndexChange($event)">
+    </fixtab-repairs-tab-menu>
+  </div>
+  <div class="dialog-body">
+    <div *ngIf="isRequestChosen; else activitiesItem">
+      <h2>requests</h2>
+    </div>
+    <ng-template #activitiesItem>
+      <div>
+        {{activities[activeItemIndex!].name}}
+      </div>
+    </ng-template>
+  </div>
+  <div class="dialog-footer">
+    <p-button styleClass="button-width dialog-button-margin" [label]="edit ? 'Edytuj': 'Dodaj' "
+      [disabled]="repairsForm.invalid" (onClick)="edit ? onEditRepair() : onCreateRepair()"></p-button>
+    <p-button styleClass="button-width dialog-button-margin" (onClick)="onCloseDialog()">Anuluj</p-button>
+  </div>
+</div>
