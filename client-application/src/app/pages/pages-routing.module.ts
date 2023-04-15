@@ -1,7 +1,7 @@
 import { authGuard } from './../config/user-route-access.service';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { Authority } from '../auth/authority.model';
+import { AuthorityGroupService } from '../auth/authority-group.service';
 
 
 @NgModule({
@@ -10,27 +10,51 @@ import { Authority } from '../auth/authority.model';
       [
         {
           path: '',
+          data: {
+            authorities: AuthorityGroupService.getCompanyAuthorityGroup()
+          },
           loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
+          canActivate: [authGuard]
         },
         {
           path: '',
-          loadChildren: () => import('./employees/employees.module').then(m => m.EmployeesModule)
+          data: {
+            authorities: AuthorityGroupService.getAdminAuthorityGroup()
+          },
+          loadChildren: () => import('./employees/employees.module').then(m => m.EmployeesModule),
+          canActivate: [authGuard]
         },
         {
           path: '',
-          loadChildren: () => import('./repairs/repairs.module').then(m => m.RepairsModule)
+          data: {
+            authorities: AuthorityGroupService.getManagementAuthorityGroup()
+          },
+          loadChildren: () => import('./repairs/repairs.module').then(m => m.RepairsModule),
+          canActivate: [authGuard]
         },
         {
           path: '',
-          loadChildren: () => import('./clients/clients.module').then(m => m.ClientsModule)
+          data: {
+            authorities: AuthorityGroupService.getCompanyAuthorityGroup()
+          },
+          loadChildren: () => import('./clients/clients.module').then(m => m.ClientsModule),
+          canActivate: [authGuard]
         },
         {
           path: '',
-          loadChildren: () => import('./objects/objects.module').then(m => m.ObjectsModule)
+          data: {
+            authorities: AuthorityGroupService.getCompanyAuthorityGroup()
+          },
+          loadChildren: () => import('./objects/objects.module').then(m => m.ObjectsModule),
+          canActivate: [authGuard]
         },
         {
           path: '',
-          loadChildren: () => import('./archive/archive.module').then(m => m.ArchiveModule)
+          data: {
+            authorities: AuthorityGroupService.getManagementAuthorityGroup()
+          },
+          loadChildren: () => import('./archive/archive.module').then(m => m.ArchiveModule),
+          canActivate: [authGuard]
         },
       ]
     )
