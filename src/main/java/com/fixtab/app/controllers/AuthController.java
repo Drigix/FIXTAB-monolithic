@@ -1,5 +1,6 @@
 package com.fixtab.app.controllers;
 
+import com.fixtab.app.exceptions.InvalidEmailException;
 import com.fixtab.app.infrastructure.PasswordHelperMethods;
 import com.fixtab.app.models.db.customers.PasswordModel;
 import com.fixtab.app.models.db.employees.EmployeeModel;
@@ -43,7 +44,7 @@ public class AuthController {
         try {
             EmployeeModel employee = employeeService.loadUserByEmail(request.getEmail());
             if(employee == null){
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+                throw new InvalidEmailException();
             }
             Optional<PasswordModel> passwordOptional = passwordRepository.findByEmployeeId(employee.getEmployeeId());
 
