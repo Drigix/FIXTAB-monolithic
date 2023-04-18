@@ -1,5 +1,6 @@
 package com.fixtab.app.services.implementations;
 
+import com.fixtab.app.exceptions.AccountAlreadyExistsException;
 import com.fixtab.app.exceptions.InvalidEmailException;
 import com.fixtab.app.exceptions.InvalidPasswordException;
 import com.fixtab.app.mappers.EmployeeMapper;
@@ -67,8 +68,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public String createEmployee(CreateEmployeeRequest request) {
 
-        /* VALIDATORS */
-        /* CHECK IF USER EXISTS */
+        Optional<EmployeeModel> optionalEmployee = employeeRepository.findByEmail(request.getEmail());
+        if(optionalEmployee.isPresent())
+            throw new AccountAlreadyExistsException();
+
         EmployeeModel employee = employeeMapper.toEntity(request);
         employee.setDeleted(false);
 
