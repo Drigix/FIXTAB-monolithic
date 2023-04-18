@@ -1,6 +1,7 @@
 package com.fixtab.app.controllers;
 
 import com.fixtab.app.exceptions.InvalidEmailException;
+import com.fixtab.app.exceptions.InvalidPasswordException;
 import com.fixtab.app.infrastructure.PasswordHelperMethods;
 import com.fixtab.app.models.db.customers.PasswordModel;
 import com.fixtab.app.models.db.employees.EmployeeModel;
@@ -43,13 +44,10 @@ public class AuthController {
     public ResponseEntity<LoginResponse> login(@RequestBody @Validated LoginRequest request) {
         try {
             EmployeeModel employee = employeeService.loadUserByEmail(request.getEmail());
-            if(employee == null){
-                throw new InvalidEmailException();
-            }
             Optional<PasswordModel> passwordOptional = passwordRepository.findByEmployeeId(employee.getEmployeeId());
 
             if (passwordOptional.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+                throw new InvalidPasswordException();
             }
 
             Integer roleId = employee.getRoleId();
@@ -78,7 +76,7 @@ public class AuthController {
         } catch (DisabledException dex) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         } catch (BadCredentialsException ex) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            throw new InvalidPasswordException();
         }
     }
 

@@ -1,5 +1,7 @@
 package com.fixtab.app.services.implementations;
 
+import com.fixtab.app.exceptions.InvalidEmailException;
+import com.fixtab.app.exceptions.InvalidPasswordException;
 import com.fixtab.app.mappers.EmployeeMapper;
 import com.fixtab.app.infrastructure.PasswordHelperMethods;
 import com.fixtab.app.models.db.UserModel;
@@ -47,19 +49,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public UserModel getUserModel(String email) {
-        Optional<EmployeeModel> employee = employeeRepository.findByEmail(email);
-        if (employee.isEmpty())
-            return null;
-        Optional<PasswordModel> password = passwordRepository.findByEmployeeId(employee.get().getEmployeeId());
+        EmployeeModel employee = loadUserByEmail(email);
+        Optional<PasswordModel> password = passwordRepository.findByEmployeeId(employee.getEmployeeId());
         if (password.isEmpty())
-            return null;
+            throw new InvalidPasswordException();
 
         UserModel user = UserModel.builder()
                 .hashedPassword(password.get().getPasswordHash())
-                .role(employeeRoleService.getEmployeeRole(employee.get().getRoleId()).get())
-                .name(employee.get().getName())
-                .surname(employee.get().getSurname())
-                .email(employee.get().getEmail())
+                .role(employeeRoleService.getEmployeeRole(employee.getRoleId()).get())
+                .name(employee.getName())
+                .surname(employee.getSurname())
+                .email(employee.getEmail())
                 .build();
         return user;
     }
@@ -94,7 +94,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         String requestHashPassword = PasswordHelperMethods.passwordToHash(changePasswordRequest.getOldPassword(), employee.get().getEmail(), password.get().getSalt());
         if(!requestHashPassword.equals(password.get().getPasswordHash())) {
-            throw new RuntimeException();
+            throw new InvalidPasswordException();
         }
         String newHashPassword = PasswordHelperMethods.passwordToHash(changePasswordRequest.getPassword(), employee.get().getEmail(),  password.get().getSalt());
         password.get().setPasswordHash(newHashPassword);
@@ -121,7 +121,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeModel loadUserByEmail(String email) {
         Optional<EmployeeModel> employee = employeeRepository.findByEmail(email);
         if (employee.isEmpty()) {
-            return null;
+            throw new InvalidEmailException();
         }
         return employee.get();
     }
