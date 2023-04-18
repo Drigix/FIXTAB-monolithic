@@ -42,6 +42,9 @@ public class AuthController {
     public ResponseEntity<LoginResponse> login(@RequestBody @Validated LoginRequest request) {
         try {
             EmployeeModel employee = employeeService.loadUserByEmail(request.getEmail());
+            if(employee == null){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
             Optional<PasswordModel> passwordOptional = passwordRepository.findByEmployeeId(employee.getEmployeeId());
 
             if (passwordOptional.isEmpty()) {
