@@ -9,6 +9,7 @@ import com.fixtab.app.mappers.EmployeeMapper;
 import com.fixtab.app.models.db.UserModel;
 import com.fixtab.app.models.db.customers.PasswordModel;
 import com.fixtab.app.models.db.employees.EmployeeModel;
+import com.fixtab.app.models.db.employees.EmployeeRoleModel;
 import com.fixtab.app.models.requests.ChangePasswordRequest;
 import com.fixtab.app.models.requests.CreateEmployeeRequest;
 import com.fixtab.app.models.requests.EditEmployeeRequest;
@@ -54,10 +55,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         Optional<PasswordModel> password = passwordRepository.findByEmployeeId(employee.getEmployeeId());
         if (password.isEmpty())
             throw new InvalidPasswordException();
+        Optional<EmployeeRoleModel> employeeRole = employeeRoleService.getEmployeeRole(employee.getRoleId());
+        if(employeeRole.isEmpty())
+            throw new RuntimeException("Employee has no role assigned");
 
         return UserModel.builder()
                 .hashedPassword(password.get().getPasswordHash())
-                .role(employeeRoleService.getEmployeeRole(employee.getRoleId()).get())
+                .role(employeeRole.get())
                 .name(employee.getName())
                 .surname(employee.getSurname())
                 .email(employee.getEmail())

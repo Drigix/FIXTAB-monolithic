@@ -1,6 +1,5 @@
 package com.fixtab.app.controllers;
 
-import com.fixtab.app.exceptions.InvalidEmailException;
 import com.fixtab.app.exceptions.InvalidPasswordException;
 import com.fixtab.app.infrastructure.PasswordHelperMethods;
 import com.fixtab.app.models.db.customers.PasswordModel;
