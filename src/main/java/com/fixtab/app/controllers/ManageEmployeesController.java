@@ -16,9 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/*
-* NEED TO AUTHORIZE THE USER !!!!!!!!!!!!!!!!!
-* */
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/employees")
