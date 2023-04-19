@@ -1,14 +1,14 @@
 package com.fixtab.app.services.implementations;
 
-import com.fixtab.app.exceptions.AccountAlreadyExistsException;
+import com.fixtab.app.exceptions.EmailAlreadyExistsException;
 import com.fixtab.app.exceptions.InvalidEmailException;
 import com.fixtab.app.exceptions.InvalidPasswordException;
-import com.fixtab.app.mappers.EmployeeMapper;
+import com.fixtab.app.exceptions.ItemNoLongerExistsException;
 import com.fixtab.app.infrastructure.PasswordHelperMethods;
+import com.fixtab.app.mappers.EmployeeMapper;
 import com.fixtab.app.models.db.UserModel;
 import com.fixtab.app.models.db.customers.PasswordModel;
 import com.fixtab.app.models.db.employees.EmployeeModel;
-import com.fixtab.app.models.db.employees.EmployeeRoleModel;
 import com.fixtab.app.models.requests.ChangePasswordRequest;
 import com.fixtab.app.models.requests.CreateEmployeeRequest;
 import com.fixtab.app.models.requests.EditEmployeeRequest;
@@ -18,7 +18,6 @@ import com.fixtab.app.respositories.PasswordRepository;
 import com.fixtab.app.services.interfaces.EmployeeRoleService;
 import com.fixtab.app.services.interfaces.EmployeeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +30,7 @@ import java.util.stream.Collectors;
 public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+
     private final PasswordRepository passwordRepository;
 
     private final EmployeeRoleService employeeRoleService;
@@ -45,7 +45,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<EmployeeResponse> getAllNotDeletedEmployees() {
         List<EmployeeModel> employeeList = employeeRepository.findAllByDeletedFalse();
-        return  employeeList.stream().map(employeeMapper::toResponse).collect(Collectors.toList());
+        return employeeList.stream().map(employeeMapper::toResponse).collect(Collectors.toList());
     }
 
     @Override
@@ -55,22 +55,21 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (password.isEmpty())
             throw new InvalidPasswordException();
 
-        UserModel user = UserModel.builder()
+        return UserModel.builder()
                 .hashedPassword(password.get().getPasswordHash())
                 .role(employeeRoleService.getEmployeeRole(employee.getRoleId()).get())
                 .name(employee.getName())
                 .surname(employee.getSurname())
                 .email(employee.getEmail())
                 .build();
-        return user;
     }
 
     @Override
     public String createEmployee(CreateEmployeeRequest request) {
 
         Optional<EmployeeModel> optionalEmployee = employeeRepository.findByEmail(request.getEmail());
-        if(optionalEmployee.isPresent())
-            throw new AccountAlreadyExistsException();
+        if (optionalEmployee.isPresent())
+            throw new EmailAlreadyExistsException();
 
         EmployeeModel employee = employeeMapper.toEntity(request);
         employee.setDeleted(false);
@@ -93,13 +92,17 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void changePassword(ChangePasswordRequest changePasswordRequest) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<EmployeeModel> employee = employeeRepository.findByEmail(email);
+        if (employee.isEmpty())
+            throw new ItemNoLongerExistsException();
         Optional<PasswordModel> password = passwordRepository.findByEmployeeId(employee.get().getEmployeeId());
+        if (password.isEmpty())
+            throw new InvalidPasswordException();
 
         String requestHashPassword = PasswordHelperMethods.passwordToHash(changePasswordRequest.getOldPassword(), employee.get().getEmail(), password.get().getSalt());
-        if(!requestHashPassword.equals(password.get().getPasswordHash())) {
+        if (!requestHashPassword.equals(password.get().getPasswordHash())) {
             throw new InvalidPasswordException();
         }
-        String newHashPassword = PasswordHelperMethods.passwordToHash(changePasswordRequest.getPassword(), employee.get().getEmail(),  password.get().getSalt());
+        String newHashPassword = PasswordHelperMethods.passwordToHash(changePasswordRequest.getPassword(), employee.get().getEmail(), password.get().getSalt());
         password.get().setPasswordHash(newHashPassword);
         passwordRepository.save(password.get());
     }
@@ -109,6 +112,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeResponse editEmployee(EditEmployeeRequest employeeRequest) {
         EmployeeModel employee = employeeMapper.toEntity(employeeRequest);
         Optional<EmployeeModel> existEmployee = employeeRepository.findById(employee.getEmployeeId());
+        if (existEmployee.isEmpty())
+            throw new ItemNoLongerExistsException();
         String editBy = SecurityContextHolder.getContext().getAuthentication().getName();
         employee.setDeleted(existEmployee.get().getDeleted());
         employee.setCreatedDate(existEmployee.get().getCreatedDate());
@@ -132,6 +137,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void deleteEmployee(Integer employeeId) {
         Optional<EmployeeModel> employee = employeeRepository.findById(employeeId);
+        if (employee.isEmpty())
+            throw new ItemNoLongerExistsException();
         employee.get().setDeleted(true);
         employeeRepository.save(employee.get());
     }

@@ -1,5 +1,6 @@
 package com.fixtab.app.services.implementations;
 
+import com.fixtab.app.exceptions.ItemNoLongerExistsException;
 import com.fixtab.app.models.requests.EditTargetObjectRequest;
 import com.fixtab.app.respositories.ClientRepository;
 import com.fixtab.app.mappers.TargetObjectMapper;
@@ -30,8 +31,7 @@ public class TargetObjectServiceImpl implements TargetObjectService {
 
     @Override
     public List<TargetObjectModel> getAllTargetObjects(){
-        List<TargetObjectModel> targetObjects = targetObjectRepository.findAll();
-        return targetObjects;
+        return targetObjectRepository.findAll();
     }
 
     @Override
@@ -44,6 +44,8 @@ public class TargetObjectServiceImpl implements TargetObjectService {
     public TargetObjectResponse createTargetObject(TargetObjectRequest targetObjectRequest){
         TargetObjectModel targetObject = targetObjectMapper.toEntity(targetObjectRequest);
         Optional<ClientModel> client = clientRepository.findById(targetObject.getClient().getClientId());
+        if(client.isEmpty())
+            throw new ItemNoLongerExistsException();
         targetObject.setClient(client.get());
         targetObject.setDeleted(false);
         targetObjectRepository.save(targetObject);
@@ -54,6 +56,8 @@ public class TargetObjectServiceImpl implements TargetObjectService {
     public void editTargetObject(EditTargetObjectRequest editTargetObjectRequest){
         TargetObjectModel updateTargetObjectModel = targetObjectMapper.toEntity(editTargetObjectRequest);
         Optional<TargetObjectModel> targetObjectModel = targetObjectRepository.findById(updateTargetObjectModel.getTargetId());
+        if (targetObjectModel.isEmpty())
+            throw new ItemNoLongerExistsException();
         String editBy = SecurityContextHolder.getContext().getAuthentication().getName();
         updateTargetObjectModel.setDeleted(targetObjectModel.get().getDeleted());
         updateTargetObjectModel.setCreatedBy(targetObjectModel.get().getCreatedBy());
@@ -66,6 +70,8 @@ public class TargetObjectServiceImpl implements TargetObjectService {
     @Override
     public void deleteTargetObject(Integer targetId){
         Optional<TargetObjectModel> targetObject = targetObjectRepository.findById(targetId);
+        if(targetObject.isEmpty())
+            throw new ItemNoLongerExistsException();
         targetObject.get().setDeleted(true);
         targetObjectRepository.save(targetObject.get());
     }

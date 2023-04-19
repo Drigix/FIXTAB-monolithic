@@ -1,5 +1,7 @@
 package com.fixtab.app.services.implementations;
 
+import com.fixtab.app.exceptions.EmailAlreadyExistsException;
+import com.fixtab.app.exceptions.ItemNoLongerExistsException;
 import com.fixtab.app.mappers.ClientMapper;
 import com.fixtab.app.models.db.customers.ClientModel;
 import com.fixtab.app.models.requests.ClientRequest;
@@ -25,8 +27,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public List<ClientModel> getAllClients() {
-        List<ClientModel> clients = clientRepository.findAll();
-        return clients;
+        return clientRepository.findAll();
     }
 
     @Override
@@ -37,6 +38,9 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ClientResponse createClient(ClientRequest clientRequest) {
+        Optional<ClientModel> optionalClientModel = clientRepository.findByEmail(clientRequest.getEmail());
+        if (optionalClientModel.isPresent())
+            throw new EmailAlreadyExistsException();
         ClientModel client = clientMapper.toEntity(clientRequest);
         client.setDeleted(false);
         clientRepository.save(client);
@@ -47,6 +51,8 @@ public class ClientServiceImpl implements ClientService {
     public void editClient(EditClientRequest editClientRequest) {
         ClientModel updateClient = clientMapper.toEntity(editClientRequest);
         Optional<ClientModel> client = clientRepository.findById(editClientRequest.getClientId());
+        if(client.isEmpty())
+            throw new ItemNoLongerExistsException();
         String editBy = SecurityContextHolder.getContext().getAuthentication().getName();
         updateClient.setDeleted(client.get().getDeleted());
         updateClient.setCreatedBy(client.get().getCreatedBy());
@@ -58,6 +64,8 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public void deleteClient(Integer clientId) {
         Optional<ClientModel> client = clientRepository.findById(clientId);
+        if(client.isEmpty())
+            throw new ItemNoLongerExistsException();
         client.get().setDeleted(true);
         clientRepository.save(client.get());
     }

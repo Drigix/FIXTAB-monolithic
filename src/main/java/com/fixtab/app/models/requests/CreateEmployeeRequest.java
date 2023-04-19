@@ -1,6 +1,5 @@
 package com.fixtab.app.models.requests;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

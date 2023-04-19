@@ -1,8 +1,6 @@
 package com.fixtab.app.exceptions.handlers;
 
-import com.fixtab.app.exceptions.AccountAlreadyExistsException;
-import com.fixtab.app.exceptions.InvalidEmailException;
-import com.fixtab.app.exceptions.InvalidPasswordException;
+import com.fixtab.app.exceptions.*;
 import com.fixtab.app.exceptions.responses.ExceptionResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -20,10 +18,19 @@ public class RestResponseEntityExceptionHandler {
         return new ExceptionResponse(e.getMessage());
     }
 
-    @ExceptionHandler({AccountAlreadyExistsException.class})
+    @ExceptionHandler({EmailAlreadyExistsException.class})
     @ResponseBody
     @ResponseStatus(code = HttpStatus.CONFLICT)
-    public ExceptionResponse handleException(RuntimeException e) {
+    public ExceptionResponse handleEmailAlreadyExistsException(RuntimeException e) {
         return new ExceptionResponse(e.getMessage());
     }
+
+    @ExceptionHandler({ItemNoLongerExistsException.class})
+    @ResponseBody
+    @ResponseStatus(code = HttpStatus.NOT_FOUND)
+    public ExceptionResponse handleEntitiesThatNoLongerExist(RuntimeException e) {
+        return new ExceptionResponse(e.getMessage());
+    }
+
+
 }

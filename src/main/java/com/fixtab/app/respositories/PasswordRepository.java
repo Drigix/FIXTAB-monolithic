@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface PasswordRepository extends JpaRepository<PasswordModel, Integer> {
 
-    public Optional<PasswordModel> findByEmployeeId(int id);
+    Optional<PasswordModel> findByEmployeeId(int id);
 
 }
