@@ -1,5 +1,5 @@
 <p-table #t [columns]="columns" [value]="values" [selectionMode]="selectMode" [(selection)]="selection"
-       responsiveLayout="scroll" dataKey="employeeId" (onSort)="handleSort($event)"
+       responsiveLayout="scroll" dataKey="requestId" (onSort)="handleSort($event)"
        rowExpandMode="single" styleClass="table">
       <ng-template pTemplate="caption">
         <div class="header">
@@ -56,17 +56,38 @@
         <tr>
             <td colspan="7">
                 <div class="p-3">
+                  <div class="repair-info">
+                    <div class="p-2">
+                      <label for="createdBy">Stworzony przez: </label>
+                      {{repair.manager.name}} {{repair.manager.surname}}
+                    </div>
+                    <div class="p-2">
+                      <label for="targetObject">Obiekt naprawy: </label>
+                      {{repair.targetObject.name}}
+                    </div>
+                    <div class="p-2">
+                      <label for="client">Klient obiektu: </label>
+                      {{repair.targetObject.client.name}} {{repair.targetObject.client.surname}}
+                    </div>
+                    <div class="p-2">
+                      <label for="requestCancelled">Odwołane: </label>
+                      <p-checkbox [(ngModel)]="repair.requestCancelled" [binary]="true" inputId="binary"></p-checkbox>
+                    </div>
+                  </div>
                   <p-accordion class="w-full" [multiple]="false" [activeIndex]="activeAccordionIndex">
-                        <p-accordionTab *ngFor="let activity of repair.activities; let i = index" (click)="onActivityClick(activity)">
+                        <p-accordionTab *ngFor="let activity of repair.activity; let i = index" (click)="onActivityClick(activity)">
                           <ng-template pTemplate="header">
                             <div class="flex align-items-center">
-                                <i [class]="activity.status ? 'pi pi-check mr-2' : activity.status === false ? 'pi pi-times mr-2' : 'pi pi-clock mr-2'"></i>
+                                <i [class]="activity.result.resultId === statusOpen.resultId ? 'pi pi-clock mr-2' :
+                                            activity.result.resultId === statusCancel.resultId ? 'pi pi-times mr-2' :
+                                            activity.result.resultId === statusProgress.resultId ? 'pi pi-trash mr-2':
+                                            activity.result.resultId === statusFinish ? '' : 'pi pi-check mr-2'"></i>
                                 <span class="vertical-align-middle">Header I</span>
                             </div>
                           </ng-template>
                           <ng-template pTemplate="content">
                             <p>
-                                {{activity.name}}
+                                {{activity.description}}
                             </p>
                           </ng-template>
                         </p-accordionTab>

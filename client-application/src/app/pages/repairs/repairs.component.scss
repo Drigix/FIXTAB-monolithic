@@ -3,3 +3,18 @@
   grid-template-rows: 10% 80% auto;
   height: 100%;
 }
+
+:host ::ng-deep .p-inputtext {
+  max-width: 600px;
+  max-height: 200px;
+}
+
+:host ::ng-deep .p-dropdown  {
+  width: 230px;
+  height: 40px;
+  text-align: left;
+}
+
+:host ::ng-deep .p-dropdown input {
+  display: none;
+}
