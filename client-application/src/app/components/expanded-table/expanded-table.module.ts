@@ -9,6 +9,8 @@ import { DialogModule } from 'primeng/dialog';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ButtonModule } from 'primeng/button';
 import { AccordionModule } from 'primeng/accordion';
+import { CheckboxModule } from 'primeng/checkbox';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { AccordionModule } from 'primeng/accordion';
     DialogModule,
     FontAwesomeModule,
     ButtonModule,
-    AccordionModule
+    AccordionModule,
+    CheckboxModule,
+    FormsModule
   ],
   exports: [
     ExpandedTableComponent

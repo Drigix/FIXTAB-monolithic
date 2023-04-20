@@ -36,6 +36,12 @@ public class ManageEmployeesController {
         return employeeService.getAllNotDeletedEmployees();
     }
 
+    @GetMapping("getCurrentEmployee")
+    @PreAuthorize(COMPANY_PREAUTHORIZE)
+    public EmployeeResponse getCurrentEmployee() {
+        return employeeService.getCurrentEmployee();
+    }
+
     @PostMapping("createEmployee")
     @PreAuthorize(ADMIN_PREAUTHORIZE)
     @ResponseBody

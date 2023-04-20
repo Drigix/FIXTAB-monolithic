@@ -2,17 +2,23 @@ package com.fixtab.app.models.db.activities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.Date;
+import java.util.List;
+
+import com.fixtab.app.models.db.BaseEntity;
+import com.fixtab.app.models.db.customers.TargetObjectModel;
+import com.fixtab.app.models.db.employees.EmployeeModel;
 
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Table(name = "requests")
 @Entity
-public class RequestModel {
+public class RequestModel extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "requestid")
@@ -39,9 +45,19 @@ public class RequestModel {
     /*
     * FOREIGN KEYS !!!
     * */
-    @Column(name = "targetobjectid")
-    private Integer targetObjectId;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "targetobjectid")
+    private TargetObjectModel targetObject;
 
-    @Column(name = "managerid")
-    private Integer managerId;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "managerid")
+    private EmployeeModel manager;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "resultid")
+    private ResultDictionaryModel result;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "requestid")    
+    private List<ActivityModel> activity;
 }

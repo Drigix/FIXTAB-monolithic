@@ -7,7 +7,9 @@ import { RepairsRoutingModule } from './repairs-routing.module';
 import { RepairsComponent } from './repairs.component';
 import { RepairsDialogComponent } from './repairs-dialog/repairs-dialog.component';
 import { TabMenuModule } from 'primeng/tabmenu';
-
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { RepairsActivitiesDialogComponent } from './repairs-dialog/repairs-activities/repairs-activities-dialog.component';
 
 @NgModule({
   imports: [
@@ -17,15 +19,19 @@ import { TabMenuModule } from 'primeng/tabmenu';
     CommonModule,
     FormsModule,
     TabMenuModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DropdownModule,
+    InputTextareaModule
   ],
   exports: [
     RepairsComponent,
-    RepairsDialogComponent
+    RepairsDialogComponent,
+    RepairsActivitiesDialogComponent
   ],
   declarations: [
     RepairsComponent,
-    RepairsDialogComponent
+    RepairsDialogComponent,
+    RepairsActivitiesDialogComponent
   ],
   providers: [],
 })

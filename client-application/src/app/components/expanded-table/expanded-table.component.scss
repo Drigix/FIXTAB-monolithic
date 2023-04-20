@@ -1,0 +1,11 @@
+:host ::ng-deep .p-hidden-accessible {
+  display: none;
+}
+
+.repair-info {
+  font-size: 22px;
+  label {
+    color: var(--primary-color);
+    font-weight: bold;
+  }
+}

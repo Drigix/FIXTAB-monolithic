@@ -50,6 +50,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public EmployeeResponse getCurrentEmployee() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Optional<EmployeeModel> employeeModel = employeeRepository.findByEmail(email);
+        return employeeMapper.toResponse(employeeModel.get());
+    }
+
+    @Override
     public UserModel getUserModel(String email) {
         EmployeeModel employee = loadUserByEmail(email);
         Optional<PasswordModel> password = passwordRepository.findByEmployeeId(employee.getEmployeeId());

@@ -74,8 +74,8 @@ export class RepairsTabMenuComponent implements OnInit {
       });
       this.activities.splice(index - 1, 1);
       this.activities.forEach((item, index) => {
-        item.lp = index;
-        item.name = `Zadanie ${index + 1}`
+        item.sequenceNumber = index;
+        item.description = `Zadanie ${index + 1}`
       });
     }
     this.onEmitActiveIndex();

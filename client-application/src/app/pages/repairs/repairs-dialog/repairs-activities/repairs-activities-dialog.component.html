@@ -1,0 +1,19 @@
+<div class="p-3">
+  <label for="header">Zadanie {{activeItemIndex! + 1}}</label>
+  <form #form="ngForm" [formGroup]="activityForm" class="dialog-form">
+    <span class="p-float-label">
+      <p-dropdown [options]="employees" id="employee" optionLabel="fullName" formControlName="employee" [(ngModel)]="selectedEmployee"
+        placeholder="Pracownik" [autoDisplayFirst]="false" appendTo="body" (onChange)="onEmployeeChange()">
+      </p-dropdown>
+    </span>
+    <span class="p-float-label">
+      <textarea id="description" formControlName="description" placeholder="Opis"
+        rows="5" cols="30" pInputTextarea [autoResize]="true" [(ngModel)]="activity!.description!">
+      </textarea>
+    </span>
+    <span class="p-float-label">
+      <input pInputText id="activityType" formControlName="activityType" placeholder="Typ aktywności"
+          [(ngModel)]="activityType!.typeName!"/>
+    </span>
+  </form>
+</div>
