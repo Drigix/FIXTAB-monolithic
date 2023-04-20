@@ -26,6 +26,10 @@ export class EmployeeService {
     return this.http.get<Employee[]>(this.url + '/getAllNotDeletedEmployees', {observe: 'response'});
   }
 
+  getCurrentEmployee(): Observable<EntityResponseType> {
+    return this.http.get<Employee>(this.url + '/getCurrentEmployee', { observe: 'response' });
+  }
+
   create(employee: Employee): Observable<EmployeePasswordResponseType> {
     return this.http.post<EmployeePassword>(this.url + '/createEmployee', employee, {observe: 'response'});
   }
