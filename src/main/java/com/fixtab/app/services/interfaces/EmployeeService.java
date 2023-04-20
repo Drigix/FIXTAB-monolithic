@@ -15,6 +15,8 @@ public interface EmployeeService {
 
     List<EmployeeResponse> getAllNotDeletedEmployees();
 
+    EmployeeResponse getCurrentEmployee();
+
     UserModel getUserModel(String email);
 
     String createEmployee(CreateEmployeeRequest request);
