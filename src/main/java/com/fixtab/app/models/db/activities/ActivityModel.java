@@ -5,6 +5,9 @@ import lombok.*;
 
 import java.util.Date;
 
+import com.fixtab.app.models.db.BaseEntity;
+import com.fixtab.app.models.db.employees.EmployeeModel;
+
 @Setter
 @Getter
 @NoArgsConstructor
@@ -12,7 +15,7 @@ import java.util.Date;
 @Builder
 @Table(name = "activities")
 @Entity
-public class ActivityModel {
+public class ActivityModel extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "activityid")
@@ -30,17 +33,24 @@ public class ActivityModel {
     @Column(name = "status")
     private int status;
 
-    @Column(name = "activitytypeid")
-    private int activityTypeId;
-
     @Column(name = "createdate")
     private Date createDate;
 
     @Column(name = "statusupatedate")
     private Date statusUpateDate;
 
-    @Column(name = "requestid")
-    private int requestId;
+     /*
+    * FOREIGN KEYS !!!
+    * */
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "activitytypeid")
+    private ActivityTypeModel activityType;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "employeeid")
+    private EmployeeModel employee;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "resultid")
+    private ResultDictionaryModel result;
 }
