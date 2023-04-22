@@ -15,6 +15,13 @@ interface IActivity {
   result?: Result
 }
 
+interface IActivityRequest {
+  sequenceNumber?: number;
+  description?: string;
+  activityType?: ActivityType;
+  employeeId?: number;
+}
+
 export class Activity implements IActivity {
   constructor(
   public activityId?: number,
@@ -27,5 +34,14 @@ export class Activity implements IActivity {
   public activityType?: ActivityType,
   public employee?: Employee,
   public result?: Result
+  ) {}
+}
+
+export class ActivityRequest implements IActivityRequest {
+  constructor(
+  public sequenceNumber?: number,
+  public description?: string,
+  public activityType?: ActivityType,
+  public employeeId?: number
   ) {}
 }

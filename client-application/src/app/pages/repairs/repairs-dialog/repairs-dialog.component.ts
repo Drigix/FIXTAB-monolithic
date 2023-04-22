@@ -1,9 +1,9 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { Activity } from 'src/app/entitites/activity.model';
+import { Activity, ActivityRequest } from 'src/app/entitites/activity.model';
 import { Employee } from 'src/app/entitites/employee-model';
 import { TargetObject } from 'src/app/entitites/object.model';
 import { Request, RequestRepairRequest } from 'src/app/entitites/request.model';
@@ -25,7 +25,7 @@ export class RepairsDialogComponent implements OnInit {
   });
 
   request: RequestRepairRequest = new RequestRepairRequest();
-  activities: Activity[] = [];
+  activities: ActivityRequest[] = [];
   objects: TargetObject[] = [];
   selectedObject: TargetObject | null = null;
   currentEmployee: Employee | null = null;
@@ -40,7 +40,8 @@ export class RepairsDialogComponent implements OnInit {
     private config: DynamicDialogConfig,
     private objectsService: ObjectsService,
     private requestRepairService: RequestRepairService,
-    private employeeService: EmployeeService
+    private employeeService: EmployeeService,
+    private messageService: MessageService
   ) { }
 
   ngOnInit() {
@@ -69,8 +70,9 @@ export class RepairsDialogComponent implements OnInit {
     this.activityFormValid = valid;
   }
 
-  onActivitiesChange(activities: Activity[]) {
+  onActivitiesChange(activities: ActivityRequest[]) {
     this.activities = activities;
+    console.log(this.activities);
   }
 
   onActiveIndexChange(activeIndex: number) {
@@ -86,14 +88,16 @@ export class RepairsDialogComponent implements OnInit {
     this.request.targetObjectId = this.selectedObject!.targetId;
     this.request.managerId = this.currentEmployee?.employeeId;
     this.request.activities = this.activities;
-    console.log(this.request);
     this.requestRepairService.create(this.request).subscribe(
       {
         next: () => {
-          console.log('ok');
+          this.messageService.add({key: 'mainToast', severity: 'success', summary: 'Success',
+              detail: 'utworzono!'});
+          this.ref.close();
         },
         error: () => {
-          console.log('error');
+          this.messageService.add({key: 'mainToast', severity: 'error', summary: 'Error',
+              detail: 'nie utworzono!'});
         }
       }
     )
