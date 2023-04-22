@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { Activity } from 'src/app/entitites/activity.model';
+import { Activity, ActivityRequest } from 'src/app/entitites/activity.model';
 
 @Component({
   selector: 'fixtab-repairs-tab-menu',
@@ -12,7 +12,7 @@ export class RepairsTabMenuComponent implements OnInit {
   @Output() emitActivities = new EventEmitter<Activity[]>();
   @Output() emitActiveIndex = new EventEmitter<number>();
 
-  activities: Activity[] = [];
+  activities: ActivityRequest[] = [];
   repairsHeaderItems: MenuItem[] = [];
   activeItem?: MenuItem;
   activeItemIndex?: number;
@@ -48,7 +48,7 @@ export class RepairsTabMenuComponent implements OnInit {
       this.repairsHeaderItems[index] = { id: index.toString(), label: `Zadanie ${index}`, command: () => { this.onMenuChange(index); }};
       this.activeItem = this.repairsHeaderItems[index];
       this.repairsHeaderItems.push(this.addActivityItem);
-      this.activities.push(new Activity(undefined, index, `Zadanie ${index}`));
+      this.activities.push(new ActivityRequest(index, `Zadanie ${index}`));
       this.onEmitActivities();
     }
     this.activeItemIndex = Number(this.activeItem!.id!) - 1;

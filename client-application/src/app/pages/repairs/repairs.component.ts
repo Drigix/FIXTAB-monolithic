@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { UniversalTableColumn } from 'src/app/components/table/column.model';
 import { RepairsDialogComponent } from './repairs-dialog/repairs-dialog.component';
 import { RequestRepairService } from 'src/app/services/request-repair.service';
 import { Request } from 'src/app/entitites/request.model';
 import { HttpResponse } from '@angular/common/http';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'fixtab-repairs',
@@ -17,12 +18,12 @@ export class RepairsComponent implements OnInit {
   selectedRepair: any;
   columns: UniversalTableColumn[] = [];
   requestRepairs: Request[] = [];
-  repairs: any[] = [];
   openDeleteDialog = false;
 
   constructor(
     private dialogService: DialogService,
-    private requestRepairService: RequestRepairService
+    private requestRepairService: RequestRepairService,
+    private confirmationService: ConfirmationService
   ) { }
 
   ngOnInit() {
@@ -40,6 +41,11 @@ export class RepairsComponent implements OnInit {
         header: 'Data otwarcia',
         field: 'openDate'
       },
+      {
+        header: 'Status zlecenia',
+        field: 'result',
+        subField: 'name'
+      }
     ];
   }
 
@@ -53,6 +59,10 @@ export class RepairsComponent implements OnInit {
 
   onRepairSelected(event: any): void {
     this.selectedRepair = event;
+  }
+
+  onRepairFiltered(repairs: Request[]): void {
+    this.requestRepairs = repairs;
   }
 
   openRepairsDialog(edit: boolean): void {

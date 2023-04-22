@@ -1,9 +1,14 @@
 <div class="table-with-buttons">
   <fixtab-expanded-table [columns]="columns" [values]="requestRepairs" tableName="Naprawy" [showCaption]="true"
-    [showTableName]="true" (selected)="onRepairSelected($event)"></fixtab-expanded-table>
+    [showTableName]="true" (selected)="onRepairSelected($event)" (filterClick)="filterOP.toggle($event)"></fixtab-expanded-table>
   <fixtab-table-buttons (addActionEmit)="openRepairsDialog($event)"
     (editActionEmit)="openRepairsDialog($event)" (deleteActionEmit)="openRepairsDeleteDialog($event)" [isSelectedItem]="selectedRepair"></fixtab-table-buttons>
 </div>
 
 <fixtab-delete-dialog *ngIf="openDeleteDialog" (deleteConfirmationEmit)="handleRepairsDeleteDialog($event)"></fixtab-delete-dialog>
 
+<p-overlayPanel #filterOP>
+ <ng-template pTemplate>
+  <fixtab-filter [repairs]="requestRepairs" (emitRepairs)="onRepairFiltered($event)"></fixtab-filter>
+ </ng-template>
+</p-overlayPanel>

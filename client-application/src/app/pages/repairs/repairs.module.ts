@@ -10,6 +10,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RepairsActivitiesDialogComponent } from './repairs-dialog/repairs-activities/repairs-activities-dialog.component';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { RepairsActivitiesDialogComponent } from './repairs-dialog/repairs-activ
     TabMenuModule,
     ReactiveFormsModule,
     DropdownModule,
-    InputTextareaModule
+    InputTextareaModule,
+    OverlayPanelModule
   ],
   exports: [
     RepairsComponent,

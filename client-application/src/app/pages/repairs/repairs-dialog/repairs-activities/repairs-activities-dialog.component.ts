@@ -2,7 +2,7 @@ import { HttpResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActivityType } from 'src/app/entitites/activity-type.model';
-import { Activity } from 'src/app/entitites/activity.model';
+import { Activity, ActivityRequest } from 'src/app/entitites/activity.model';
 import { Employee } from 'src/app/entitites/employee-model';
 import { EmployeeService } from 'src/app/services/employee.service';
 
@@ -14,7 +14,7 @@ import { EmployeeService } from 'src/app/services/employee.service';
 
 export class RepairsActivitiesDialogComponent implements OnInit, OnChanges {
 
-  @Input() activity: Activity | null = null;
+  @Input() activity: ActivityRequest | null = null;
   @Input() activeItemIndex: number | null = null;
 
   @Output() activityFormValid = new EventEmitter<boolean>();
@@ -40,7 +40,7 @@ export class RepairsActivitiesDialogComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.selectedEmployee = this.activity?.employee!;
+    this.selectedEmployee = this.employees.find(item => item.employeeId === this.activity?.employeeId)!;
     this.activity!.activityType = this.activityType!;
   }
 
@@ -57,6 +57,6 @@ export class RepairsActivitiesDialogComponent implements OnInit, OnChanges {
   }
 
   onEmployeeChange(): void {
-    this.activity!.employee! = this.selectedEmployee!;
+    this.activity!.employeeId! = this.selectedEmployee?.employeeId!;
   }
 }
