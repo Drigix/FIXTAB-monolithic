@@ -1,0 +1,36 @@
+<div class="filter">
+  <p-dropdown
+    class="m-2"
+    [options]="requestFilterOptions"
+    id="requestOptions"
+    optionLabel="name"
+    placeholder="Wybierz kierownika"
+    appendTo="body"
+    [showClear]="true"
+  >
+  </p-dropdown>
+
+  <p-dropdown
+    class="m-2"
+    [options]="activityEmployeeFilterOption"
+    (onChange)="onEmployeeSelect($event.value)"
+    id="activityEmployeeOptions"
+    optionLabel="fullName"
+    placeholder="Wybierz pracownika"
+    appendTo="body"
+    [showClear]="true"
+  >
+  </p-dropdown>
+
+  <p-dropdown
+    class="m-2"
+    [options]="dateFilterOption"
+    (onChange)="onDateSelect($event.value)"
+    id="dateOptions"
+    optionLabel="name"
+    placeholder="Wybierz datę"
+    appendTo="body"
+    [showClear]="true"
+  >
+  </p-dropdown>
+</div>
