@@ -1,3 +1,13 @@
+:host ::ng-deep .p-datatable-responsive-scroll>.p-datatable-wrapper {
+  height: calc(100vh - 280px);
+  overflow: auto;
+}
+
+:host ::ng-deep .p-datatable-thead {
+  position: sticky;
+  top: -1px;
+}
+
 :host ::ng-deep .p-hidden-accessible {
   display: none;
 }

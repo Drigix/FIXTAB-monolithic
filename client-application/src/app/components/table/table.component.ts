@@ -4,6 +4,7 @@ import { LazyLoadEvent, SortEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { UniversalTableColumn } from './column.model';
 import * as moment from 'moment';
+import { ResultDictionary } from 'src/app/entitites/result-dictionary.model';
 
 
 @Component({
@@ -55,6 +56,11 @@ export class TableComponent implements OnChanges {
   sortEvent: SortEvent | null = null;
   filterInitialised = false;
   img: HTMLElement | null = null;
+
+  statusOpen = ResultDictionary.statusOpen;
+  statusProgress = ResultDictionary.statusProgress;
+  statusCancel = ResultDictionary.statusCancel;
+  statusFinish = ResultDictionary.statusFinish;
 
   filterGlobal = _.debounce((filterString: string) => {
     this.searchText = filterString;
@@ -130,6 +136,8 @@ export class TableComponent implements OnChanges {
       return 'DATE';
     } else if (typeof (value) === 'boolean') {
       return 'BOOLEAN';
+    } else if (value === 'OPEN' || value === 'PROGRESS' || value === 'CANCEL' || value === 'FINISH') {
+      return 'RESULT'
     }
     return 'UNKNOWN';
   }

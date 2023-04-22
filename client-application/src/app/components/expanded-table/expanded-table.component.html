@@ -4,6 +4,9 @@
       <ng-template pTemplate="caption">
         <div class="header">
           <div class="caption">
+            <div>
+              <p-button icon="pi pi-filter-fill" (onClick)="onFilterClick($event)"></p-button>
+            </div>
             <span class="p-input-icon-left search-input">
               <i class="pi pi-search" style="margin-left: 10px; font-weight:bold ;"></i>
               <input type="text" pInputText placeholder="{{ 'global.placeholder.search' | translate }}"
@@ -26,16 +29,22 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-columns="columns" let-expanded="expanded">
-        <tr>
-          <td>
+        <tr class="p-selectable-row">
+          <td class="ui-resizable-column">
             <button type="button" pButton pRipple [pRowToggler]="rowData"
               class="p-button-text p-button-rounded p-button-plain"
               [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
           </td>
-          <td *ngFor="let col of columns" [ngSwitch]="getInstanceType(rowData[col.field] && col.subField ? rowData[col.field][col.subField] : rowData[col.field])">
+          <td class="ui-resizable-column" *ngFor="let col of columns" [ngSwitch]="getInstanceType(rowData[col.field] && col.subField ? rowData[col.field][col.subField] : rowData[col.field])">
             <ng-container *ngIf="col.subField != null; else standard">
               <div *ngSwitchCase="'DATE'" class="ellipsis">
                 {{(rowData[col.field] ? rowData[col.field][col.subField] : rowData[col.field]) | date: 'yyyy-MM-dd'}}
+              </div>
+              <div *ngSwitchCase="'RESULT'">
+                <i [class]="rowData[col.field][col.subField] === statusOpen.name ? 'pi pi-exclamation-circle mr-2' :
+                            rowData[col.field][col.subField] === statusCancel.name ? 'pi pi-times mr-2' :
+                            rowData[col.field][col.subField] === statusProgress.name ? 'pi pi-trash mr-2':
+                            rowData[col.field][col.subField] === statusFinish.name ? 'pi pi-check mr-2' : ''"></i>
               </div>
               <div *ngSwitchDefault class="ellipsis">
                 {{rowData[col.field] && col.subField ? rowData[col.field][col.subField] : rowData[col.field]}}
@@ -52,7 +61,7 @@
           </td>
         </tr>
       </ng-template>
-      <ng-template pTemplate="rowexpansion" let-repair>
+      <ng-template pTemplate="rowexpansion" let-repair style="position: relative; overflow: hidden;">
         <tr>
             <td colspan="7">
                 <div class="p-3">
@@ -81,7 +90,7 @@
                                 <i [class]="activity.result.resultId === statusOpen.resultId ? 'pi pi-clock mr-2' :
                                             activity.result.resultId === statusCancel.resultId ? 'pi pi-times mr-2' :
                                             activity.result.resultId === statusProgress.resultId ? 'pi pi-trash mr-2':
-                                            activity.result.resultId === statusFinish ? '' : 'pi pi-check mr-2'"></i>
+                                            activity.result.resultId === statusFinish.resultId ? 'pi pi-check mr-2' : ''"></i>
                                 <span class="vertical-align-middle">Header I</span>
                             </div>
                           </ng-template>
