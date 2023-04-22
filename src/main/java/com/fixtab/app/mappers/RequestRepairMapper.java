@@ -19,7 +19,6 @@ public interface RequestRepairMapper {
 
     @Mapping(source = "managerId", target = "manager.employeeId")
     @Mapping(source = "targetObjectId", target = "targetObject.targetId")
-    @Mapping(source = "activities", target = "activity")
     RequestModel toEntity(RequestRepairRequest requestRepairRequest);
 
     //EmployeeModel toEntity(EditEmployeeRequest employeeRequest);
@@ -32,16 +31,4 @@ public interface RequestRepairMapper {
         RequestModel.builder().requestId(id);
         return requestRepair;
     }
-
-    default List<ActivityModel> mapActivityRequestsToActivityModels(List<ActivityRequest> activities) {
-        if (activities == null) {
-            return null;
-        }
-        return activities.stream()
-                .map(this::activityRequestToActivityModel)
-                .collect(Collectors.toList());
-    }
-
-    ActivityModel activityRequestToActivityModel(ActivityRequest activity);
-
 }

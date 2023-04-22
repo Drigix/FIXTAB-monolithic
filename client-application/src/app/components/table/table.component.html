@@ -211,6 +211,12 @@
               </div>
             </ng-template>
           </ng-container>
+          <ng-container *ngSwitchCase="'RESULT'">
+            <i [class]="rowData[col.field][col.subField] === statusOpen.name ? 'pi pi-exclamation-circle mr-2' :
+                        rowData[col.field][col.subField] === statusCancel.name ? 'pi pi-times mr-2' :
+                        rowData[col.field][col.subField] === statusProgress.name ? 'pi pi-trash mr-2':
+                        rowData[col.field][col.subField] === statusFinish.name ? 'pi pi-check mr-2' : ''"></i>
+          </ng-container>
             <div *ngSwitchDefault class="ellipsis" pTooltip="{{rowData[col.field][col.subField]}}"
               [tooltipDisabled]="disableTooltip" (mouseenter)="enableTooltipIfNecessary($event)">
               {{rowData[col.field] ? rowData[col.field][col.subField] : rowData[col.field]}}

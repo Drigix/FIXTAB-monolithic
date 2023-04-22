@@ -1,4 +1,4 @@
-import { Activity } from "./activity.model";
+import { Activity, ActivityRequest } from "./activity.model";
 import { Employee } from "./employee-model";
 import { TargetObject } from "./object.model";
 import { Result } from "./result.model";
@@ -21,7 +21,7 @@ interface IRequestRepairRequest {
   description?: string;
   targetObjectId?: number;
   managerId?: number;
-  activities?: Activity[];
+  activities?: ActivityRequest[];
 }
 
 export class Request implements IRequest {
@@ -45,6 +45,6 @@ export class RequestRepairRequest implements IRequestRepairRequest {
   public description?: string,
   public targetObjectId?: number,
   public managerId?: number,
-  public activities?: Activity[]
+  public activities?: ActivityRequest[]
   ) {}
 }

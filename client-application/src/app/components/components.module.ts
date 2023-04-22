@@ -13,6 +13,7 @@ import { RepairsTabMenuComponent } from './repairs-tab-menu/repairs-tab-menu.com
 import { TabMenuModule } from 'primeng/tabmenu';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { FilterModule } from './filter/filter.module';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { TranslateModule } from '@ngx-translate/core';
     TabMenuModule,
     FormsModule,
     CommonModule,
-    TranslateModule
+    TranslateModule,
+    FilterModule
   ],
   exports: [
     MenuComponent,
@@ -39,7 +41,8 @@ import { TranslateModule } from '@ngx-translate/core';
     TableButtonsComponent,
     DeleteDialogComponent,
     ExpandedTableModule,
-    RepairsTabMenuComponent
+    RepairsTabMenuComponent,
+    FilterModule
   ]
 })
 export class ComponentsModule { }

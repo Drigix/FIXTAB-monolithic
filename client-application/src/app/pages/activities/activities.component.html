@@ -1,0 +1,10 @@
+<div class="table-with-buttons">
+  <fixtab-table [columns]="columns" [values]="activities" tableName="Zadania"
+    [showTableName]="true" (selected)="onActivitySelected($event)"></fixtab-table>
+  <fixtab-table-buttons [template]="'activities'" (showActivityDetails)="openActivitysDialog()"
+    (changeActivityResult)="openActivitysDialog(true)" [isSelectedItem]="selectedActivity !== null">
+  </fixtab-table-buttons>
+</div>
+
+<!-- <fixtab-delete-dialog *ngIf="openDeleteDialog" (deleteConfirmationEmit)="handleActivitysDeleteDialog($event)"></fixtab-delete-dialog> -->
+

@@ -1,5 +1,5 @@
 import { ResultDictionary } from './../../entitites/result-dictionary.model';
-import { ChangeDetectorRef, Component, OnChanges, OnInit, QueryList, Renderer2, SimpleChanges, ViewChild, ViewChildren } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnChanges, OnInit, Output, QueryList, Renderer2, SimpleChanges, ViewChild, ViewChildren } from '@angular/core';
 import { TableComponent } from '../table/table.component';
 import { Accordion, AccordionTab } from 'primeng/accordion';
 
@@ -11,12 +11,9 @@ import { Accordion, AccordionTab } from 'primeng/accordion';
 
 export class ExpandedTableComponent extends TableComponent {
 
-  activeAccordionIndex: number | null = null;
-  statusOpen = ResultDictionary.statusOpen;
-  statusProgress = ResultDictionary.statusProgress;
-  statusCancel = ResultDictionary.statusCancel;
-  statusFinish = ResultDictionary.statusFinish;
+  @Output() filterClick = new EventEmitter<any>();
 
+  activeAccordionIndex: number | null = null;
   constructor(
       public override cd: ChangeDetectorRef,
       public override renderer: Renderer2) {
@@ -25,5 +22,9 @@ export class ExpandedTableComponent extends TableComponent {
 
    onActivityClick(activity: any) {
     console.log(activity);
+  }
+
+  onFilterClick(event: any): void {
+    this.filterClick.emit(event);
   }
 }

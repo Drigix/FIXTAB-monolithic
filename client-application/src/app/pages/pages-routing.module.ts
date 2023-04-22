@@ -56,6 +56,14 @@ import { AuthorityGroupService } from '../auth/authority-group.service';
           loadChildren: () => import('./archive/archive.module').then(m => m.ArchiveModule),
           canActivate: [authGuard]
         },
+        {
+          path: '',
+          data: {
+            authorities: AuthorityGroupService.getCompanyAuthorityGroup()
+          },
+          loadChildren: () => import('./activities/activities.module').then(m => m.ActivitiesModule),
+          canActivate: [authGuard]
+        }
       ]
     )
   ]

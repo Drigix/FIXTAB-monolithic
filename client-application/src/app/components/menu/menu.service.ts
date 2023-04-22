@@ -15,6 +15,7 @@ export class MenuService {
       this.createMenuItem('fa fa-gear', 'Naprawy', 'repairs', AuthorityGroupService.getManagementAuthorityGroup()),
       this.createMenuItem('fa fa-address-book', 'Klienci', 'clients', AuthorityGroupService.getCompanyAuthorityGroup()),
       this.createMenuItem('fa fa-cube', 'Obiekty', 'objects', AuthorityGroupService.getCompanyAuthorityGroup()),
+      this.createMenuItem('fa fa-tasks', 'Zadania', 'activities', AuthorityGroupService.getCompanyAuthorityGroup()),
       this.createMenuItem('fa fa-archive', 'Archiwum', 'archive', AuthorityGroupService.getManagementAuthorityGroup())
     ];
     return items;
