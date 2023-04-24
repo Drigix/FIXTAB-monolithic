@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fixtab.app.models.db.activities.ActivityModel;
 import com.fixtab.app.models.responses.ActivityResponse;
+import com.fixtab.app.models.responses.EmployeeResponse;
 
 public interface ActivityService {
     
@@ -11,4 +12,5 @@ public interface ActivityService {
 
     List<ActivityResponse> getAllNotDeletedActivities();
 
+    EmployeeResponse getActivityManager(Integer activityId);
 }

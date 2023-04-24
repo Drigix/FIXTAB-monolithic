@@ -31,7 +31,7 @@ public class RequestRepairResponse {
 
     private TargetObjectModel targetObject;
 
-    private EmployeeModel manager;
+    private EmployeeResponse manager;
 
     private ResultDictionaryModel result;
 

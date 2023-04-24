@@ -30,7 +30,7 @@ public class ActivityResponse {
 
     private ActivityTypeModel activityType;
 
-    private EmployeeModel employee;
+    private EmployeeResponse employee;
 
     private ResultDictionaryModel result;
 }

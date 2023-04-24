@@ -70,6 +70,7 @@ public class RequestRepairServiceImpl implements RequestRepairService{
             activity.setEmployee(employee.get());
             activity.setDeleted(false);
             activity.setCreateDate(new Date());
+            activity.setStatusUpateDate(new Date());
             activity.setResult(resultDictionaryModel);
         }
         requestRepairRepository.save(requestModel);
