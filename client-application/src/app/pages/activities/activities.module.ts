@@ -8,6 +8,8 @@ import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { ActivitiesRoutingModule } from './activities-routing.module';
 import { ActivitiesComponent } from './activities.component';
+import { ActivitiesDialogComponent } from './activities-dialog/activities-dialog.component';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 
 @NgModule({
@@ -16,13 +18,17 @@ import { ActivitiesComponent } from './activities.component';
     ComponentsModule,
     ButtonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CommonModule,
+    RadioButtonModule
   ],
   exports: [
-    ActivitiesComponent
+    ActivitiesComponent,
+    ActivitiesDialogComponent
   ],
   declarations: [
-    ActivitiesComponent
+    ActivitiesComponent,
+    ActivitiesDialogComponent
   ],
   providers: [],
 })

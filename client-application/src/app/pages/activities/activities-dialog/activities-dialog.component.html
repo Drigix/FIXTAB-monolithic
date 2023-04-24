@@ -1,0 +1,65 @@
+<div class="dialog-content" >
+  <div class="activity-info" *ngIf="!isChangeStatusDialog; else changeStatusDialog">
+    <div class="m-3">
+      <label for="description">Opis: </label>
+      {{activity!.description}}
+    </div>
+    <div class="m-3">
+      <label for="activityType">Typ zadania: </label>
+      {{activity!.activityType!.typeName}}
+    </div>
+    <div class="m-3">
+      <label for="createDate">Data utworzenia: </label>
+      {{activity!.createDate | date : 'dd-MM-yyyy'}}
+    </div>
+    <div class="m-3">
+      <label for="result">Status zadania: </label>
+      <span [class]="activity!.result!.resultId === statusOpen.resultId ? 'open-result' :
+                     activity!.result!.resultId === statusProgress.resultId ? 'progress-result' :
+                     activity!.result!.resultId === statusCancel.resultId ? 'cancel-result' :
+                     activity!.result!.resultId === statusFinish.resultId ? 'finish-result' : ''" >
+        {{activity!.result!.resultId === statusOpen.resultId ? 'OTWARTY' :
+          activity!.result!.resultId === statusProgress.resultId ? 'W TRAKCIE' :
+          activity!.result!.resultId === statusCancel.resultId ? 'ODŁOWANY' :
+          activity!.result!.resultId === statusFinish.resultId ? 'ZAKOŃCZONY' : ''}}
+      </span>
+    </div>
+  </div>
+  <ng-template #changeStatusDialog>
+    <div class="activity-info">
+      <div class="m-3">
+        <label for="result">Status zadania: </label>
+        <span [class]="activity!.result!.resultId === statusOpen.resultId ? 'open-result' :
+                       activity!.result!.resultId === statusProgress.resultId ? 'progress-result' :
+                       activity!.result!.resultId === statusCancel.resultId ? 'cancel-result' :
+                       activity!.result!.resultId === statusFinish.resultId ? 'finish-result' : ''" >
+          {{activity!.result!.resultId === statusOpen.resultId ? 'OTWARTY' :
+            activity!.result!.resultId === statusProgress.resultId ? 'W TRAKCIE' :
+            activity!.result!.resultId === statusCancel.resultId ? 'ODŁOWANY' :
+            activity!.result!.resultId === statusFinish.resultId ? 'ZAKOŃCZONY' : ''}}
+        </span>
+      </div>
+      <div *ngIf="activity!.result!.resultId === statusOpen.resultId" style="display:flex; justify-content: center;">
+        <label class="mr-2" for="changeToProgress">Rozpocznij zadanie</label>
+        <p-radioButton name="changeToProgress" value="changeToProgress" [(ngModel)]="changeToProgress"></p-radioButton>
+      </div>
+      <div *ngIf="activity!.result!.resultId === statusProgress.resultId">
+        <div>
+          <label class="mr-2" for="changeToProgress">Zakończ zadanie</label>
+          <p-radioButton name="finishResult" value="finishResult" [(ngModel)]="endResult" inputId="endResult"></p-radioButton>
+        </div>
+        <div>
+          <label class="mr-2" for="changeToProgress">Odwołaj zadanie</label>
+          <p-radioButton name="cancelResult" value="cancelResult" [(ngModel)]="endResult" inputId="endResult"></p-radioButton>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <div class="dialog-footer">
+    <p-button *ngIf="isChangeStatusDialog" styleClass="button-width dialog-button-margin" [label]="'Edytuj status'"
+       (onClick)="onStatusEdit()" [disabled]="!changeToProgress">
+    </p-button>
+    <p-button styleClass="button-width dialog-button-margin" (onClick)="onCloseDialog()" [label]="isChangeStatusDialog ? 'Anuluj' : 'Zamknij'">
+    </p-button>
+  </div>
+</div>
