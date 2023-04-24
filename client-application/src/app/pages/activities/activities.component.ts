@@ -1,8 +1,11 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { DialogService } from 'primeng/dynamicdialog';
 import { UniversalTableColumn } from 'src/app/components/table/column.model';
 import { Activity } from 'src/app/entitites/activity.model';
 import { ActivitiesService } from 'src/app/services/activities.service';
+import { ActivitiesDialogComponent } from './activities-dialog/activities-dialog.component';
+import { Employee } from 'src/app/entitites/employee-model';
 
 @Component({
   selector: 'fixtab-activities',
@@ -16,7 +19,8 @@ export class ActivitiesComponent implements OnInit {
   selectedActivity: Activity | null = null;
 
   constructor(
-    private activitiesService: ActivitiesService
+    private activitiesService: ActivitiesService,
+    private dialogService: DialogService
   ) { }
 
   ngOnInit() {
@@ -28,7 +32,8 @@ export class ActivitiesComponent implements OnInit {
     this.columns = [
       {
         header: 'Zlecone przez',
-        field: 'createdBy'
+        field: 'manager',
+        subField: 'fullName'
       },
       {
         header: 'Data utworzenia',
@@ -46,6 +51,13 @@ export class ActivitiesComponent implements OnInit {
     this.activitiesService.getAllNotDeleted().subscribe(
       (res: HttpResponse<Activity[]>) => {
         this.activities = res.body ?? [];
+        this.activities.forEach( activity => {
+          this.activitiesService.getActivityManager(activity.activityId!).subscribe(
+            (res: HttpResponse<Employee>) => {
+              activity.manager = res.body!;
+            }
+          );
+        });
       }
     );
   }
@@ -55,6 +67,14 @@ export class ActivitiesComponent implements OnInit {
   }
 
   openActivitysDialog(changeResult = false): void {
-
+    this.dialogService.open(ActivitiesDialogComponent, {
+      header: changeResult ? 'Edytuj status zadania' : 'Zadanie',
+      width: '60%',
+      height: '60%',
+      data: {
+        changeStatus: changeResult,
+        activity: this.selectedActivity
+      }
+    });
   }
 }

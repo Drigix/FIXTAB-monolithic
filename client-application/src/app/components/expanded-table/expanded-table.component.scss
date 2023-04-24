@@ -12,10 +12,26 @@
   display: none;
 }
 
+:host ::ng-deep .p-datatable .p-datatable-thead th:first-child {
+  border-right: none !important;
+}
+
 .repair-info {
   font-size: 22px;
   label {
     color: var(--primary-color);
     font-weight: bold;
   }
+}
+
+.activity-panel {
+  font-size: 16px;
+  label {
+    color: var(--primary-color);
+    font-weight: bold;
+  }
+}
+
+.text-red {
+  color: red;
 }
