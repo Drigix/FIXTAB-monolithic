@@ -11,6 +11,7 @@ interface IActivity {
   createDate?: string;
   statusUpateDate?: string;
   activityType?: ActivityType;
+  manager?: Employee;
   employee?: Employee;
   result?: Result
 }
@@ -32,6 +33,7 @@ export class Activity implements IActivity {
   public createDate?: string,
   public statusUpateDate?: string,
   public activityType?: ActivityType,
+  public manager?: Employee,
   public employee?: Employee,
   public result?: Result
   ) {}

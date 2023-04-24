@@ -83,7 +83,7 @@
                       <p-checkbox [(ngModel)]="repair.requestCancelled" [binary]="true" inputId="binary"></p-checkbox>
                     </div>
                   </div>
-                  <p-accordion class="w-full" [multiple]="false" [activeIndex]="activeAccordionIndex">
+                  <p-accordion class="w-full activity-panel" [multiple]="false" [activeIndex]="activeAccordionIndex">
                         <p-accordionTab *ngFor="let activity of repair.activity; let i = index" (click)="onActivityClick(activity)">
                           <ng-template pTemplate="header">
                             <div class="flex align-items-center">
@@ -91,13 +91,34 @@
                                             activity.result.resultId === statusCancel.resultId ? 'pi pi-times mr-2' :
                                             activity.result.resultId === statusProgress.resultId ? 'pi pi-trash mr-2':
                                             activity.result.resultId === statusFinish.resultId ? 'pi pi-check mr-2' : ''"></i>
-                                <span class="vertical-align-middle">Header I</span>
+                                <span class="vertical-align-middle">Zadanie {{i + 1}}</span>
                             </div>
                           </ng-template>
                           <ng-template pTemplate="content">
-                            <p>
-                                {{activity.description}}
-                            </p>
+                            <div class="p-1">
+                              <label for="description">Opis: </label>
+                              {{activity.description ?? 'Brak'}}
+                            </div>
+                            <div class="p-1">
+                              <label for="sequenceNumber">Numer zadania do wykonania: </label>
+                              {{activity.sequenceNumber ?? 'Brak'}}
+                            </div>
+                            <div class="p-1">
+                              <label for="employee">Pracownik: </label>
+                              {{activity.employee?.name ?? 'Brak'}} {{activity.employee?.surname ?? ''}}
+                            </div>
+                            <div class="p-1">
+                              <label for="activityType">Typ zadania: </label>
+                              {{activity.activityType.typeName ?? 'Brak'}}
+                            </div>
+                            <div class="p-1">
+                              <label for="createDate">Data utworzenia: </label>
+                              {{(activity.createDate | date:'dd-MM-yyyy') ?? 'Brak'}}
+                            </div>
+                            <div class="p-1">
+                              <label for="statusUpateDate">Ostatnia data edycji statusu: </label>
+                              {{(activity.statusUpateDate | date:'dd-MM-yyyy') ?? 'Brak'}}
+                            </div>
                           </ng-template>
                         </p-accordionTab>
                   </p-accordion>

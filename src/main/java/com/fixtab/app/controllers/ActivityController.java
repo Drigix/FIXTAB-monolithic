@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import com.fixtab.app.config.HeadersConfig;
 import com.fixtab.app.models.db.activities.ActivityModel;
 import com.fixtab.app.models.responses.ActivityResponse;
+import com.fixtab.app.models.responses.EmployeeResponse;
 import com.fixtab.app.services.interfaces.ActivityService;
 
 import static com.fixtab.app.security.AuthoritiesConstants.*;
@@ -48,5 +49,14 @@ public class ActivityController {
                 .body(activityResponse);
     }
 
-
+    @GetMapping("getActivityManager/{activityId}")
+    @PreAuthorize(COMPANY_PREAUTHORIZE)
+    public ResponseEntity<EmployeeResponse> getActivityManager(@PathVariable Integer activityId) throws URISyntaxException {
+        EmployeeResponse employeeResponse = activityService.getActivityManager(activityId);
+        HeadersConfig headers = new HeadersConfig(applicationName, "Get activity manager");
+        return ResponseEntity
+                .created(new URI("/api/activity" + "getActivityManager"))
+                .headers(headers.getHeaders())
+                .body(employeeResponse);
+    }
 }

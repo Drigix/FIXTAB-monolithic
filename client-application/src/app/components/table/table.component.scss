@@ -66,10 +66,6 @@
   border: 1px solid #3a4451;
 }
 
-:host ::ng-deep .p-datatable .p-datatable-thead th:first-child {
-  border-right: none !important;
-}
-
 :host ::ng-deep .p-datatable .p-datatable-thead th:nth-child(2) {
   border-left: none !important;
 }

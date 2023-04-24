@@ -1,0 +1,39 @@
+.activity-info {
+  font-size: 25px;
+  font-weight: bold;
+  label {
+    color: var(--primary-color);
+  }
+
+  .open-result {
+    color: orange;
+  }
+
+  .progress-result {
+    color: rgb(238, 255, 0);
+  }
+
+  .cancel-result {
+    color: red;
+  }
+
+  .finish-result {
+    color: green;
+  }
+}
+
+:host ::ng-deep .p-radiobutton-box {
+  height: 30px;
+  width: 30px;
+}
+
+:host ::ng-deep .p-radiobutton {
+  input {
+    display: none;
+  }
+}
+
+:host ::ng-deep .p-radiobutton .p-radiobutton-box.p-highlight {
+  background-color: var(--background-color);
+  border: 5px solid var(--primary-color);
+}
