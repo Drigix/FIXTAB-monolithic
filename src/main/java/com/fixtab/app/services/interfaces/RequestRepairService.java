@@ -3,6 +3,7 @@ package com.fixtab.app.services.interfaces;
 import java.util.List;
 
 import com.fixtab.app.models.db.activities.RequestModel;
+import com.fixtab.app.models.requests.EditRequestRepairRequest;
 import com.fixtab.app.models.requests.RequestRepairRequest;
 import com.fixtab.app.models.responses.RequestRepairResponse;
 
@@ -14,4 +15,5 @@ public interface RequestRepairService {
 
     void createRequestRepair(RequestRepairRequest requestRepairRequest);
 
+    void editRequestRepair(EditRequestRepairRequest editRequestRepairRequest);
 }

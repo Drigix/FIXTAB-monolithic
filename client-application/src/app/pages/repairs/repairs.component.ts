@@ -6,6 +6,8 @@ import { RequestRepairService } from 'src/app/services/request-repair.service';
 import { Request } from 'src/app/entitites/request.model';
 import { HttpResponse } from '@angular/common/http';
 import { ConfirmationService } from 'primeng/api';
+import { Activity } from 'src/app/entitites/activity.model';
+import { RepairsActivitiesDialogComponent } from './repairs-dialog/repairs-activities/repairs-activities-dialog.component';
 
 @Component({
   selector: 'fixtab-repairs',
@@ -15,9 +17,9 @@ import { ConfirmationService } from 'primeng/api';
 
 export class RepairsComponent implements OnInit {
 
-  selectedRepair: any;
   columns: UniversalTableColumn[] = [];
   requestRepairs: Request[] = [];
+  selectedRepair: Request | null = null;
   openDeleteDialog = false;
 
   constructor(
@@ -65,14 +67,27 @@ export class RepairsComponent implements OnInit {
     this.requestRepairs = repairs;
   }
 
-  openRepairsDialog(edit: boolean): void {
+  openRepairsDialog(edit = false): void {
     const ref = this.dialogService.open(RepairsDialogComponent, {
-      header: edit ? 'Edytuj pracownika' : 'Dodaj pracownika',
+      header: edit ? 'Edytuj zlecenie' : 'Dodaj zlecenie',
       width: '60%',
       height: '70%',
       data: {
         edit: edit,
-        repair: this.selectedRepair
+        request: this.selectedRepair
+      }
+    });
+    ref.onClose.subscribe((response) => this.handleRepairsDialog(response));
+  }
+
+  openActivityDialog(activity: Activity): void {
+    const ref = this.dialogService.open(RepairsActivitiesDialogComponent, {
+      header: 'Edytuj zadanie',
+      width: '60%',
+      height: '70%',
+      data: {
+        edit: true,
+        activity: activity
       }
     });
     ref.onClose.subscribe((response) => this.handleRepairsDialog(response));

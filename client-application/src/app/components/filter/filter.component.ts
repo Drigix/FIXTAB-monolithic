@@ -2,6 +2,7 @@ import { HttpResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Employee } from 'src/app/entitites/employee-model';
 import { Request } from 'src/app/entitites/request.model';
+import { ResultDictionary } from 'src/app/entitites/result-dictionary.model';
 import { ChangeDateService } from 'src/app/services/change-date.service';
 import { EmployeeService } from 'src/app/services/employee.service';
 
@@ -41,6 +42,7 @@ export class FilterComponent implements OnInit {
       date: new Date(new Date().setDate(new Date().getDate() - 7))
     }
   ];
+  resultFilterOption = ResultDictionary.resultDictionaryList;
 
   constructor(
     private employeeService: EmployeeService,
@@ -77,6 +79,15 @@ export class FilterComponent implements OnInit {
     if(date) {
       this.repairs = this.filterRepairs.filter( repair =>
         this.changeDateService.changeDateToString(new Date(repair.openDate!)) >= this.changeDateService.changeDateToString(date.date));
+    } else {
+      this.repairs = this.filterRepairs;
+    }
+    this.emitRepairs.emit(this.repairs);
+  }
+
+  onResultSelect(result: ResultDictionary): void {
+    if(result) {
+      this.repairs = this.filterRepairs.filter( repair => repair.result?.resultId === result.resultId);
     } else {
       this.repairs = this.filterRepairs;
     }

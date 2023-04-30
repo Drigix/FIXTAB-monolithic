@@ -6,6 +6,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.fixtab.app.models.db.activities.RequestModel;
+import com.fixtab.app.models.requests.EditRequestRepairRequest;
 import com.fixtab.app.models.requests.RequestRepairRequest;
 import com.fixtab.app.models.responses.RequestRepairResponse;
 import com.fixtab.app.services.interfaces.RequestRepairService;
@@ -30,7 +31,7 @@ public class RequestRepairController {
     }
 
     @GetMapping("getAllNotDeletedRequestRepairs")
-    @PreAuthorize(ADMIN_PREAUTHORIZE)
+    @PreAuthorize(MANAGEMENT_PREAUTHORIZE)
     public List<RequestRepairResponse> getAllNotDeletedRequestRepairs() {
         return requestRepairService.getAllNotDeletedRequestRepairs();
     }
@@ -39,7 +40,14 @@ public class RequestRepairController {
     @PreAuthorize(MANAGEMENT_PREAUTHORIZE)
     public ResponseEntity<?> createRequestRepair(@RequestBody RequestRepairRequest requestRepairRequest) {
         requestRepairService.createRequestRepair(requestRepairRequest);
-        return new ResponseEntity<>("{\"Success\":\"TargetObject has been updated!\"}",HttpStatus.OK);
+        return new ResponseEntity<>("{\"Success\":\"Request has been created!\"}", HttpStatus.OK);
+    }
+
+    @PutMapping("editRequestRepair")
+    @PreAuthorize(MANAGEMENT_PREAUTHORIZE)
+    public ResponseEntity<?> editRequestRepair(@RequestBody EditRequestRepairRequest editRequestRepairRequest) {
+        requestRepairService.editRequestRepair(editRequestRepairRequest);
+        return new ResponseEntity<>("{\"Success\":\"Request has been updated!\"}", HttpStatus.OK);
     }
 
 }

@@ -7,6 +7,7 @@ import { Activity, ActivityRequest } from 'src/app/entitites/activity.model';
 import { Employee } from 'src/app/entitites/employee-model';
 import { TargetObject } from 'src/app/entitites/object.model';
 import { Request, RequestRepairRequest } from 'src/app/entitites/request.model';
+import { ResultDictionary } from 'src/app/entitites/result-dictionary.model';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { ObjectsService } from 'src/app/services/objects.service';
 import { RequestRepairService } from 'src/app/services/request-repair.service';
@@ -22,11 +23,15 @@ export class RepairsDialogComponent implements OnInit {
   requestForm = this.fb.group({
     targetObject: ['', Validators.required],
     description: ['', Validators.required],
+    result: ['']
   });
 
   request: RequestRepairRequest = new RequestRepairRequest();
+  editRequest: Request | null = null;
   activities: ActivityRequest[] = [];
   objects: TargetObject[] = [];
+  results = ResultDictionary.resultDictionaryList;
+  selectedResult: ResultDictionary | null = null;
   selectedObject: TargetObject | null = null;
   currentEmployee: Employee | null = null;
   activeItemIndex?: number;
@@ -45,6 +50,11 @@ export class RepairsDialogComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.edit = this.config.data.edit;
+    if(this.edit) {
+      this.editRequest = this.config.data.request;
+      this.selectedResult = this.results.find( result => result.resultId === this.editRequest?.result?.resultId)!;
+    }
     this.loadObjects();
     this.loadCurrentEmployee();
   }
@@ -53,6 +63,9 @@ export class RepairsDialogComponent implements OnInit {
     this.objectsService.getAllNotDeleted().subscribe(
       (res: HttpResponse<TargetObject[]>) => {
         this.objects = res.body ?? [];
+        if(this.edit) {
+          this.selectedObject = this.objects.find( object => object.targetId === this.editRequest?.targetObject?.targetId)!;
+        }
       }
     );
   }
@@ -80,8 +93,31 @@ export class RepairsDialogComponent implements OnInit {
     this.activeItemIndex = activeIndex;
   }
 
-  onEditRepair(): void {
+  onDescriptionChange(event: string): void {
+    if(this.edit) {
+      this.editRequest!.description = event;
+    } else {
+      this.request.description = event;
+    }
+  }
 
+  onEditRepair(): void {
+    console.log(this.editRequest);
+    this.editRequest!.targetObject = this.selectedObject!;
+    this.editRequest!.result = this.selectedResult!;
+    this.requestRepairService.update(this.editRequest!).subscribe(
+      {
+        next: () => {
+          this.messageService.add({key: 'mainToast', severity: 'success', summary: 'Success',
+              detail: 'edytowano!'});
+          this.ref.close();
+        },
+        error: () => {
+          this.messageService.add({key: 'mainToast', severity: 'error', summary: 'Error',
+              detail: 'nie edytowano!'});
+        }
+      }
+    )
   }
 
   onCreateRepair(): void {

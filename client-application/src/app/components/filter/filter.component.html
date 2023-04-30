@@ -33,4 +33,16 @@
     [showClear]="true"
   >
   </p-dropdown>
+
+  <p-dropdown
+    class="m-2"
+    [options]="resultFilterOption"
+    (onChange)="onResultSelect($event.value)"
+    id="resultOptions"
+    optionLabel="plName"
+    placeholder="Wybierz status zlecenia"
+    appendTo="body"
+    [showClear]="true"
+  >
+  </p-dropdown>
 </div>

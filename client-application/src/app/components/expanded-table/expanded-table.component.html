@@ -29,7 +29,7 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-columns="columns" let-expanded="expanded">
-        <tr class="p-selectable-row">
+        <tr class="p-selectable-row" (click)="onRequestRepairClick(rowData)" [ngClass]="{'selectedRow': rowData === selectRow}">
           <td class="ui-resizable-column">
             <button type="button" pButton pRipple [pRowToggler]="rowData"
               class="p-button-text p-button-rounded p-button-plain"
@@ -43,7 +43,7 @@
               <div *ngSwitchCase="'RESULT'">
                 <i [class]="rowData[col.field][col.subField] === statusOpen.name ? 'pi pi-exclamation-circle mr-2' :
                             rowData[col.field][col.subField] === statusCancel.name ? 'pi pi-times mr-2' :
-                            rowData[col.field][col.subField] === statusProgress.name ? 'pi pi-trash mr-2':
+                            rowData[col.field][col.subField] === statusProgress.name ? 'pi pi-clock mr-2':
                             rowData[col.field][col.subField] === statusFinish.name ? 'pi pi-check mr-2' : ''"></i>
               </div>
               <div *ngSwitchDefault class="ellipsis">
@@ -80,16 +80,16 @@
                     </div>
                     <div class="p-2">
                       <label for="requestCancelled">Odwołane: </label>
-                      <p-checkbox [(ngModel)]="repair.requestCancelled" [binary]="true" inputId="binary"></p-checkbox>
+                      <p-checkbox [disabled]="true" [(ngModel)]="repair.requestCancelled" [binary]="true" inputId="binary"></p-checkbox>
                     </div>
                   </div>
                   <p-accordion class="w-full activity-panel" [multiple]="false" [activeIndex]="activeAccordionIndex">
-                        <p-accordionTab *ngFor="let activity of repair.activity; let i = index" (click)="onActivityClick(activity)">
+                        <p-accordionTab *ngFor="let activity of repair.activity; let i = index" (click)="onActivityClick(activity)" [disabled]="repair.requestCancelled">
                           <ng-template pTemplate="header">
                             <div class="flex align-items-center">
-                                <i [class]="activity.result.resultId === statusOpen.resultId ? 'pi pi-clock mr-2' :
+                                <i [class]="activity.result.resultId === statusOpen.resultId ? 'pi pi-exclamation-circle mr-2' :
                                             activity.result.resultId === statusCancel.resultId ? 'pi pi-times mr-2' :
-                                            activity.result.resultId === statusProgress.resultId ? 'pi pi-trash mr-2':
+                                            activity.result.resultId === statusProgress.resultId ? 'pi pi-clock mr-2':
                                             activity.result.resultId === statusFinish.resultId ? 'pi pi-check mr-2' : ''"></i>
                                 <span class="vertical-align-middle">Zadanie {{i + 1}}</span>
                             </div>
@@ -118,6 +118,9 @@
                             <div class="p-1">
                               <label for="statusUpateDate">Ostatnia data edycji statusu: </label>
                               {{(activity.statusUpateDate | date:'dd-MM-yyyy') ?? 'Brak'}}
+                            </div>
+                            <div class="accordion-buttons p-1">
+                              <p-button label="Edytuj zadanie" (onClick)="onEditActivity()"></p-button>
                             </div>
                           </ng-template>
                         </p-accordionTab>

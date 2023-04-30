@@ -35,3 +35,12 @@
 .text-red {
   color: red;
 }
+
+.selectedRow {
+  background-color: var(--primary-color-darker) !important;
+}
+
+.accordion-buttons {
+  display: flex;
+  justify-content: center;
+}

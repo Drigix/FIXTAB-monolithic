@@ -2,6 +2,8 @@ package com.fixtab.app.mappers;
 
 import com.fixtab.app.models.db.activities.ActivityModel;
 import com.fixtab.app.models.requests.ActivityRequest;
+import com.fixtab.app.models.requests.EditRequestRepairRequest;
+
 import org.mapstruct.Mapper;
 
 import com.fixtab.app.models.db.activities.RequestModel;
@@ -9,8 +11,6 @@ import com.fixtab.app.models.requests.RequestRepairRequest;
 import com.fixtab.app.models.responses.RequestRepairResponse;
 import org.mapstruct.Mapping;
 
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring", uses = {})
 public interface RequestRepairMapper {
@@ -21,7 +21,7 @@ public interface RequestRepairMapper {
     @Mapping(source = "targetObjectId", target = "targetObject.targetId")
     RequestModel toEntity(RequestRepairRequest requestRepairRequest);
 
-    //EmployeeModel toEntity(EditEmployeeRequest employeeRequest);
+    RequestModel toEntity(EditRequestRepairRequest editRequestRepairRequest);
 
     default RequestModel fromId (Integer id) {
         if (id == null) {

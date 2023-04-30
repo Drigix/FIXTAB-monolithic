@@ -1,6 +1,7 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
+import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { ActivityType } from 'src/app/entitites/activity-type.model';
 import { Activity, ActivityRequest } from 'src/app/entitites/activity.model';
 import { Employee } from 'src/app/entitites/employee-model';
@@ -25,29 +26,42 @@ export class RepairsActivitiesDialogComponent implements OnInit, OnChanges {
     activityType: ['', Validators.required]
   });
 
+  editActivity: Activity | null = null;
   activityType: ActivityType = new ActivityType();
   employees: Employee[] = [];
   selectedEmployee: Employee | null = null;
+  edit = false;
 
   constructor(
     private fb: UntypedFormBuilder,
-    private employeeService: EmployeeService
+    private employeeService: EmployeeService,
+    private config: DynamicDialogConfig,
   ) { }
 
   ngOnInit() {
+    this.edit = this.config.data.edit;
+    if(this.edit) {
+      this.editActivity = this.config.data.activity;
+      this.activityType = this.editActivity?.activityType!;
+    }
     this.loadEmployees();
     this.onActivityFormEmit();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.selectedEmployee = this.employees.find(item => item.employeeId === this.activity?.employeeId)!;
-    this.activity!.activityType = this.activityType!;
+    if(!this.edit) {
+      this.selectedEmployee = this.employees.find(item => item.employeeId === this.activity?.employeeId)!;
+      this.activity!.activityType = this.activityType!;
+    }
   }
 
   loadEmployees(): void {
     this.employeeService.getAllNotDeleted().subscribe(
       (res: HttpResponse<Employee[]>) => {
         this.employees = res.body ?? [];
+        if(this.edit) {
+          this.selectedEmployee = this.employees.find( employee => employee.employeeId === this.editActivity?.employee?.employeeId)!;
+        }
       }
     );
   }
@@ -58,5 +72,13 @@ export class RepairsActivitiesDialogComponent implements OnInit, OnChanges {
 
   onEmployeeChange(): void {
     this.activity!.employeeId! = this.selectedEmployee?.employeeId!;
+  }
+
+  onEditActivity(): void {
+
+  }
+
+  onCloseDialog(): void {
+
   }
 }

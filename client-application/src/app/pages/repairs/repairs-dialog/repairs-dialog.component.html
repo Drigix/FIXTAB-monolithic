@@ -1,6 +1,6 @@
 <div class="repairs-dialog-content">
   <div class="dialog-header">
-    <fixtab-repairs-tab-menu (emitActivities)="onActivitiesChange($event)" (emitActiveIndex)="onActiveIndexChange($event)">
+    <fixtab-repairs-tab-menu *ngIf="!edit" (emitActivities)="onActivitiesChange($event)" (emitActiveIndex)="onActiveIndexChange($event)">
     </fixtab-repairs-tab-menu>
   </div>
   <div class="dialog-body">
@@ -13,8 +13,13 @@
         </span>
         <span class="p-float-label">
           <textarea id="description" formControlName="description" placeholder="Opis"
-            rows="5" cols="30" pInputTextarea [autoResize]="true" [(ngModel)]="request.description">
+            rows="5" cols="30" pInputTextarea [autoResize]="true" (ngModelChange)="onDescriptionChange($event)" [ngModel]="edit ? editRequest?.description : request.description">
           </textarea>
+        </span>
+        <span *ngIf="edit" class="p-float-label">
+          <p-dropdown [options]="results" id="result" optionLabel="plName" formControlName="result" [(ngModel)]="selectedResult"
+            placeholder="Status zlecenia" [autoDisplayFirst]="false" appendTo="body">
+          </p-dropdown>
         </span>
       </form>
     </div>

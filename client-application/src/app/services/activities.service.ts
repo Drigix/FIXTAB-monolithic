@@ -26,6 +26,10 @@ export class ActivitiesService {
     return this.http.get<Activity[]>(this.url + '/getAllNotDeletedActivities', {observe: 'response'});
   }
 
+  getAllNotDeletedForEmployee(): Observable<EntityArrayResponseType> {
+    return this.http.get<Activity[]>(this.url + '/getAllNotDeletedActivitiesForEmployee', {observe: 'response'});
+  }
+
   getActivityManager(activityId: number): Observable<EmployeeResponseType>  {
     return this.http.get<Employee>(this.url + `/getActivityManager/${activityId}`, {observe: 'response'});
   }

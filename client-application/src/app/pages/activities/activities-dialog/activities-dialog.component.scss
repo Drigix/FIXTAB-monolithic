@@ -22,6 +22,12 @@
   }
 }
 
+.activity-change-result {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 :host ::ng-deep .p-radiobutton-box {
   height: 30px;
   width: 30px;
