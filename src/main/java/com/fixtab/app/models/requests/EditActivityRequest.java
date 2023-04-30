@@ -1,5 +1,7 @@
 package com.fixtab.app.models.requests;
 
+import java.util.Date;
+
 import com.fixtab.app.models.db.activities.ActivityTypeModel;
 import com.fixtab.app.models.db.activities.ResultDictionaryModel;
 import com.fixtab.app.models.db.employees.EmployeeModel;
@@ -11,13 +13,15 @@ import lombok.*;
 @NoArgsConstructor
 public class EditActivityRequest {
 
-    private int activityId;
+    private Integer activityId;
 
     private Integer sequenceNumber;
 
     private String description;
 
     private boolean cancelled;
+
+    private Date createDate;
 
     private ActivityTypeModel activityType;
 
