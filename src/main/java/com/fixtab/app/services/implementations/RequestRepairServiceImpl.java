@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import com.fixtab.app.mappers.ActivityMapper;
 import com.fixtab.app.mappers.RequestRepairMapper;
 import com.fixtab.app.models.db.activities.RequestModel;
+import com.fixtab.app.models.requests.EditRequestRepairRequest;
 import com.fixtab.app.models.requests.RequestRepairRequest;
 import com.fixtab.app.models.responses.RequestRepairResponse;
 import com.fixtab.app.respositories.RequestRepairRepository;
@@ -74,5 +75,56 @@ public class RequestRepairServiceImpl implements RequestRepairService{
             activity.setResult(resultDictionaryModel);
         }
         requestRepairRepository.save(requestModel);
+    }
+
+    @Override
+    public void editRequestRepair(EditRequestRepairRequest editRequestRepairRequest) {
+        RequestModel newRequestModel = requestRepairMapper.toEntity(editRequestRepairRequest);
+        Optional<RequestModel> requestModel = requestRepairRepository.findById(editRequestRepairRequest.getRequestId());
+        Optional<TargetObjectModel> newTargetObject = targetObjectRepository.findById(newRequestModel.getTargetObject().getTargetId());
+        mapOldRequestRepairToNewRequestRepair(newRequestModel, requestModel.get(), newTargetObject.get());
+        requestRepairRepository.save(newRequestModel);
+    }
+
+    public void mapOldRequestRepairToNewRequestRepair(RequestModel newRequestModel, RequestModel requestModel, TargetObjectModel newTargetObject) {
+        newRequestModel.setActivity(requestModel.getActivity());
+        newRequestModel.setManager(requestModel.getManager());
+        newRequestModel.setCreatedDate(requestModel.getCreatedDate());
+        newRequestModel.setCreatedBy(requestModel.getCreatedBy());
+        newRequestModel.setDeleted(false);
+        newRequestModel.getTargetObject().setCreatedDate(newTargetObject.getCreatedDate());
+        newRequestModel.getTargetObject().setCreatedBy(newTargetObject.getCreatedBy());
+        newRequestModel.getTargetObject().setDeleted(false);
+        checkResult(newRequestModel, requestModel);
+    }
+
+    public void checkResult(RequestModel newRequestModel, RequestModel requestModel) {
+        if(newRequestModel.getResult().getName().equals("CANCEL")) {
+            ResultDictionaryModel resultCancel = resultDictionaryRepository.findOneByName("CANCEL"); 
+            newRequestModel.setResult(resultCancel);
+            newRequestModel.setRequestCancelled(true);
+            newRequestModel.setProgressDate(requestModel.getProgressDate());
+            newRequestModel.setEndDate(new Date());
+            for(ActivityModel activity: newRequestModel.getActivity()) {
+                activity.setResult(resultCancel);
+                activity.setStatusUpateDate(new Date());
+            }
+        } else {
+            newRequestModel.setRequestCancelled(false);
+            if(newRequestModel.getResult().getName().equals("PROGRESS")) {
+                newRequestModel.setProgressDate(new Date());
+                newRequestModel.setEndDate(null);
+                if(requestModel.getResult().getName().equals("CANCEL")) {
+                    ResultDictionaryModel resultProgress = resultDictionaryRepository.findOneByName("PROGRESS"); 
+                    for(ActivityModel activity: newRequestModel.getActivity()) {
+                        activity.setResult(resultProgress);
+                        activity.setStatusUpateDate(new Date());
+                    }
+                }
+            } else if(newRequestModel.getResult().getName().equals("FINISH")) {
+                newRequestModel.setProgressDate(requestModel.getProgressDate());
+                newRequestModel.setEndDate(new Date());
+            }
+        }
     }
 }
