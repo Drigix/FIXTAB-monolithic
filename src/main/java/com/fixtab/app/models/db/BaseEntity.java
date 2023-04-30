@@ -11,6 +11,7 @@ import lombok.experimental.SuperBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -37,7 +38,7 @@ public abstract class BaseEntity {
     @Column(name="modifieddate")
     private Date modifiedDate;
 
-    @CreatedBy
+    @LastModifiedBy
     @Column(name="modifiedby")
     private String modifiedBy;
 
