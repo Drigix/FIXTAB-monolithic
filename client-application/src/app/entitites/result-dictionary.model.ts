@@ -6,25 +6,30 @@ interface IResultDictionary {
 export class ResultDictionary implements IResultDictionary {
   constructor(
     public resultId?: number,
-    public name?: string
+    public name?: string,
+    public plName?: string
   ) {}
 
   static resultDictionaryList: ResultDictionary[] = [
     {
       resultId: 1,
-      name: 'OPEN'
+      name: 'OPEN',
+      plName: 'OTWARTY'
     },
     {
       resultId: 2,
-      name: 'PROGRESS'
+      name: 'PROGRESS',
+      plName: 'W TRAKCIE'
     },
     {
       resultId: 3,
-      name: 'CANCEL'
+      name: 'CANCEL',
+      plName: 'ODWOŁANY'
     },
     {
       resultId: 4,
-      name: 'FINISH'
+      name: 'FINISH',
+      plName: 'ZAKOŃCZONY'
     },
   ];
 

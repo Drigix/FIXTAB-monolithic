@@ -1,19 +1,48 @@
-<div class="p-3">
-  <label for="header">Zadanie {{activeItemIndex! + 1}}</label>
-  <form #form="ngForm" [formGroup]="activityForm" class="dialog-form">
-    <span class="p-float-label">
-      <p-dropdown [options]="employees" id="employee" optionLabel="fullName" formControlName="employee" [(ngModel)]="selectedEmployee"
-        placeholder="Pracownik" [autoDisplayFirst]="false" appendTo="body" (onChange)="onEmployeeChange()">
-      </p-dropdown>
-    </span>
-    <span class="p-float-label">
-      <textarea id="description" formControlName="description" placeholder="Opis"
-        rows="5" cols="30" pInputTextarea [autoResize]="true" [(ngModel)]="activity!.description!">
-      </textarea>
-    </span>
-    <span class="p-float-label">
-      <input pInputText id="activityType" formControlName="activityType" placeholder="Typ aktywności"
-          [(ngModel)]="activityType!.typeName!"/>
-    </span>
-  </form>
+<div class="p-3" style="height: 100%;">
+  <div *ngIf="!edit; else editActivityDialog">
+    <label for="header">Zadanie {{activeItemIndex! + 1}}</label>
+    <form #form="ngForm" [formGroup]="activityForm" class="dialog-form">
+      <span class="p-float-label">
+        <p-dropdown [options]="employees" id="employee" optionLabel="fullName" formControlName="employee" [(ngModel)]="selectedEmployee"
+          placeholder="Pracownik" [autoDisplayFirst]="false" appendTo="body" (onChange)="onEmployeeChange()">
+        </p-dropdown>
+      </span>
+      <span class="p-float-label">
+        <textarea id="description" formControlName="description" placeholder="Opis"
+          rows="5" cols="30" pInputTextarea [autoResize]="true" [(ngModel)]="activity!.description!">
+        </textarea>
+      </span>
+      <span class="p-float-label">
+        <input pInputText id="activityType" formControlName="activityType" placeholder="Typ aktywności"
+            [(ngModel)]="activityType!.typeName!"/>
+      </span>
+    </form>
+  </div>
+  <ng-template #editActivityDialog>
+    <div class="dialog-content">
+      <div class="dialog-body">
+        <form #form="ngForm" [formGroup]="activityForm" class="dialog-form">
+          <span class="p-float-label">
+            <p-dropdown [options]="employees" id="employee" optionLabel="fullName" formControlName="employee" [(ngModel)]="selectedEmployee"
+              placeholder="Pracownik" [autoDisplayFirst]="false" appendTo="body" (onChange)="onEmployeeChange()">
+            </p-dropdown>
+          </span>
+          <span class="p-float-label">
+            <textarea id="description" formControlName="description" placeholder="Opis"
+              rows="5" cols="30" pInputTextarea [autoResize]="true" [(ngModel)]="editActivity!.description!">
+            </textarea>
+          </span>
+          <span class="p-float-label">
+            <input pInputText id="activityType" formControlName="activityType" placeholder="Typ aktywności"
+                [(ngModel)]="activityType!.typeName!"/>
+          </span>
+        </form>
+      </div>
+      <div class="dialog-footer">
+        <p-button styleClass="button-width dialog-button-margin" [label]="'Edytuj'"
+          [disabled]="activityForm.invalid === true" (onClick)="onEditActivity()"></p-button>
+        <p-button styleClass="button-width dialog-button-margin" (onClick)="onCloseDialog()">Anuluj</p-button>
+      </div>
+    </div>
+  </ng-template>
 </div>
