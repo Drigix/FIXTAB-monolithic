@@ -48,7 +48,7 @@ export class ActivitiesComponent implements OnInit {
   }
 
   loadActivities(): void {
-    this.activitiesService.getAllNotDeleted().subscribe(
+    this.activitiesService.getAllNotDeletedForEmployee().subscribe(
       (res: HttpResponse<Activity[]>) => {
         this.activities = res.body ?? [];
         this.activities.forEach( activity => {
