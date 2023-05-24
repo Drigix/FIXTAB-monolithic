@@ -1,6 +1,7 @@
 package com.fixtab.app.services.implementations;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -50,6 +51,11 @@ public class RequestRepairServiceImpl implements RequestRepairService{
     @Override
     public List<RequestRepairResponse> getAllNotDeletedRequestRepairs() {
         List<RequestModel> requests = requestRepairRepository.findAllByDeletedFalse();
+        for(RequestModel request: requests) {
+            request.setActivity(request.getActivity().stream().
+            sorted(Comparator.comparingInt(ActivityModel::getSequenceNumber)).
+            collect(Collectors.toList()));
+        }
         return requests.stream().map(requestRepairMapper::toResponse).collect(Collectors.toList());
     }
     
