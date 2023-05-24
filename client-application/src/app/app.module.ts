@@ -19,6 +19,7 @@ import { TokenInterceptor } from './config/token-interceptor.service';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ProfileModule } from './pages/profile/profile.module';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { ToastModule } from 'primeng/toast';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -42,6 +43,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MainModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    ToastModule,
     TranslateModule.forRoot({
       loader: {
       provide: TranslateLoader,
