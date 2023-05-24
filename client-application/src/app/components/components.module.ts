@@ -14,6 +14,8 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { FilterModule } from './filter/filter.module';
+import { SearchDropdownComponent } from './search-dropdown/serach-dropdown.component';
+import { DropdownModule } from 'primeng/dropdown';
 
 
 @NgModule({
@@ -21,7 +23,8 @@ import { FilterModule } from './filter/filter.module';
     MenuComponent,
     TableButtonsComponent,
     DeleteDialogComponent,
-    RepairsTabMenuComponent
+    RepairsTabMenuComponent,
+    SearchDropdownComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +36,8 @@ import { FilterModule } from './filter/filter.module';
     FormsModule,
     CommonModule,
     TranslateModule,
-    FilterModule
+    FilterModule,
+    DropdownModule
   ],
   exports: [
     MenuComponent,
@@ -42,7 +46,8 @@ import { FilterModule } from './filter/filter.module';
     DeleteDialogComponent,
     ExpandedTableModule,
     RepairsTabMenuComponent,
-    FilterModule
+    FilterModule,
+    SearchDropdownComponent
   ]
 })
 export class ComponentsModule { }

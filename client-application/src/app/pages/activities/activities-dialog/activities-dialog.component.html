@@ -39,11 +39,11 @@
             activity!.result!.resultId === statusFinish.resultId ? 'ZAKOŃCZONY' : ''}}
         </span>
       </div>
-      <div *ngIf="activity!.result!.resultId === statusOpen.resultId" style="display:flex; justify-content: center;">
+      <div *ngIf="this.isStatusOpen" style="display:flex; justify-content: center;">
         <label class="mr-2" for="changeToProgress">Rozpocznij zadanie</label>
         <p-radioButton name="changeToProgress" value="changeToProgress" [(ngModel)]="changeToProgress"></p-radioButton>
       </div>
-      <div *ngIf="activity!.result!.resultId === statusProgress.resultId">
+      <div *ngIf="this.isStatusProgress">
         <div class="activity-change-result p-2">
           <label class="mr-2" for="changeToProgress">Zakończ zadanie</label>
           <p-radioButton class="mb-2" name="finishResult" value="finishResult" [(ngModel)]="endResult" inputId="endResult"></p-radioButton>
@@ -57,7 +57,7 @@
   </ng-template>
   <div class="dialog-footer">
     <p-button *ngIf="isChangeStatusDialog" styleClass="button-width dialog-button-margin" [label]="'Edytuj status'"
-       (onClick)="onStatusEdit()" [disabled]="!changeToProgress">
+       (onClick)="onStatusEdit()">
     </p-button>
     <p-button styleClass="button-width dialog-button-margin" (onClick)="onCloseDialog()" [label]="isChangeStatusDialog ? 'Anuluj' : 'Zamknij'">
     </p-button>

@@ -79,6 +79,14 @@
                       {{repair.targetObject.client.name}} {{repair.targetObject.client.surname}}
                     </div>
                     <div class="p-2">
+                      <label for="client">Data progresu: </label>
+                      {{(repair.progressDate | date:'dd-MM-yyyy, H:mm') ?? 'Brak'}}
+                    </div>
+                    <div class="p-2">
+                      <label for="client">Data zakończenia: </label>
+                      {{(repair.endDate | date:'dd-MM-yyyy, H:mm') ?? 'Brak'}}
+                    </div>
+                    <div class="p-2">
                       <label for="requestCancelled">Odwołane: </label>
                       <p-checkbox [disabled]="true" [(ngModel)]="repair.requestCancelled" [binary]="true" inputId="binary"></p-checkbox>
                     </div>
@@ -113,11 +121,11 @@
                             </div>
                             <div class="p-1">
                               <label for="createDate">Data utworzenia: </label>
-                              {{(activity.createDate | date:'dd-MM-yyyy') ?? 'Brak'}}
+                              {{(activity.createDate | date:'dd-MM-yyyy, H:mm') ?? 'Brak'}}
                             </div>
                             <div class="p-1">
                               <label for="statusUpateDate">Ostatnia data edycji statusu: </label>
-                              {{(activity.statusUpateDate | date:'dd-MM-yyyy') ?? 'Brak'}}
+                              {{(activity.statusUpateDate | date:'dd-MM-yyyy, H:mm') ?? 'Brak'}}
                             </div>
                             <div class="accordion-buttons p-1">
                               <p-button label="Edytuj zadanie" (onClick)="onEditActivity()"></p-button>

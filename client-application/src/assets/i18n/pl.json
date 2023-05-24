@@ -1,0 +1,21 @@
+{
+  "global": {
+    "placeholder": {
+      "search": "Szukaj"
+    }
+  },
+  "buttons": {
+    "add": "Dodaj",
+    "delete": "Usuń",
+    "edit": "Edytuj"
+  },
+  "dialog": {
+    "confirm": {
+      "delete": "Usuń",
+      "close": "Anuluj"
+    }
+  },
+  "table": {
+    "noData": "Brak danych"
+  }
+}

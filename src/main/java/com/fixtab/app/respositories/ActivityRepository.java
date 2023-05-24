@@ -11,5 +11,5 @@ public interface ActivityRepository extends JpaRepository<ActivityModel, Integer
     
     List<ActivityModel> findAllByDeletedFalse();
 
-    List<ActivityModel> findAllByDeletedFalseAndEmployee(EmployeeModel employee);
+    List<ActivityModel> findAllByDeletedFalseAndEmployeeAndResultNotNull(EmployeeModel employee);
 }

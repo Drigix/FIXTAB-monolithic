@@ -6,6 +6,9 @@ import { Activity } from 'src/app/entitites/activity.model';
 import { ActivitiesService } from 'src/app/services/activities.service';
 import { ActivitiesDialogComponent } from './activities-dialog/activities-dialog.component';
 import { Employee } from 'src/app/entitites/employee-model';
+import { ResultDictionary } from 'src/app/entitites/result-dictionary.model';
+import { AuthorityService } from 'src/app/auth/authority.service';
+import { AuthorityGroupService } from 'src/app/auth/authority-group.service';
 
 @Component({
   selector: 'fixtab-activities',
@@ -14,13 +17,18 @@ import { Employee } from 'src/app/entitites/employee-model';
 
 export class ActivitiesComponent implements OnInit {
 
+  statusCancel = ResultDictionary.statusCancel;
+  statusFinish = ResultDictionary.statusFinish;
+
   columns: UniversalTableColumn[] = [];
   activities: Activity[] = [];
   selectedActivity: Activity | null = null;
+  isEndActivity = false;
 
   constructor(
     private activitiesService: ActivitiesService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private authorityService: AuthorityService
   ) { }
 
   ngOnInit() {
@@ -64,10 +72,26 @@ export class ActivitiesComponent implements OnInit {
 
   onActivitySelected(activity: Activity): void {
     this.selectedActivity = activity;
+    if((this.selectedActivity.result?.resultId === this.statusCancel.resultId ||
+       this.selectedActivity.result?.resultId === this.statusFinish.resultId)) {
+        this.isEndActivity = this.checkRole();
+    } else {
+      this.isEndActivity = false;
+    }
+  }
+
+  checkRole(): boolean {
+    let result = true;
+    AuthorityGroupService.getManagementAuthorityGroup().forEach( (authority, index) => {
+      if(authority.toString() === this.authorityService.getUserRole()) {
+        result = false;
+      }
+    });
+    return result;
   }
 
   openActivitysDialog(changeResult = false): void {
-    this.dialogService.open(ActivitiesDialogComponent, {
+    const ref = this.dialogService.open(ActivitiesDialogComponent, {
       header: changeResult ? 'Edytuj status zadania' : 'Zadanie',
       width: '60%',
       height: '60%',
@@ -76,5 +100,12 @@ export class ActivitiesComponent implements OnInit {
         activity: this.selectedActivity
       }
     });
+    ref.onClose.subscribe((response) => this.handleActivityDialog(response));
   }
+
+  handleActivityDialog(response: any): void {
+    if(response) {
+      this.loadActivities();
+    }
+ }
 }

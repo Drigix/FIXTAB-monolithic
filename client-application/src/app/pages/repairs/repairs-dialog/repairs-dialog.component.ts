@@ -79,7 +79,6 @@ export class RepairsDialogComponent implements OnInit {
   }
 
   onActivityFormChange(valid: boolean): void {
-    console.log(valid);
     this.activityFormValid = valid;
   }
 
@@ -102,7 +101,6 @@ export class RepairsDialogComponent implements OnInit {
   }
 
   onEditRepair(): void {
-    console.log(this.editRequest);
     this.editRequest!.targetObject = this.selectedObject!;
     this.editRequest!.result = this.selectedResult!;
     this.requestRepairService.update(this.editRequest!).subscribe(

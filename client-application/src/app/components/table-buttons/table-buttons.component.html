@@ -20,7 +20,7 @@
       </div>
       <div class="m-3">
         <p-button styleClass="button-width" label="Zmień status" (onClick)="onChangeActivityResult()"
-          [disabled]="!isSelectedItem"></p-button>
+          [disabled]="isEndResult ? true : !isSelectedItem"></p-button>
       </div>
     </div>
   </ng-template>

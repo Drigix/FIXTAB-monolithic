@@ -75,7 +75,7 @@ public class ActivityController {
     }
 
     @PutMapping("editActivity")
-    @PreAuthorize(MANAGEMENT_PREAUTHORIZE)
+    @PreAuthorize(COMPANY_PREAUTHORIZE)
     public ResponseEntity<?> editActivity(@RequestBody EditActivityRequest editActivityRequest) {
         activityService.editActivity(editActivityRequest);
         return new ResponseEntity<>("{\"Success\":\"Request has been updated!\"}", HttpStatus.OK);

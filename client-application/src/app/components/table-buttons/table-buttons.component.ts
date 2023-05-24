@@ -18,6 +18,7 @@ export class TableButtonsComponent implements OnInit {
   @Input() showEditButton = true;
   @Input() showDeleteButton = true;
   @Input() isSelectedItem = false;
+  @Input() isEndResult = false;
 
 
   constructor() { }

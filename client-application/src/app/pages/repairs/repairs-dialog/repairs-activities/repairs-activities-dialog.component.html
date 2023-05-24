@@ -3,9 +3,13 @@
     <label for="header">Zadanie {{activeItemIndex! + 1}}</label>
     <form #form="ngForm" [formGroup]="activityForm" class="dialog-form">
       <span class="p-float-label">
-        <p-dropdown [options]="employees" id="employee" optionLabel="fullName" formControlName="employee" [(ngModel)]="selectedEmployee"
+        <!-- <p-dropdown [options]="employees" id="employee" optionLabel="fullName" formControlName="employee" [(ngModel)]="selectedEmployee"
           placeholder="Pracownik" [autoDisplayFirst]="false" appendTo="body" (onChange)="onEmployeeChange()">
-        </p-dropdown>
+        </p-dropdown> -->
+        <fixtab-search-dropdown [options]="employees" [displayName]="'fullName'"
+          [placeholder]="'Pracownik'" [selectedOption]="selectedEmployee"
+          (emitSelectedOption)="onEmployeeChange($event)">
+        </fixtab-search-dropdown>
       </span>
       <span class="p-float-label">
         <textarea id="description" formControlName="description" placeholder="Opis"
@@ -23,9 +27,13 @@
       <div class="dialog-body">
         <form #form="ngForm" [formGroup]="activityForm" class="dialog-form">
           <span class="p-float-label">
-            <p-dropdown [options]="employees" id="employee" optionLabel="fullName" formControlName="employee" [(ngModel)]="selectedEmployee"
+            <!-- <p-dropdown [options]="employees" id="employee" optionLabel="fullName" formControlName="employee" [(ngModel)]="selectedEmployee"
               placeholder="Pracownik" [autoDisplayFirst]="false" appendTo="body" (onChange)="onEmployeeChange()">
-            </p-dropdown>
+            </p-dropdown> -->
+            <fixtab-search-dropdown [options]="employees" [displayName]="'fullName'"
+            [placeholder]="'Pracownik'" [selectedOption]="selectedEmployee"
+            (emitSelectedOption)="onEmployeeChange($event)">
+            </fixtab-search-dropdown>
           </span>
           <span class="p-float-label">
             <textarea id="description" formControlName="description" placeholder="Opis"

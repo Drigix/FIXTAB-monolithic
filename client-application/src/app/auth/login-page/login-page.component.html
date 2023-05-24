@@ -10,9 +10,9 @@
       </span>
     </div>
     <span class="p-float-label">
-      <input id="float-input" type="password" pInputText [(ngModel)]="user.password">
+      <input id="float-input" type="password" pInputText [(ngModel)]="user.password" (keyup.enter)="onLogin()">
       <label for="float-input">Password</label>
     </span>
-    <p-button class="p-5" (onClick)="onLogin()">Zaloguj</p-button>
+    <p-button class="p-5" (onClick)="onLogin()" (keyup.enter)="onLogin()">Zaloguj</p-button>
   </div>
 </div>
