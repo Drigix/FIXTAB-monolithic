@@ -1,7 +1,9 @@
+import { ActivitiesService } from './../../../../services/activities.service';
 import { HttpResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
-import { DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { MessageService } from 'primeng/api';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ActivityType } from 'src/app/entitites/activity-type.model';
 import { Activity, ActivityRequest } from 'src/app/entitites/activity.model';
 import { Employee } from 'src/app/entitites/employee-model';
@@ -36,6 +38,9 @@ export class RepairsActivitiesDialogComponent implements OnInit, OnChanges {
     private fb: UntypedFormBuilder,
     private employeeService: EmployeeService,
     private config: DynamicDialogConfig,
+    private messageService: MessageService,
+    private activitiesService: ActivitiesService,
+    private ref: DynamicDialogRef
   ) { }
 
   ngOnInit() {
@@ -43,6 +48,7 @@ export class RepairsActivitiesDialogComponent implements OnInit, OnChanges {
     if(this.edit) {
       this.editActivity = this.config.data.activity;
       this.activityType = this.editActivity?.activityType!;
+      this.updateValidators(true);
     }
     this.loadEmployees();
     this.onActivityFormEmit();
@@ -51,7 +57,7 @@ export class RepairsActivitiesDialogComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if(!this.edit) {
       this.selectedEmployee = this.employees.find(item => item.employeeId === this.activity?.employeeId)!;
-      this.activity!.activityType = this.activityType!;
+      this.activityType = this.activity?.activityType!;
     }
   }
 
@@ -70,15 +76,44 @@ export class RepairsActivitiesDialogComponent implements OnInit, OnChanges {
     this.activityFormValid.emit(this.activityForm.valid);
   }
 
-  onEmployeeChange(): void {
-    this.activity!.employeeId! = this.selectedEmployee?.employeeId!;
+  onEmployeeChange(employee: Employee): void {
+    if(employee) {
+      this.selectedEmployee = employee;
+      this.updateValidators(true);
+    } else {
+      this.updateValidators(false);
+    }
+  }
+
+  updateValidators(clear: boolean): void {
+    const employeeControl = this.activityForm.get('employee');
+    if(clear) {
+      employeeControl!.setValidators(null);
+    } else {
+      employeeControl?.setValidators(Validators.required);
+    }
+    employeeControl!.updateValueAndValidity();
   }
 
   onEditActivity(): void {
-
+    this.editActivity!.employee = this.selectedEmployee!;
+    this.editActivity!.activityType = this.activityType!;
+    this.activitiesService.update(this.editActivity!).subscribe(
+      {
+        next: (response) => {
+          this.messageService.add({key: 'mainToast', severity: 'success', summary: 'Success',
+              detail: 'edytowano!'});
+          this.ref.close(response);
+        },
+        error: () => {
+          this.messageService.add({key: 'mainToast', severity: 'error', summary: 'Error',
+              detail: 'nie edytowano!'});
+        }
+      }
+    );
   }
 
   onCloseDialog(): void {
-
+    this.ref.close();
   }
 }

@@ -13,7 +13,8 @@
         </span>
         <span class="p-float-label">
           <textarea id="description" formControlName="description" placeholder="Opis"
-            rows="5" cols="30" pInputTextarea [autoResize]="true" (ngModelChange)="onDescriptionChange($event)" [ngModel]="edit ? editRequest?.description : request.description">
+            rows="5" cols="30" pInputTextarea [autoResize]="true" (ngModelChange)="onDescriptionChange($event)" [ngModel]="edit ? editRequest?.description : request.description"
+            >
           </textarea>
         </span>
         <span *ngIf="edit" class="p-float-label">

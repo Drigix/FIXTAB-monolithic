@@ -4,6 +4,11 @@
   height: 100%;
 }
 
+:host ::ng-deep .p-inputtextarea {
+  min-width: 200px;
+  min-height: 100px;
+}
+
 :host ::ng-deep .p-inputtext {
   max-width: 600px;
   max-height: 200px;
