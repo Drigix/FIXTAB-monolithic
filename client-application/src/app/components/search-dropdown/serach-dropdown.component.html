@@ -1,0 +1,22 @@
+<p-dropdown
+  [options]="options"
+  [(ngModel)]="selectedOption"
+  optionLabel="name"
+  [filter]="true"
+  filterBy="name"
+  [showClear]="true"
+  [placeholder]="placeholder"
+  appendTo="body"
+  (onChange)="onOptionChange()"
+>
+  <ng-template pTemplate="selectedItem">
+    <div class="flex align-items-center gap-2" *ngIf="selectedOption">
+      <div>{{ selectedOption[displayName] }}</div>
+    </div>
+  </ng-template>
+  <ng-template let-option pTemplate="item">
+    <div class="flex align-items-center gap-2">
+      <div>{{ option[displayName] }}</div>
+    </div>
+  </ng-template>
+</p-dropdown>
