@@ -26,20 +26,15 @@ export class LoginPageComponent implements OnInit {
 
   onLogin(): void {
     this.loginService.login(this.user).subscribe(
-      // (res: HttpResponse<string>) => {
-      //   this.token = res.body;
-      //   this.authorityService.setToken(this.token['accessToken'], this.token['expirationDate']);
-      //   window.location.reload();
-      // }
       {
         next: (res) => {
           this.token = res.body;
           this.authorityService.setToken(this.token['accessToken'], this.token['expirationDate']);
           window.location.reload();
         },
-        error: () => {
+        error: (error) => {
           this.messageService.add({key: 'mainToast', severity: 'error', summary: 'Błąd',
-              detail: 'Wystąpił błąd podczas zmiany hasła!'});
+              detail: 'Niepoprawny adres email lub hasło!'});
         }
       }
     )
