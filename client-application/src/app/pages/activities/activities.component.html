@@ -2,7 +2,7 @@
   <fixtab-table [columns]="columns" [values]="activities" tableName="Zadania"
     [showTableName]="true" (selected)="onActivitySelected($event)"></fixtab-table>
   <fixtab-table-buttons [template]="'activities'" (showActivityDetails)="openActivitysDialog()"
-    (changeActivityResult)="openActivitysDialog(true)" [isSelectedItem]="selectedActivity !== null">
+    (changeActivityResult)="openActivitysDialog(true)" [isSelectedItem]="selectedActivity !== null" [isEndResult]="isEndActivity">
   </fixtab-table-buttons>
 </div>
 
