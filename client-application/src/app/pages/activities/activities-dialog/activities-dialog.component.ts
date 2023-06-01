@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Activity } from 'src/app/entitites/activity.model';
-import { ResultDictionary } from 'src/app/entitites/result-dictionary.model';
+import { StatusDictionary } from 'src/app/entitites/result-dictionary.model';
 import { ActivitiesService } from 'src/app/services/activities.service';
 
 @Component({
@@ -13,10 +14,16 @@ import { ActivitiesService } from 'src/app/services/activities.service';
 
 export class ActivitiesDialogComponent implements OnInit {
 
-  statusOpen = ResultDictionary.statusOpen;
-  statusProgress = ResultDictionary.statusProgress;
-  statusCancel = ResultDictionary.statusCancel;
-  statusFinish = ResultDictionary.statusFinish;
+  activityDialogForm = this.fb.group({
+    statusCancel: [null, Validators.required],
+    statusFinish: [null, Validators.required],
+    result: [null, Validators.required]
+  });
+
+  statusOpen = StatusDictionary.statusOpen;
+  statusProgress = StatusDictionary.statusProgress;
+  statusCancel = StatusDictionary.statusCancel;
+  statusFinish = StatusDictionary.statusFinish;
 
   isChangeStatusDialog = false;
   activity: Activity | null = null;
@@ -29,27 +36,44 @@ export class ActivitiesDialogComponent implements OnInit {
     private ref: DynamicDialogRef,
     private config: DynamicDialogConfig,
     private activitiesService: ActivitiesService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private fb: UntypedFormBuilder
   ) { }
 
   ngOnInit() {
     this.isChangeStatusDialog = this.config.data.changeStatus;
     this.activity = this.config.data.activity;
-    if(this.activity!.result!.resultId === this.statusOpen.resultId) {
+    if(this.activity!.status!.statusId === this.statusOpen.statusId) {
       this.isStatusOpen = true;
-    } else if(this.activity!.result!.resultId === this.statusProgress.resultId) {
+    } else if(this.activity!.status!.statusId === this.statusProgress.statusId) {
       this.isStatusProgress = true;
     }
   }
 
+  updateValidators(): void {
+    const activityDialogResult = this.activityDialogForm.get('result');
+    const activityDialogStatusCancel = this.activityDialogForm.get('statusCancel');
+    const activityDialogStatusFinish = this.activityDialogForm.get('statusFinish');
+    if(this.endResult === 'finishResult') {
+      activityDialogResult!.setValidators(null);
+      activityDialogStatusCancel?.setValidators(null);
+    } else if (this.endResult === 'cancelResult') {
+      activityDialogStatusFinish?.setValidators(null);
+      activityDialogResult?.setValidators(Validators.required);
+    }
+    activityDialogStatusCancel?.updateValueAndValidity();
+    activityDialogStatusFinish?.updateValueAndValidity();
+    activityDialogResult!.updateValueAndValidity();
+  }
+
   onStatusEdit(): void {
-    if(this.activity!.result!.resultId === this.statusOpen.resultId) {
-      this.activity!.result = this.statusProgress;
-    } else if(this.activity!.result!.resultId === this.statusProgress.resultId) {
+    if(this.activity!.status!.statusId === this.statusOpen.statusId) {
+      this.activity!.status = this.statusProgress;
+    } else if(this.activity!.status!.statusId === this.statusProgress.statusId) {
       if(this.endResult === 'finishResult') {
-        this.activity!.result = this.statusFinish;
+        this.activity!.status = this.statusFinish;
       } else if(this.endResult === 'cancelResult') {
-        this.activity!.result = this.statusCancel;
+        this.activity!.status = this.statusCancel;
       }
     }
     this.activitiesService.update(this.activity!).subscribe(

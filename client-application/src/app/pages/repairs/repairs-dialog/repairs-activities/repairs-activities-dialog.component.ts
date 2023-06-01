@@ -56,7 +56,9 @@ export class RepairsActivitiesDialogComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if(!this.edit) {
+      console.log(this.activity);
       this.selectedEmployee = this.employees.find(item => item.employeeId === this.activity?.employeeId)!;
+      console.log(this.selectedEmployee);
       this.activityType = this.activity?.activityType!;
     }
   }
@@ -78,7 +80,12 @@ export class RepairsActivitiesDialogComponent implements OnInit, OnChanges {
 
   onEmployeeChange(employee: Employee): void {
     if(employee) {
-      this.selectedEmployee = employee;
+      if(this.edit) {
+        this.selectedEmployee = employee;
+      } else {
+        this.activity!.employeeId = employee.employeeId;
+      }
+      console.log(this.selectedEmployee);
       this.updateValidators(true);
     } else {
       this.updateValidators(false);
