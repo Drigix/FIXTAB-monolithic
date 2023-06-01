@@ -27,8 +27,8 @@ public class RequestModel extends BaseEntity {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "status")
-    private int status;
+    @Column(name = "result")
+    private String result;
 
     @Column(name = "requestcancelled")
     private boolean requestCancelled;
@@ -54,8 +54,8 @@ public class RequestModel extends BaseEntity {
     private EmployeeModel manager;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "resultid")
-    private ResultDictionaryModel result;
+    @JoinColumn(name = "statusid")
+    private StatusDictionaryModel status;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "requestid")    

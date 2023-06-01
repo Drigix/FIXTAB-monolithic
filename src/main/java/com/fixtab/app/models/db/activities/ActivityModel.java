@@ -30,8 +30,8 @@ public class ActivityModel extends BaseEntity {
     @Column(name = "cancelled")
     private boolean cancelled;
 
-    @Column(name = "status")
-    private int status;
+    @Column(name = "result")
+    private String result;
 
     @Column(name = "createdate")
     private Date createDate;
@@ -51,6 +51,6 @@ public class ActivityModel extends BaseEntity {
     private EmployeeModel employee;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "resultid")
-    private ResultDictionaryModel result;
+    @JoinColumn(name = "statusid")
+    private StatusDictionaryModel status;
 }

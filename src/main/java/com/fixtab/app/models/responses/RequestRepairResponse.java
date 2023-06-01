@@ -3,7 +3,7 @@ package com.fixtab.app.models.responses;
 import java.util.Date;
 import java.util.List;
 
-import com.fixtab.app.models.db.activities.ResultDictionaryModel;
+import com.fixtab.app.models.db.activities.StatusDictionaryModel;
 import com.fixtab.app.models.db.customers.TargetObjectModel;
 import com.fixtab.app.models.db.employees.EmployeeModel;
 import lombok.Builder;
@@ -19,7 +19,7 @@ public class RequestRepairResponse {
 
     private String description;
 
-    private Integer status;
+    private String result;
 
     private boolean requestCancelled;
 
@@ -33,7 +33,7 @@ public class RequestRepairResponse {
 
     private EmployeeResponse manager;
 
-    private ResultDictionaryModel result;
+    private StatusDictionaryModel status;
 
     private List<ActivityResponse> activity;
 }

@@ -2,7 +2,7 @@ package com.fixtab.app.models.requests;
 
 import java.util.Date;
 
-import com.fixtab.app.models.db.activities.ResultDictionaryModel;
+import com.fixtab.app.models.db.activities.StatusDictionaryModel;
 import com.fixtab.app.models.db.customers.TargetObjectModel;
 
 import lombok.*;
@@ -16,13 +16,13 @@ public class EditRequestRepairRequest {
 
     private String description;
 
-    private Integer status;
-    
+    private String result;
+
     private boolean requestCancelled;
     
     private Date openDate;
 
     private TargetObjectModel targetObject;
 
-    private ResultDictionaryModel result;
+    private StatusDictionaryModel status;
 }

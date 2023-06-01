@@ -3,7 +3,7 @@ package com.fixtab.app.models.responses;
 import java.util.Date;
 
 import com.fixtab.app.models.db.activities.ActivityTypeModel;
-import com.fixtab.app.models.db.activities.ResultDictionaryModel;
+import com.fixtab.app.models.db.activities.StatusDictionaryModel;
 import com.fixtab.app.models.db.employees.EmployeeModel;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,7 +22,7 @@ public class ActivityResponse {
 
     private boolean cancelled;
 
-    private Integer status;
+    private String result;
 
     private Date createDate;
 
@@ -32,5 +32,5 @@ public class ActivityResponse {
 
     private EmployeeResponse employee;
 
-    private ResultDictionaryModel result;
+    private StatusDictionaryModel status;
 }
