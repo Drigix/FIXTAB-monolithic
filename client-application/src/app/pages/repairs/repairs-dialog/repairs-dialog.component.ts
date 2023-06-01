@@ -7,7 +7,7 @@ import { Activity, ActivityRequest } from 'src/app/entitites/activity.model';
 import { Employee } from 'src/app/entitites/employee-model';
 import { TargetObject } from 'src/app/entitites/object.model';
 import { Request, RequestRepairRequest } from 'src/app/entitites/request.model';
-import { ResultDictionary } from 'src/app/entitites/result-dictionary.model';
+import { StatusDictionary } from 'src/app/entitites/result-dictionary.model';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { ObjectsService } from 'src/app/services/objects.service';
 import { RequestRepairService } from 'src/app/services/request-repair.service';
@@ -23,6 +23,7 @@ export class RepairsDialogComponent implements OnInit {
   requestForm = this.fb.group({
     targetObject: ['', Validators.required],
     description: ['', Validators.required],
+    status: [''],
     result: ['']
   });
 
@@ -30,14 +31,15 @@ export class RepairsDialogComponent implements OnInit {
   editRequest: Request | null = null;
   activities: ActivityRequest[] = [];
   objects: TargetObject[] = [];
-  results = ResultDictionary.resultDictionaryList;
-  selectedResult: ResultDictionary | null = null;
+  results = StatusDictionary.statusDictionaryList;
+  selectedResult: StatusDictionary | null = null;
   selectedObject: TargetObject | null = null;
   currentEmployee: Employee | null = null;
   activeItemIndex?: number;
   isRequestChosen = true;
   edit = false;
   activityFormValid = false;
+  resultDescription = '';
 
   constructor(
     private fb: UntypedFormBuilder,
@@ -53,7 +55,7 @@ export class RepairsDialogComponent implements OnInit {
     this.edit = this.config.data.edit;
     if(this.edit) {
       this.editRequest = this.config.data.request;
-      this.selectedResult = this.results.find( result => result.resultId === this.editRequest?.result?.resultId)!;
+      this.selectedResult = this.results.find( result => result.statusId === this.editRequest?.status?.statusId)!;
     }
     this.loadObjects();
     this.loadCurrentEmployee();
@@ -102,7 +104,8 @@ export class RepairsDialogComponent implements OnInit {
 
   onEditRepair(): void {
     this.editRequest!.targetObject = this.selectedObject!;
-    this.editRequest!.result = this.selectedResult!;
+    this.editRequest!.status = this.selectedResult!;
+    //this.editRequest!.result = this.resultDescription;
     this.requestRepairService.update(this.editRequest!).subscribe(
       {
         next: () => {

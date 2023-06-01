@@ -8,15 +8,15 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "resultdictionary")
+@Table(name = "statusdictionary")
 @Entity
-public class ResultDictionaryModel {
+public class StatusDictionaryModel {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "resultid")
-    private int resultId;
+    @Column(name = "statusid")
+    private int statusId;
 
-    @Column(name = "result")
+    @Column(name = "status")
     private String name;
 }

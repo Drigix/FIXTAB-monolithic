@@ -3,7 +3,7 @@ package com.fixtab.app.models.requests;
 import java.util.Date;
 
 import com.fixtab.app.models.db.activities.ActivityTypeModel;
-import com.fixtab.app.models.db.activities.ResultDictionaryModel;
+import com.fixtab.app.models.db.activities.StatusDictionaryModel;
 import com.fixtab.app.models.db.employees.EmployeeModel;
 
 import lombok.*;
@@ -19,6 +19,8 @@ public class EditActivityRequest {
 
     private String description;
 
+    private String result;
+
     private boolean cancelled;
 
     private Date createDate;
@@ -27,5 +29,5 @@ public class EditActivityRequest {
 
     private EmployeeModel employee;
 
-    private ResultDictionaryModel result;
+    private StatusDictionaryModel status;
 }

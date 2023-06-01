@@ -43,3 +43,12 @@
   background-color: var(--background-color);
   border: 5px solid var(--primary-color);
 }
+
+:host ::ng-deep .p-inputtext {
+  max-width: 350px;
+  max-height: 150px;
+}
+
+:host ::ng-deep .p-radiobutton .p-radiobutton-box .p-radiobutton-icon {
+  display: none;
+}

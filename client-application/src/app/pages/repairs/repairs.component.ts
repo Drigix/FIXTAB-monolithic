@@ -45,7 +45,7 @@ export class RepairsComponent implements OnInit {
       },
       {
         header: 'Status zlecenia',
-        field: 'result',
+        field: 'status',
         subField: 'name'
       }
     ];
@@ -55,6 +55,7 @@ export class RepairsComponent implements OnInit {
     this.requestRepairService.getAllNotDeleted().subscribe(
       (res: HttpResponse<Request[]>) => {
         this.requestRepairs = res.body ?? [];
+        console.log(this.requestRepairs);
       }
     );
   }

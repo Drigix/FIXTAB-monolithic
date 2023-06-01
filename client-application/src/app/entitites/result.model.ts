@@ -1,11 +1,11 @@
-interface IResult {
-  resultId?: number;
-  result?: string;
+interface IStatus {
+  statusId?: number;
+  name?: string;
 }
 
-export class Result implements IResult {
+export class Status implements IStatus {
   constructor(
-  public resultId?: number,
-  public result?: string
+  public statusId?: number,
+  public name?: string
   ) {}
 }

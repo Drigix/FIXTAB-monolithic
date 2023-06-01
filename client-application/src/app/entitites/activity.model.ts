@@ -1,19 +1,20 @@
 import { ActivityType } from "./activity-type.model";
 import { Employee } from "./employee-model";
-import { Result } from "./result.model";
+import { StatusDictionary } from "./result-dictionary.model";
+import { Status } from "./result.model";
 
 interface IActivity {
   activityId?: number;
   sequenceNumber?: number;
   description?: string;
   cancelled?: boolean;
-  status?: string;
+  result?: string;
   createDate?: string;
   statusUpateDate?: string;
   activityType?: ActivityType;
   manager?: Employee;
   employee?: Employee;
-  result?: Result
+  status?: Status
 }
 
 interface IActivityRequest {
@@ -29,13 +30,13 @@ export class Activity implements IActivity {
   public sequenceNumber?: number,
   public description?: string,
   public cancelled?: boolean,
-  public status?: string,
+  public result?: string,
   public createDate?: string,
   public statusUpateDate?: string,
   public activityType?: ActivityType,
   public manager?: Employee,
   public employee?: Employee,
-  public result?: Result
+  public status?: Status
   ) {}
 }
 

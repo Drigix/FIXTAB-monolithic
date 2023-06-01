@@ -18,9 +18,12 @@
           </textarea>
         </span>
         <span *ngIf="edit" class="p-float-label">
-          <p-dropdown [options]="results" id="result" optionLabel="plName" formControlName="result" [(ngModel)]="selectedResult"
+          <p-dropdown [options]="results" id="result" optionLabel="plName" formControlName="status" [(ngModel)]="selectedResult"
             placeholder="Status zlecenia" [autoDisplayFirst]="false" appendTo="body">
           </p-dropdown>
+          <div *ngIf="selectedResult!.name === 'FINISH' || selectedResult!.name === 'CANCEL'" class="result m-2">
+            <textarea rows="5" cols="30" pInputTextarea formControlName="result" [(ngModel)]="editRequest!.result" placeholder="Opisz rezultat zlecenia"></textarea>
+          </div>
         </span>
       </form>
     </div>

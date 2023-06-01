@@ -4,9 +4,10 @@ import com.fixtab.app.models.db.activities.ActivityModel;
 import com.fixtab.app.models.db.activities.RequestModel;
 import com.fixtab.app.models.db.customers.TargetObjectModel;
 import com.fixtab.app.models.db.employees.EmployeeModel;
-import com.fixtab.app.models.requests.ActivityRequest;
+import com.fixtab.app.models.requests.EditRequestRepairRequest;
 import com.fixtab.app.models.requests.RequestRepairRequest;
 import com.fixtab.app.models.responses.ActivityResponse;
+import com.fixtab.app.models.responses.EmployeeResponse;
 import com.fixtab.app.models.responses.RequestRepairResponse;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-04-20T19:50:25+0200",
+    date = "2023-05-31T21:42:59+0200",
     comments = "version: 1.5.3.Final, compiler: javac, environment: Java 18.0.1.1 (Oracle Corporation)"
 )
 @Component
@@ -31,14 +32,14 @@ public class RequestRepairMapperImpl implements RequestRepairMapper {
 
         requestRepairResponse.requestId( requestModel.getRequestId() );
         requestRepairResponse.description( requestModel.getDescription() );
-        requestRepairResponse.status( requestModel.getStatus() );
+        requestRepairResponse.result( requestModel.getResult() );
         requestRepairResponse.requestCancelled( requestModel.isRequestCancelled() );
         requestRepairResponse.openDate( requestModel.getOpenDate() );
         requestRepairResponse.progressDate( requestModel.getProgressDate() );
         requestRepairResponse.endDate( requestModel.getEndDate() );
         requestRepairResponse.targetObject( requestModel.getTargetObject() );
-        requestRepairResponse.manager( requestModel.getManager() );
-        requestRepairResponse.result( requestModel.getResult() );
+        requestRepairResponse.manager( employeeModelToEmployeeResponse( requestModel.getManager() ) );
+        requestRepairResponse.status( requestModel.getStatus() );
         requestRepairResponse.activity( activityModelListToActivityResponseList( requestModel.getActivity() ) );
 
         return requestRepairResponse.build();
@@ -54,27 +55,50 @@ public class RequestRepairMapperImpl implements RequestRepairMapper {
 
         requestModel.manager( requestRepairRequestToEmployeeModel( requestRepairRequest ) );
         requestModel.targetObject( requestRepairRequestToTargetObjectModel( requestRepairRequest ) );
-        requestModel.activity( mapActivityRequestsToActivityModels( requestRepairRequest.getActivities() ) );
         requestModel.description( requestRepairRequest.getDescription() );
 
         return requestModel.build();
     }
 
     @Override
-    public ActivityModel activityRequestToActivityModel(ActivityRequest activity) {
-        if ( activity == null ) {
+    public RequestModel toEntity(EditRequestRepairRequest editRequestRepairRequest) {
+        if ( editRequestRepairRequest == null ) {
             return null;
         }
 
-        ActivityModel.ActivityModelBuilder activityModel = ActivityModel.builder();
+        RequestModel.RequestModelBuilder<?, ?> requestModel = RequestModel.builder();
 
-        if ( activity.getSequenceNumber() != null ) {
-            activityModel.sequenceNumber( activity.getSequenceNumber() );
+        if ( editRequestRepairRequest.getRequestId() != null ) {
+            requestModel.requestId( editRequestRepairRequest.getRequestId() );
         }
-        activityModel.description( activity.getDescription() );
-        activityModel.activityType( activity.getActivityType() );
+        requestModel.description( editRequestRepairRequest.getDescription() );
+        requestModel.result( editRequestRepairRequest.getResult() );
+        requestModel.requestCancelled( editRequestRepairRequest.isRequestCancelled() );
+        requestModel.openDate( editRequestRepairRequest.getOpenDate() );
+        requestModel.targetObject( editRequestRepairRequest.getTargetObject() );
+        requestModel.status( editRequestRepairRequest.getStatus() );
 
-        return activityModel.build();
+        return requestModel.build();
+    }
+
+    protected EmployeeResponse employeeModelToEmployeeResponse(EmployeeModel employeeModel) {
+        if ( employeeModel == null ) {
+            return null;
+        }
+
+        EmployeeResponse employeeResponse = new EmployeeResponse();
+
+        employeeResponse.setEmployeeId( employeeModel.getEmployeeId() );
+        employeeResponse.setName( employeeModel.getName() );
+        employeeResponse.setSurname( employeeModel.getSurname() );
+        employeeResponse.setPhoneNumber( employeeModel.getPhoneNumber() );
+        employeeResponse.setEmail( employeeModel.getEmail() );
+        employeeResponse.setBirthDate( employeeModel.getBirthDate() );
+        employeeResponse.setGender( employeeModel.getGender() );
+        employeeResponse.setPesel( employeeModel.getPesel() );
+        employeeResponse.setRoleId( employeeModel.getRoleId() );
+
+        return employeeResponse;
     }
 
     protected ActivityResponse activityModelToActivityResponse(ActivityModel activityModel) {
@@ -88,12 +112,12 @@ public class RequestRepairMapperImpl implements RequestRepairMapper {
         activityResponse.sequenceNumber( activityModel.getSequenceNumber() );
         activityResponse.description( activityModel.getDescription() );
         activityResponse.cancelled( activityModel.isCancelled() );
-        activityResponse.status( activityModel.getStatus() );
+        activityResponse.result( activityModel.getResult() );
         activityResponse.createDate( activityModel.getCreateDate() );
         activityResponse.statusUpateDate( activityModel.getStatusUpateDate() );
         activityResponse.activityType( activityModel.getActivityType() );
-        activityResponse.employee( activityModel.getEmployee() );
-        activityResponse.result( activityModel.getResult() );
+        activityResponse.employee( employeeModelToEmployeeResponse( activityModel.getEmployee() ) );
+        activityResponse.status( activityModel.getStatus() );
 
         return activityResponse.build();
     }

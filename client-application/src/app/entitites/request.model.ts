@@ -1,19 +1,19 @@
 import { Activity, ActivityRequest } from "./activity.model";
 import { Employee } from "./employee-model";
 import { TargetObject } from "./object.model";
-import { Result } from "./result.model";
+import { Status } from "./result.model";
 
 interface IRequest {
   requestId?: number;
   description?: string;
-  status?: string;
+  result?: string;
   requestCancelled?: boolean;
   openDate?: string;
   progressDate?: string;
   endDate?: string;
   targetObject?: TargetObject;
   manager?: Employee;
-  result?: Result;
+  status?: Status;
   activity?: Activity[];
 }
 
@@ -28,14 +28,14 @@ export class Request implements IRequest {
   constructor(
   public requestId?: number,
   public description?: string,
-  public status?: string,
+  public result?: string,
   public requestCancelled?: boolean,
   public openDate?: string,
   public progressDate?: string,
   public endDate?: string,
   public targetObject?: TargetObject,
   public manager?: Employee,
-  public result?: Result,
+  public status?: Status,
   public activity?: Activity[]
   ) {}
 }

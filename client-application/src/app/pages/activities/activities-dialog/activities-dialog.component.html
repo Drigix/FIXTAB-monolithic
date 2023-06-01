@@ -14,14 +14,14 @@
     </div>
     <div class="m-3">
       <label for="result">Status zadania: </label>
-      <span [class]="activity!.result!.resultId === statusOpen.resultId ? 'open-result' :
-                     activity!.result!.resultId === statusProgress.resultId ? 'progress-result' :
-                     activity!.result!.resultId === statusCancel.resultId ? 'cancel-result' :
-                     activity!.result!.resultId === statusFinish.resultId ? 'finish-result' : ''" >
-        {{activity!.result!.resultId === statusOpen.resultId ? 'OTWARTY' :
-          activity!.result!.resultId === statusProgress.resultId ? 'W TRAKCIE' :
-          activity!.result!.resultId === statusCancel.resultId ? 'ODŁOWANY' :
-          activity!.result!.resultId === statusFinish.resultId ? 'ZAKOŃCZONY' : ''}}
+      <span [class]="activity!.status!.statusId === statusOpen.statusId ? 'open-result' :
+                     activity!.status!.statusId === statusProgress.statusId ? 'progress-result' :
+                     activity!.status!.statusId === statusCancel.statusId ? 'cancel-result' :
+                     activity!.status!.statusId === statusFinish.statusId ? 'finish-result' : ''" >
+        {{activity!.status!.statusId === statusOpen.statusId ? 'OTWARTY' :
+          activity!.status!.statusId === statusProgress.statusId ? 'W TRAKCIE' :
+          activity!.status!.statusId === statusCancel.statusId ? 'ODŁOWANY' :
+          activity!.status!.statusId === statusFinish.statusId ? 'ZAKOŃCZONY' : ''}}
       </span>
     </div>
   </div>
@@ -29,35 +29,43 @@
     <div class="activity-info">
       <div class="m-3">
         <label for="result">Status zadania: </label>
-        <span [class]="activity!.result!.resultId === statusOpen.resultId ? 'open-result' :
-                       activity!.result!.resultId === statusProgress.resultId ? 'progress-result' :
-                       activity!.result!.resultId === statusCancel.resultId ? 'cancel-result' :
-                       activity!.result!.resultId === statusFinish.resultId ? 'finish-result' : ''" >
-          {{activity!.result!.resultId === statusOpen.resultId ? 'OTWARTY' :
-            activity!.result!.resultId === statusProgress.resultId ? 'W TRAKCIE' :
-            activity!.result!.resultId === statusCancel.resultId ? 'ODŁOWANY' :
-            activity!.result!.resultId === statusFinish.resultId ? 'ZAKOŃCZONY' : ''}}
+        <span [class]="activity!.status!.statusId === statusOpen.statusId ? 'open-result' :
+                       activity!.status!.statusId === statusProgress.statusId ? 'progress-result' :
+                       activity!.status!.statusId === statusCancel.statusId ? 'cancel-result' :
+                       activity!.status!.statusId === statusFinish.statusId ? 'finish-result' : ''" >
+          {{activity!.status!.statusId === statusOpen.statusId ? 'OTWARTY' :
+            activity!.status!.statusId === statusProgress.statusId ? 'W TRAKCIE' :
+            activity!.status!.statusId === statusCancel.statusId ? 'ODŁOWANY' :
+            activity!.status!.statusId === statusFinish.statusId ? 'ZAKOŃCZONY' : ''}}
         </span>
       </div>
       <div *ngIf="this.isStatusOpen" style="display:flex; justify-content: center;">
         <label class="mr-2" for="changeToProgress">Rozpocznij zadanie</label>
         <p-radioButton name="changeToProgress" value="changeToProgress" [(ngModel)]="changeToProgress"></p-radioButton>
       </div>
-      <div *ngIf="this.isStatusProgress">
-        <div class="activity-change-result p-2">
-          <label class="mr-2" for="changeToProgress">Zakończ zadanie</label>
-          <p-radioButton class="mb-2" name="finishResult" value="finishResult" [(ngModel)]="endResult" inputId="endResult"></p-radioButton>
+      <form #form="ngForm" [formGroup]="activityDialogForm" class="dialog-form">
+        <div *ngIf="this.isStatusProgress">
+          <div class="activity-change-result p-2">
+            <label class="mr-2" for="changeToProgress">Zakończ zadanie</label>
+            <p-radioButton class="mb-2" formControlName="statusFinish" name="finishResult" value="finishResult" [(ngModel)]="endResult" inputId="endResult" (onClick)="updateValidators()"></p-radioButton>
+          </div>
+          <div class="activity-change-result p-2">
+            <label class="mr-2" for="changeToProgress">Odwołaj zadanie</label>
+            <p-radioButton class="mb-2" formControlName="statusCancel" name="cancelResult" value="cancelResult" [(ngModel)]="endResult" inputId="endResult" (onClick)="updateValidators()"></p-radioButton>
+          </div>
+          <div class="result m-2">
+            <textarea formControlName="result" rows="5" cols="30" pInputTextarea [(ngModel)]="activity!.result!" [placeholder]="endResult === 'finishResult' ? 'Opisz rezultat wykonania zadania'
+              : (endResult === 'cancelResult' ? 'Opisz powód odwołania'
+              : 'Opisz rezultat zadania')">
+            </textarea>
+          </div>
         </div>
-        <div class="activity-change-result p-2">
-          <label class="mr-2" for="changeToProgress">Odwołaj zadanie</label>
-          <p-radioButton class="mb-2" name="cancelResult" value="cancelResult" [(ngModel)]="endResult" inputId="endResult"></p-radioButton>
-        </div>
-      </div>
+      </form>
     </div>
   </ng-template>
   <div class="dialog-footer">
     <p-button *ngIf="isChangeStatusDialog" styleClass="button-width dialog-button-margin" [label]="'Edytuj status'"
-       (onClick)="onStatusEdit()">
+       (onClick)="onStatusEdit()" [disabled]="activityDialogForm.invalid">
     </p-button>
     <p-button styleClass="button-width dialog-button-margin" (onClick)="onCloseDialog()" [label]="isChangeStatusDialog ? 'Anuluj' : 'Zamknij'">
     </p-button>
