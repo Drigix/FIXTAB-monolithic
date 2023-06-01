@@ -1,4 +1,3 @@
-import { ResultDictionary } from './../../entitites/result-dictionary.model';
 import { ChangeDetectorRef, Component, EventEmitter, OnChanges, OnInit, Output, QueryList, Renderer2, SimpleChanges, ViewChild, ViewChildren } from '@angular/core';
 import { TableComponent } from '../table/table.component';
 import { Accordion, AccordionTab } from 'primeng/accordion';

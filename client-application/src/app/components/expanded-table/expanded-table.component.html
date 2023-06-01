@@ -87,6 +87,10 @@
                       {{(repair.endDate | date:'dd-MM-yyyy, H:mm') ?? 'Brak'}}
                     </div>
                     <div class="p-2">
+                      <label for="result">Rezultat: </label>
+                      {{repair.result ?? 'Brak'}}
+                    </div>
+                    <div class="p-2">
                       <label for="requestCancelled">Odwołane: </label>
                       <p-checkbox [disabled]="true" [(ngModel)]="repair.requestCancelled" [binary]="true" inputId="binary"></p-checkbox>
                     </div>
@@ -95,10 +99,10 @@
                         <p-accordionTab *ngFor="let activity of repair.activity; let i = index" (click)="onActivityClick(activity)" [disabled]="repair.requestCancelled">
                           <ng-template pTemplate="header">
                             <div class="flex align-items-center">
-                                <i [class]="activity.result.resultId === statusOpen.resultId ? 'pi pi-exclamation-circle mr-2' :
-                                            activity.result.resultId === statusCancel.resultId ? 'pi pi-times mr-2' :
-                                            activity.result.resultId === statusProgress.resultId ? 'pi pi-clock mr-2':
-                                            activity.result.resultId === statusFinish.resultId ? 'pi pi-check mr-2' : ''"></i>
+                                <i [class]="activity.status.statusId === statusOpen.statusId ? 'pi pi-exclamation-circle mr-2' :
+                                            activity.status.statusId === statusCancel.statusId ? 'pi pi-times mr-2' :
+                                            activity.status.statusId === statusProgress.statusId ? 'pi pi-clock mr-2':
+                                            activity.status.statusId === statusFinish.statusId ? 'pi pi-check mr-2' : ''"></i>
                                 <span class="vertical-align-middle">Zadanie {{i + 1}}</span>
                             </div>
                           </ng-template>
@@ -126,6 +130,10 @@
                             <div class="p-1">
                               <label for="statusUpateDate">Ostatnia data edycji statusu: </label>
                               {{(activity.statusUpateDate | date:'dd-MM-yyyy, H:mm') ?? 'Brak'}}
+                            </div>
+                            <div class="p-1">
+                              <label for="result">Rezultat: </label>
+                              {{activity.result ?? 'Brak'}}
                             </div>
                             <div class="accordion-buttons p-1">
                               <p-button label="Edytuj zadanie" (onClick)="onEditActivity()"></p-button>

@@ -6,7 +6,7 @@ import { Activity } from 'src/app/entitites/activity.model';
 import { ActivitiesService } from 'src/app/services/activities.service';
 import { ActivitiesDialogComponent } from './activities-dialog/activities-dialog.component';
 import { Employee } from 'src/app/entitites/employee-model';
-import { ResultDictionary } from 'src/app/entitites/result-dictionary.model';
+import { StatusDictionary } from 'src/app/entitites/result-dictionary.model';
 import { AuthorityService } from 'src/app/auth/authority.service';
 import { AuthorityGroupService } from 'src/app/auth/authority-group.service';
 
@@ -17,8 +17,8 @@ import { AuthorityGroupService } from 'src/app/auth/authority-group.service';
 
 export class ActivitiesComponent implements OnInit {
 
-  statusCancel = ResultDictionary.statusCancel;
-  statusFinish = ResultDictionary.statusFinish;
+  statusCancel = StatusDictionary.statusCancel;
+  statusFinish = StatusDictionary.statusFinish;
 
   columns: UniversalTableColumn[] = [];
   activities: Activity[] = [];
@@ -49,7 +49,7 @@ export class ActivitiesComponent implements OnInit {
       },
       {
         header: 'Status zadania',
-        field: 'result',
+        field: 'status',
         subField: 'name'
       }
     ];
@@ -72,8 +72,8 @@ export class ActivitiesComponent implements OnInit {
 
   onActivitySelected(activity: Activity): void {
     this.selectedActivity = activity;
-    if((this.selectedActivity.result?.resultId === this.statusCancel.resultId ||
-       this.selectedActivity.result?.resultId === this.statusFinish.resultId)) {
+    if((this.selectedActivity.status?.statusId === this.statusCancel.statusId ||
+       this.selectedActivity.status?.statusId === this.statusFinish.statusId)) {
         this.isEndActivity = this.checkRole();
     } else {
       this.isEndActivity = false;

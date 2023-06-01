@@ -4,7 +4,7 @@ import { LazyLoadEvent, SortEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { UniversalTableColumn } from './column.model';
 import * as moment from 'moment';
-import { ResultDictionary } from 'src/app/entitites/result-dictionary.model';
+import { StatusDictionary } from 'src/app/entitites/result-dictionary.model';
 
 
 @Component({
@@ -57,10 +57,10 @@ export class TableComponent implements OnChanges {
   filterInitialised = false;
   img: HTMLElement | null = null;
 
-  statusOpen = ResultDictionary.statusOpen;
-  statusProgress = ResultDictionary.statusProgress;
-  statusCancel = ResultDictionary.statusCancel;
-  statusFinish = ResultDictionary.statusFinish;
+  statusOpen = StatusDictionary.statusOpen;
+  statusProgress = StatusDictionary.statusProgress;
+  statusCancel = StatusDictionary.statusCancel;
+  statusFinish = StatusDictionary.statusFinish;
 
   filterGlobal = _.debounce((filterString: string) => {
     this.searchText = filterString;
@@ -246,11 +246,11 @@ export class TableComponent implements OnChanges {
 
   filterDate(input: any, value: Date | string): boolean{
     let dateString = '';
-    // if (value.toString().includes('Z')) {
-    //   dateString = moment(value).format('YYYY-MM-DD HH:mm:ss');
-    // } else {
-    //   dateString = moment.parseZone(value).format('YYYY-MM-DD HH:mm:ss');
-    // }
+    if (value.toString().includes('Z')) {
+      dateString = moment(value).format('YYYY-MM-DD HH:mm:ss');
+    } else {
+      dateString = moment.parseZone(value).format('YYYY-MM-DD HH:mm:ss');
+    }
     return dateString?.includes(input) ? true : false ;
   }
 
@@ -260,6 +260,7 @@ export class TableComponent implements OnChanges {
 
   private setInitialValues(): void {
     if (this.values.length > 0) {
+      console.log(this.values)
       this.storagedData = this.values;
       this.totalRecords = this.values.length;
       if (this.searchText !== '') {

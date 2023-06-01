@@ -1,40 +1,40 @@
-interface IResultDictionary {
-  resultId?: number;
+interface IStatusDictionary {
+  statusId?: number;
   name?: string;
 }
 
-export class ResultDictionary implements IResultDictionary {
+export class StatusDictionary implements IStatusDictionary {
   constructor(
-    public resultId?: number,
+    public statusId?: number,
     public name?: string,
     public plName?: string
   ) {}
 
-  static resultDictionaryList: ResultDictionary[] = [
+  static statusDictionaryList: StatusDictionary[] = [
     {
-      resultId: 1,
+      statusId: 1,
       name: 'OPEN',
       plName: 'OTWARTY'
     },
     {
-      resultId: 2,
+      statusId: 2,
       name: 'PROGRESS',
       plName: 'W TRAKCIE'
     },
     {
-      resultId: 3,
+      statusId: 3,
       name: 'CANCEL',
       plName: 'ODWOŁANY'
     },
     {
-      resultId: 4,
+      statusId: 4,
       name: 'FINISH',
       plName: 'ZAKOŃCZONY'
     },
   ];
 
-  static statusOpen = this.resultDictionaryList[0];
-  static statusProgress = this.resultDictionaryList[1];
-  static statusCancel = this.resultDictionaryList[2];
-  static statusFinish = this.resultDictionaryList[3];
+  static statusOpen = this.statusDictionaryList[0];
+  static statusProgress = this.statusDictionaryList[1];
+  static statusCancel = this.statusDictionaryList[2];
+  static statusFinish = this.statusDictionaryList[3];
 }
