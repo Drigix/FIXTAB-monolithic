@@ -1,6 +1,5 @@
 package com.fixtab.app.services.implementations;
 
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -25,6 +24,7 @@ import com.fixtab.app.models.responses.RequestRepairResponse;
 import com.fixtab.app.respositories.RequestRepairRepository;
 import com.fixtab.app.services.interfaces.RequestRepairService;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -60,6 +60,7 @@ public class RequestRepairServiceImpl implements RequestRepairService{
     }
     
     @Override
+    @Transactional
     public void createRequestRepair(RequestRepairRequest requestRepairRequest) {
         RequestModel requestModel = requestRepairMapper.toEntity(requestRepairRequest);
         List<ActivityModel> activities = requestRepairRequest.getActivities().stream().map(activityMapper::toEntity).collect(Collectors.toList());

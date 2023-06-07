@@ -42,7 +42,7 @@ public class ActivityModel extends BaseEntity {
      /*
     * FOREIGN KEYS !!!
     * */
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "activitytypeid")
     private ActivityTypeModel activityType;
 

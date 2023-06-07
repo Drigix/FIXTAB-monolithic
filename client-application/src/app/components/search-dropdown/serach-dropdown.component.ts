@@ -1,10 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'fixtab-search-dropdown',
   templateUrl: './serach-dropdown.component.html'
 })
-export class SearchDropdownComponent implements OnInit {
+export class SearchDropdownComponent implements OnInit{
 
   @Input() options: any[] = [];
   @Input() selectedOption: any | null = null;

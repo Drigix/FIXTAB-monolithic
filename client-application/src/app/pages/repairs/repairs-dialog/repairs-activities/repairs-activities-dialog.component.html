@@ -17,8 +17,10 @@
         </textarea>
       </span>
       <span class="p-float-label">
-        <input pInputText id="activityType" formControlName="activityType" placeholder="Typ aktywności"
-            [(ngModel)]="activityType!.typeName!"/>
+        <fixtab-search-dropdown [options]="activityTypes" [displayName]="'typeName'"
+              [placeholder]="'Typ zadania'" [selectedOption]="selectedActivityType"
+              (emitSelectedOption)="onActivityTypeChange($event)">
+        </fixtab-search-dropdown>
       </span>
     </form>
   </div>
@@ -41,8 +43,12 @@
             </textarea>
           </span>
           <span class="p-float-label">
-            <input pInputText id="activityType" formControlName="activityType" placeholder="Typ aktywności"
-                [(ngModel)]="activityType!.typeName!"/>
+            <!-- <input pInputText id="activityType" formControlName="activityType" placeholder="Typ aktywności"
+                [(ngModel)]="activityType!.typeName!"/> -->
+            <fixtab-search-dropdown [options]="activityTypes" [displayName]="'typeName'"
+              [placeholder]="'Typ zadania'" [selectedOption]="selectedActivityType"
+              (emitSelectedOption)="onActivityTypeChange($event)">
+            </fixtab-search-dropdown>
           </span>
         </form>
       </div>

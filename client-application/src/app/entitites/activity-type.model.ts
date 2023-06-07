@@ -5,7 +5,7 @@ interface IActivityType {
 
 export class ActivityType implements IActivityType {
   constructor(
-  public activityId?: number,
+  public typeId?: number,
   public typeName?: string
   ) {}
 }

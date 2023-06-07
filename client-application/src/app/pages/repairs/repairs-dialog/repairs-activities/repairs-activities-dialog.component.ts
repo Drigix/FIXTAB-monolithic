@@ -7,6 +7,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ActivityType } from 'src/app/entitites/activity-type.model';
 import { Activity, ActivityRequest } from 'src/app/entitites/activity.model';
 import { Employee } from 'src/app/entitites/employee-model';
+import { ActivityTypeService } from 'src/app/services/activity-type.service';
 import { EmployeeService } from 'src/app/services/employee.service';
 
 @Component({
@@ -31,7 +32,9 @@ export class RepairsActivitiesDialogComponent implements OnInit, OnChanges {
   editActivity: Activity | null = null;
   activityType: ActivityType = new ActivityType();
   employees: Employee[] = [];
+  activityTypes: ActivityType[] = [];
   selectedEmployee: Employee | null = null;
+  selectedActivityType: ActivityType | null = null;
   edit = false;
 
   constructor(
@@ -40,6 +43,7 @@ export class RepairsActivitiesDialogComponent implements OnInit, OnChanges {
     private config: DynamicDialogConfig,
     private messageService: MessageService,
     private activitiesService: ActivitiesService,
+    private activityTypeService: ActivityTypeService,
     private ref: DynamicDialogRef
   ) { }
 
@@ -47,19 +51,17 @@ export class RepairsActivitiesDialogComponent implements OnInit, OnChanges {
     this.edit = this.config.data.edit;
     if(this.edit) {
       this.editActivity = this.config.data.activity;
-      this.activityType = this.editActivity?.activityType!;
       this.updateValidators(true);
     }
     this.loadEmployees();
+    this.loadActivityTypes();
     this.onActivityFormEmit();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if(!this.edit) {
-      console.log(this.activity);
       this.selectedEmployee = this.employees.find(item => item.employeeId === this.activity?.employeeId)!;
-      console.log(this.selectedEmployee);
-      this.activityType = this.activity?.activityType!;
+      this.selectedActivityType = this.activityTypes.find( item => item.typeId === this.activity?.activityType?.typeId)!;
     }
   }
 
@@ -69,6 +71,17 @@ export class RepairsActivitiesDialogComponent implements OnInit, OnChanges {
         this.employees = res.body ?? [];
         if(this.edit) {
           this.selectedEmployee = this.employees.find( employee => employee.employeeId === this.editActivity?.employee?.employeeId)!;
+        }
+      }
+    );
+  }
+
+  loadActivityTypes(): void {
+    this.activityTypeService.getAll().subscribe(
+      (res: HttpResponse<ActivityType[]>) => {
+        this.activityTypes = res.body ?? [];
+        if(this.edit) {
+          this.selectedActivityType = this.activityTypes.find( activityType => activityType.typeId === this.editActivity?.activityType?.typeId)!;
         }
       }
     );
@@ -85,26 +98,48 @@ export class RepairsActivitiesDialogComponent implements OnInit, OnChanges {
       } else {
         this.activity!.employeeId = employee.employeeId;
       }
-      console.log(this.selectedEmployee);
-      this.updateValidators(true);
+      this.updateValidators(true, false, true);
     } else {
-      this.updateValidators(false);
+      this.updateValidators(true, false, false);
     }
   }
 
-  updateValidators(clear: boolean): void {
-    const employeeControl = this.activityForm.get('employee');
-    if(clear) {
-      employeeControl!.setValidators(null);
+  onActivityTypeChange(activityType: ActivityType): void {
+    if(activityType) {
+      if(this.edit) {
+        this.selectedActivityType = activityType;
+      } else {
+        this.activity!.activityType = activityType;
+      }
+      this.updateValidators(false, true, true);
     } else {
-      employeeControl?.setValidators(Validators.required);
+      this.updateValidators(false, true, false);
     }
-    employeeControl!.updateValueAndValidity();
+  }
+
+  updateValidators(updateValidatorsEmployee = false, updateValidatorsActivityType = false, isClear = false): void {
+    if(updateValidatorsEmployee) {
+      const employeeControl = this.activityForm.get('employee');
+      if(isClear) {
+        employeeControl!.setValidators(null);
+      } else {
+        employeeControl?.setValidators(Validators.required);
+      }
+      employeeControl!.updateValueAndValidity();
+    } else if(updateValidatorsActivityType) {
+      const activityTypeControl = this.activityForm.get('activityType');
+      if(isClear) {
+        activityTypeControl!.setValidators(null);
+      } else {
+        activityTypeControl?.setValidators(Validators.required);
+      }
+      activityTypeControl!.updateValueAndValidity();
+    }
   }
 
   onEditActivity(): void {
     this.editActivity!.employee = this.selectedEmployee!;
-    this.editActivity!.activityType = this.activityType!;
+    this.editActivity!.activityType = this.selectedActivityType!;
     this.activitiesService.update(this.editActivity!).subscribe(
       {
         next: (response) => {

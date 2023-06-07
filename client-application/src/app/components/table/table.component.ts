@@ -260,7 +260,7 @@ export class TableComponent implements OnChanges {
 
   private setInitialValues(): void {
     if (this.values.length > 0) {
-      console.log(this.values)
+      (this.values)
       this.storagedData = this.values;
       this.totalRecords = this.values.length;
       if (this.searchText !== '') {
