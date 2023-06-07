@@ -86,7 +86,7 @@ export class RepairsDialogComponent implements OnInit {
 
   onActivitiesChange(activities: ActivityRequest[]) {
     this.activities = activities;
-    console.log(this.activities);
+    (this.activities);
   }
 
   onActiveIndexChange(activeIndex: number) {

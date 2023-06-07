@@ -45,6 +45,15 @@ export class ActivitiesDialogComponent implements OnInit {
     this.activity = this.config.data.activity;
     if(this.activity!.status!.statusId === this.statusOpen.statusId) {
       this.isStatusOpen = true;
+      const activityDialogResult = this.activityDialogForm.get('result');
+      const activityDialogStatusCancel = this.activityDialogForm.get('statusCancel');
+      const activityDialogStatusFinish = this.activityDialogForm.get('statusFinish');
+      activityDialogResult!.setValidators(null);
+      activityDialogStatusCancel?.setValidators(null);
+      activityDialogStatusFinish?.setValidators(null);
+      activityDialogStatusCancel?.updateValueAndValidity();
+      activityDialogStatusFinish?.updateValueAndValidity();
+      activityDialogResult!.updateValueAndValidity();
     } else if(this.activity!.status!.statusId === this.statusProgress.statusId) {
       this.isStatusProgress = true;
     }

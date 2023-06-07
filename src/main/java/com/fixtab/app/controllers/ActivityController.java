@@ -3,7 +3,6 @@ package com.fixtab.app.controllers;
 import org.springframework.web.bind.annotation.*;
 
 import com.fixtab.app.config.HeadersConfig;
-import com.fixtab.app.models.db.activities.ActivityModel;
 import com.fixtab.app.models.requests.EditActivityRequest;
 import com.fixtab.app.models.responses.ActivityResponse;
 import com.fixtab.app.models.responses.EmployeeResponse;

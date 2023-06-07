@@ -50,7 +50,6 @@ export class RepairsTabMenuComponent implements OnInit {
       this.activeItem = this.repairsHeaderItems[index];
       this.repairsHeaderItems.push(this.addActivityItem);
       const activity = new ActivityRequest(index, `Zadanie ${index}`, new ActivityType());
-      console.log(activity);
       this.activities.push(activity);
       this.onEmitActivities();
     }
@@ -83,8 +82,8 @@ export class RepairsTabMenuComponent implements OnInit {
     }
     this.onEmitActiveIndex();
     this.onEmitActivities();
-    console.log(this.repairsHeaderItems);
-    console.log(this.activities);
+    (this.repairsHeaderItems);
+    (this.activities);
   }
 
   onEmitActivities(): void {
